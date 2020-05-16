@@ -1,0 +1,295 @@
+ReactJS
+	A javascript library for building User Interfaces.
+	Follows the component-based approach and helps in building reusable UI components.
+	Makes use of the virtual DOM instead of the real DOM
+
+Virtual DOM
+	It is just an exact copy of Real DOM
+	Whenever any underlying data changes, the entire UI is re-rendered in Virtual DOM representation.
+	Then the difference between the previous DOM representation and the new one is calculated.
+	Once the calculations are done, the real DOM will be updated with only the things that have actually changed.
+
+Components
+	It may be a class or a function which optionally accepts props as inputs and returns a single react element that describes how a part of UI sould apprear.
+	
+SPA
+	Contains only one HTML page which is retrieved from the server once we make the request to the server.
+
+Create React Project
+	1.Install create-react-app using npm globally.
+		npm install -g create-react-app or npm init react-app myapp
+	2.Create a new project using below cmd in required folder.
+		create-react-app reacttest --scripts-version 1.1.5
+	3.After creating, navigate to the created folder and start the project.
+		npm start
+
+NPM Commands
+	1.npm install --save [packagename]
+		--save : Save entry in JSON.package file
+		
+Project Stucture
+	1.Contains only one HTML file
+	2.COntains single 'root' component(App.js) in which all the other component are branched.
+	3.App starts with the main file(Index.js) where the root component is rendered.
+	
+JSX
+	It stands for Javascript XML/HTML 
+	it is a Syntax extension to javascript and is used to create react elements in a component
+	With JSX, we dont have to put the markup and logic in a seperate file.
+	1. We can create a new element by using	
+		React.createElement('h1', {className: 'App'}, 'Hello from React.');
+
+Props in Components
+	It stands for properties and is being used for passing data from one component to another in uni-directional flow. ie., from parent to child not from child to parent.
+	The props are readonly, it can't be changed in child components.
+	1.We can pass parameters to a components from both in/out side of the property initialization.
+		<Person name="Max">Software Engineer</Person>
+		props.name => Max
+		props.children => Software Engineer
+	Note : props will be this.props if class based components (class Person extends Components) are used.
+
+States
+	States are the source of data for React components.
+	1.States are managed inside a Component.
+	2.We can create and use a State only inside a Component (Class extends Component).
+
+Hooks
+	1.We already know that we can't create or modify state in function based component but with React Hooks we can.
+	2.React hooks helps us to create and modify the state in function based components.
+	  import React, {useState} from 'react';
+
+	3.The useState returns an array of current state object and object to set/update the state. The useState can be of any type(string, boolean, object etc.,)
+	  const [personState, setPersonState] = useState({person : [name : "Max", age: 25]}, otherState : "Some Value");
+	4.useState is unlike class based component state where it replaces the other states.
+	const newState = setPersonState({person : [name : "Max", age: 25]});
+	newState only has 'Person' object and 'otherState' gets overwritten/replaced.
+
+Radium
+	1.An NPM package which helps to use inline styles with Psuedo selectors and media queries.
+	2.How to use it.
+		Import the package in any JS File
+		Wrap the exporting component with the imported object name - Higher Order Component.
+			import Radium from 'radium';
+			style = {	//Psuedo selectors
+				':hover' : 'red'
+			}
+			exports default Radium(App);
+
+Styled-Components
+	1.An NPM package used to create inline styles for all the HTML elements resulting in a valid React Component.
+	2.How to use it.
+		import styled from 'styled-components';
+		const StyledDiv = styled.div`
+			width: 60%,
+			height: 200px
+
+			@media (min-width: 500px){
+				width: 600px;
+			}
+		`;
+		<StyledDiv>
+			<OurComponets/>
+			<p>
+		</StyledDiv>
+
+Seperate Style Classes for individual Components
+	For react-scripts 1.* version,
+		1.Run - npm run eject : To get access to the webpack configurations
+		2.Goto webpack.config.dev.js, find test: /\.css$/, under options add the following,
+			options: {
+				modules: true,
+				localIdentName: '[name]__[local]__[hash:base64:5]';
+			}
+		3.Also copy the above to webpack.config.prod.js by finding the same text and add it to the options sections like the above.
+		4.Then npm start.
+		5.Alter the imports like,
+			import classes from 'App.css';
+			<button className={classes.Button}/>
+
+Additional Packages
+	1.prop-types
+		1.Validate prop of React properties
+		Ex : BurgerIngredient.propTypes = {
+				type: PropTypes.string.isRequired
+				}
+	2.Axios
+		1.A javascript library to send Ajax requests
+		2.GET request
+			axios.get(:URL).then((response) => {})
+		3.POST request	
+			axios.post(:URL, :data(object));
+		4.DELETE request
+			axios.delete(:URL).then((response) => {})
+		5.Interceptors - It's event occurs for each and every request and response if configured seperately in an root(index) file.
+			var myInterceptor = axios.interceptors.request.use(request => {return request;}, error => {return Promise.reject(error);})
+		6.Remove interceptors
+			axios.interceptors.request.eject(myInterceptor);
+		7.Configuring axios	
+			axios.defaults.baseURL = "http://www.google.com"
+			axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
+		8.We can also create seperate file for axios instance and use it everywhere
+			const axios = axios.create({axios.defaults.baseURL = "http://www.google.com"})
+			exports default axios;
+	3.react-router react-router-dom
+		1.Used in SPA to render difference pages by routing to different components
+		2.Implementation
+			1.Need to wrap root component(index.js) with BrowserRouter from 'react-router-dom'
+			2.Route to the corresponding component by 
+			  <Route path="/" exact component={Posts}/>
+			3.Navigation link should be
+			  <Link to="/">Home</Link>
+			  <Link to={{
+				  pathname: "/new-post",
+				  hash: "submit",
+				  search: "?id=123"
+			  }}>New Post</Link>
+			  We can also navigate programmatically and we dont need to wrap in Link.
+			  	this.props.history.push({pathname: "/new-post"}) or this.props.history.push("/new-post"})
+			4.Supply parameters for the route.
+				<Link to="/" + 1>Home</Link>
+				<Route path="/:id" component={FullPosts}/>
+			5.Extract route parameter values
+				this.props.match.params.id	
+			6.Extract query parameter values
+				this.props.location.search	//id=123
+				const query = URLSearchParams(this.props.location.search)	//query.entries[0] = ['start', '5']	
+			7.Extract fragment values
+				this.props.location.hash	//'submit'
+			8.Make only one route i.e., first matched route should execute by wrapping all the routes with in Switch.
+				<Switch>
+					<Route path="/new-posts" component={FullPosts}/>
+					<Route path="/:id" component={FullPosts}/>
+				</Switch>
+			9.To redirect to the another route if some route is visited, then	
+				<Redirect from="/" to="/new-post" />
+				from should only be specified only if the Route is wrapped in Switch.
+			10.We can handle 404 error by
+				<Route render={() => {<h1>file not found </h1>}} />
+			11.Lazy loading or Code splitting
+				Request or download only required files
+			12.To access match, history etc location, the component should be wrapped in BrowserRouter otherwise we have to do the following
+				import {withRouter} from 'react-router-dom';
+				export default withRouter(Burger);
+	4.Deploy app to server
+		1.Execute npm run build 
+		2.Execute firebase login
+		3.Execute firebase init
+		4.Execute firebase deploy
+
+
+React Lifeccyle Events
+	componentDidMount() – Executes on the client side after the first render
+	componentDidUpdate() – Called immediately after rendering takes place in the DOM
+	componentWillMount() – Executes immediately before rendering starts on both the client-side and the server-side
+	componentWillReceiveProps() – Invokes when props are received from the parent class and before another render is called
+	componentWillUnmount() – Used to clear up the memory space. Called right after the component is unmounted from the DOM
+	componentWillUpdate() – Called immediately before rendering takes place in the DOM
+	shouldComponentUpdate() – Returns either true or false. Though false by default, needs to be set to return true if the component needs to be updated
+
+Redux
+	It's a 3rd party library totally independent of react.
+	It is an efficient state manegement technique which allows to access the state anywhere in the application.
+	It has four main function.
+		1.Central Store
+		2.Action - Can run Aync but only with 3rd party library like thunk etc.,
+		3.Reducer - Pure Synchronous code, It receives old state and action as an input and gives an updated state. Then it updates the central store with new state.
+		4.Subscription - In order to know state updation, redux triggers a subscription, which will then pass the updated state as props to the components.
+	Lifeccyle
+		It has a central store to manage the states.
+		A component dispacthes an 'Action'.
+		The Action then reaches the 'Reducer'.
+		Finally the 'Reducer' updates the 'central store'.
+		To get the updated state from the Central Store to the component, we need to subscribe for the triggers raised from Central Store.
+		The subscription then pass the updated state as Props to the Component.
+	Basic Redux Example
+		const redux = require('redux');
+
+		const createStore = redux.createStore;
+
+		//State
+		const initialState = {
+			counter: 0
+		}
+
+		//Reducers
+		const rootReducer = (state = initialState, action) => {
+			if (action.type === 'INC_COUNTER') {
+				return {
+					...state,
+					counter: state.counter + 1
+				}
+			}
+			if (action.type === 'ADD_COUNTER') {
+				return {
+					...state,
+					counter: state.counter + action.value
+				}
+			}
+
+			return state;
+		}
+
+		//Store
+		const store = createStore(rootReducer);
+
+		//Subscription
+		store.subscribe(() => {
+			console.log('[Subscription]', store.getState());
+		});
+
+		//Dispatching Action
+		store.dispatch({ type: 'INC_COUNTER' });
+		store.dispatch({ type: 'ADD_COUNTER', value: 10 });
+	
+	To use Redux in React we need to 'react-redux' library.
+	Import the 'react-redux' and wrap the root component inside the 'Provider' and supply prop for that Provider with what we have created in store ie., <Provider store={store}><App/></Provider>.
+	
+	To access the state inside a compnent using Redux, 
+		import { connect } from 'react-redux';
+	and map state to props by wrapping the compnent.
+		const mapStateToProps = (state) => {
+			return { ctr: state.counter }
+		}
+		
+	To map dispatch to props
+		const mapDispatchToProps = (dispatch) => {
+		return {
+			onIncrementCounter: () => dispatch({ type: 'INCREMENT' }),
+			onDecrementCounter: () => dispatch({ type: 'DECREMENT' }),
+			onAddCounter: () => dispatch({ type: 'ADD', value: 5 }),
+			onSubtractCounter: () => dispatch({ type: 'SUBTRACT', value: 5 })
+		}
+		}
+		export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+
+	Multiple reducers can be used by
+		import {combineReducers} from 'redux';
+
+		const rootReducer = combineReducers({
+			ctr: counterReducer,
+			res: resultReducer
+		});
+		const store = createStore(rootReducer);
+
+	The reducer from 'ctr' can be accessed by state.ctr.counter.
+
+Middlewares
+	The function executes between the dispatching of an action and the point of asction reaching the reducer.
+	 Eg:
+	 	import { createStore, applyMiddleware } from 'redux';
+		const logger = state => {
+			return next => {
+				return action => {
+					console.log('[Middleware] Dispatching', action);
+					const result = next(action);
+					console.log('[Middleware] Next State', store.getState());
+					return result;
+				}
+			}
+		}
+		const store = createStore(Reducer, applyMiddleware(logger));
+
+Manupulate State in Redux Dev Tools
+	import { createStore, applyMiddleware, compose } from 'redux';
+	const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+	const store = createStore(Reducer, composeEnhancers(applyMiddleware(logger)));
