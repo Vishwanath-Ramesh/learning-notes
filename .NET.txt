@@ -1,0 +1,449 @@
+C# Vs .NET
+	C# - Programming Language
+	.NET - Framework consisting of CLR(Common Language Runtime) and Class libraries to build applications in windows.
+	
+C#
+	- C/C++ when compiled, the compiler translates the code to native/machine code based on system architechture. The final output will not work in different architechture.
+	- In order to overcome this, i.e., to support different architechture, microsoft follows what Java does. The program when compiled it gets converted to Intermediate 
+	Language (byte code in Java).
+	- Finally the IL code gets converted to Native code by CLR.
+
+CLR
+	- It stands for Common Language Runtime which is a part of .NET framework.
+	- Program to convert IL(Intermediate Language) to Machine/Native code by a process called JIT(Just In Time) compilation.
+	
+Basics
+	Variable - A name given to a storage location in memory
+	Constant - An immutable value, Its value is defined at compile time and can't changed throughour its lifetime
+			   Eg : const var pi = 3.14
+	Primitive Types - int, byte, float, decimal etc
+	Non Primitive Types - String, Array, Enum, Class
+	In C#, we can't access the variable before initializing, compilation error will occur.
+	Object - To allocate memory. Whenever we create an object for a class, different instance is created for that object.
+	Static - To create the single instance. We can't access static property or methods using an object, since it resides in a class itself.
+			 Eg : public static void Main(){}; - To create only once instane or entry point for the application.
+			 Eg : Console - Since we are using only a single instance for an application.
+			 Eg : Current Datetime - DateTime.Now
+	Array - It's a data structure to store a Collection of variables of same type.
+	Verbatim String - Eg : string path = "c:\\Windows"; string path = @"c:\Windows"
+	Upcasting - Casting from derived class to Base class.
+				Eg : string firstName = "Arun";
+					 object name = firstName;
+	Downcasting - Casting from Base class to derived class.
+				  Eg : Object obj = "test";
+					   string str = (string)obj;
+	Boxing - Converting from value type to reference type.
+			 Eg : object value = 10; => Stores in Heap
+	Unboxing - Converting from reference type to value type
+			   Eg : object obj = 10; int value = (int)obj;
+	"as" - Try to Convert from one type to another if couldn't it doesn't throw an error instead it make it as null.
+	"is" - Checks whether one type is a type of another object and returns boolean.
+
+List Vs ArrayList
+	ArrayList - Collections of items of different type.
+				Not type safety, since we can add any type of values.
+				Reduces performance, since need to perform Boxing for the items added to the list.
+	List - Same as ArrayList except it is type safety and increases performance because no need to box the values added to the list since it only accepts the type which is declared in generic.
+		   Eg : var list = new List<int>();
+
+Polymorphism
+	Ability of an object to appear in many forms.
+	Eg : Drawing Canvas with different shapes.
+	
+Overloading Vs Overriding
+	Overloading - Same method name with different signature
+				  Eg : void function(int value){};
+					   void function(string value){};
+	Overriding - Modifying the method in derived class which is also implemented in base class.
+	"virtual" - Gives ability to override or modify the implementation in derived class. 
+	"override" - Modify the base class implementation with the derived class implementation.
+	"sealed" - If applied to a Class, prevents inherting it and if applied to a method it prevents from overriding it.
+	
+Abstraction
+	- It is a way to provide users with only the most relevant and essential information​​ while hiding the rest.
+	- Missing implementation and has only name and signature. It tells the programmer to use the common design whenever inherited.	
+
+Abstract vs interface
+	- An abstract class allows you to create functionality that subclasses can implement or override. 
+	- An interface only allows you to define functionality, not implement it.
+	- If a particular member is declared as abstract the containg class should also be abstract.
+	- Must implement all the abstract members in the derived class.
+	- Can't able to instantiate or create object for an abstract class.	
+	- An abstract class can have constructors but interface does not.
+	- The constructor of the abstract class will be called automatically when an object is created for the derived class.
+
+Types	
+	Structures & Classes
+	Structures - Value type
+				 Eg : Primitive datatypes
+				 A part of memory is allocated on stack
+				 Memory allocation done automatically
+				 Immediately removed from memory when out of scope
+	Class - Reference Type
+			Eg : Non Primitive datatypes
+			Memory allocated on heap - When it goes out of scope, it is not removed from memory/heap. Garbage collector will remove the unused objects by CLR.
+			Programmer need to allocate memory 
+
+Overflowing
+	If the value exceeds the length of the declared variable type, overflow occurs.
+	In c#, if overflow happens, c# won't throw an exception.
+	In order to throw an exception we have to check for an overflow by the following,
+		checked{
+			byte number = 255;
+			number = number + 1;
+		}
+
+Naming Conventions
+	Local Variables - Camel Case 
+					  Eg : string firstName = "";
+	Constant Variables - Pascal Case	
+						 Eg : const string MaxZoom = 50;
+						 
+Note
+	Real Numbers - Numeric values having decimal values
+	In C#, the default datatype for a decimal values is a Decimal datatype. So we should explicitly mention the datatype suffix otherwise the compiler will cosider it as a decimal and it wont compile.
+	Eg : float value = 2.4f;
+	
+	
+1. Object Initializer
+Eg : int[] numbers = new numbers[3] {1, 2, 3};
+Class Person{
+	string fname;
+	string lname;
+	int age;
+}
+
+var person = new Person {fname = "Arun", lname = "Kumar"};
+
+2. Calling other constructos within one constructor
+class Person{
+	string fname;
+	string lname;
+	
+public Person(){}
+public Person(string fname, string lname):this()
+{
+	this.fname = fname;
+	this.lname = lname;
+}
+}
+
+3.Pass values to a function having array parameters
+class Calculator{
+	public add(params int[] values){
+}
+}
+
+var calculator = new Calculator();
+calculator.add(1, 2, 4);
+
+4.Properties
+class Program{
+	Public Datetime Birthdate {get; set};	//Creates backing field(Private variable) automatically
+	Private int Age;
+	Public String Name {get; Private set};	//Restrict access to set outside the class but only set in constructor
+
+	Public propgram(string name){
+		Name = name;
+	}
+
+	//Getter/Setter property
+	Public int Age
+	{
+		get{
+			return BirthDate;
+		}
+	}
+}
+
+5.Visual studio productivity tools
+	Right click on project and select 'open command promp'
+	run 'ildasm Program.exe'
+
+6.Dictionary Vs List
+	For Key lookup - Dictionary
+	For index lookup - Lists
+
+7.Indexers
+	Public class HttpCookie{
+		private readonly Dictionary<string, string> _dictionary ;
+
+		public HttpCookie(){
+			_dictionary = new Dictionary<string, string>();
+		}
+
+		Public string this[key]{
+			get{return _dictionary[key];}
+			set{_dictionary[key] = value;}
+		}
+	}
+
+	var cookie = new HttpCookie();
+	cookie["name"] = "MAx";
+	
+Delegates
+	A reference to a function that call a or group of function.
+	Eg : Photoprocessor
+		IF we have an inbuilt class which processes photo like Brightness, Color etc., and we want to add new processing of the photo it's not possible.
+		Through delegate it's possible.
+		
+Lambda Expressions
+	Eg : Func<int, int> square = number => number * number;
+
+Default Operator
+	returns the default value for the particular datatype
+	Eg : default(int)
+
+Extension Methods
+	It allows to add a method to an existing class whithout changin it's source code or creating a new class that inheriting from it.
+	Eg:	
+	public static string shorten(this String stringValue, int noOfWords){}
+
+Nullable Types
+	By default primitive datatypes like int, datatime cannot hold null values.
+	In order to do the same we use nullable types.
+	Eg : int? value = null;
+
+Dependency Injection
+	It is one of the feature in Design pattern.
+	It decreases the development of tightly coupled software components and increase loosely coupled components.
+
+Managed Code vs Un Managed Code
+	Managed Code
+		- The code managed by CLR is called managed code.
+		- These codes runs inside CLR
+		- It's necessary to install .NET framework to run the managed code
+	Un-Managed Code
+		- The code does not depend or managed by CLR is called un-managed code.
+		- It uses its own runtime env to compile & execution.
+
+ASP.NET
+	- ASP stands for Active Server Pages
+	- It's a server side technology and a part of .NET framework to build web applications.
+
+Page Life cycle
+	1. Page Request
+	2. Page Start
+	3. Page Initialization
+	4. Page Load
+	5. Page postback/event handling
+	6. Page Pre-render
+	7. Page Unload
+
+State Management
+	- Maintaining the state of an object(web page/control).
+	1. Client Side - Storing information in the page or client's machine.
+	   Eg : Hidden fields, Cookies, ViewState, Query strings.
+	2. Server Side - Storing information in the server.
+	   Eg : Application state, Session State.
+
+Assembly
+	- It is a file which is automatically generated upon successful compilation of code.
+	- It can be either DLL(Dynamic Link Library) or EXE(Executable) file.
+	- It contains IL(Intermediate Language) code.	
+	- Types	
+		1. Private - Accessible only within the application
+		2. Shared - Shared by multiple application which is installed in GAC.
+
+Caching
+	- Caching means storing data temporarily in the memory so that the application can access the data from the cache instead of looking for its original location. 
+	- This increases the performance of the application and its speed.
+
+View State
+	- We know Web/HTTP is stateless.
+	- Everytime the request is sent to the server, the page gets recreated and destroyed before returning to the client.
+	- So ViewState is used to store the values of the controls in a webpage between roundtrips.
+	- The value is stored in hidden fields with base64 encrypted strings. 
+
+Machine Config vs Web.Config
+	- Machine.Config is a master configuration file which is applicable for whole .NET applications.
+	- Web.Config is a local configuration file which is applicable for a particular web application.
+	- Each .NET framework has one Machine.Config file and each web application has one or more web.config
+
+Namespace
+	- It is used to organize and seperate the code in an application.
+	- It is also referred to as named group of classes.
+
+Dispose Vs Finalize
+	- Both are used the free the un-used or unmanaged resources in an application.
+	- Dispose method is defined inside the IDisposable interface on the other hand finalize is defined inside the class.
+	- Dipose has to be called manually whereas the finalize will be automatically invoked by the GC.
+
+Application Pool
+	 - It helps to create isolation between different applications even if they are running in the same server.
+	 - Each application pool runs in its own worker process, so if error occurs in one application it won't affect the other application.
+	 - It also helps to use the same configuration for different applications.
+
+Connection Pool
+	- It is place where the database Connections are maintained and shared with the application.
+	- If we open a connection, the connection will be given from the Pool
+	- If we close a connection, it will then return to the pool.
+
+Garbage collector
+	- It is a .NET feature used to free up the un-used objects in memory.
+	- The memory heap is divided into 3 generations/phase.
+		- Generation 0 : Used to store short lived objects.
+		- Generation 1 : Used to store medium lived objects.
+		- Generation 2 : Used to store long lived objects. 
+
+GAC
+	- Global Assembly Cache
+	- It is location in which the available assemblies can be shared by multiple applications.
+
+ADO.NET
+	- It stands for ActiveX Data objects
+	- It is a database technology used to interact with data sources like databases, XML files etc.
+
+Dataset vs DataAdapter
+	Dataset vs DataReader
+		- In DataSet, the data will be fetched through disconnected data access whereas in Datareader, the data is accessed with the connected data access.
+		- Data can't be modified in DataReader but we can modify in DataSet.
+		- Data will be accessed faster in DataReader, DataSet is slower.
+		- Performance is better in DataReader whereas in DataSet it doesn't.
+
+	DataAdapter
+		- It is a communication link between the dataset and data source.
+		- Data moves ‘in and out’ of the Dataset through DataAdapter.
+
+ExecuteScalar vs ExecuteNonQuery vs ExecuteReader
+	ExecuteScalar
+		- Returns only single value even though multiple values returned from the database.
+	ExecuteNonQuery
+		- It doesn't return any value.
+		- It gives only the no. of rows affected.
+		- It is used to execute UPDATE, DELETE, INSERT, SP etc.
+	ExecuteReader
+		- Returns multiple data(rows/columns) and iterate over the entire data.
+
+DataSet Copy vs DataSet clone
+	- clone	
+		It will create new, empty dataset like the old one. i.e., only schema or structure is created.
+		In other words, it copies only structure or schema of the source dataset.
+	- Copy
+		It will copy the schema as well as all the data in the source dataset.
+
+Transactions
+	- It is defined as a set of operations.
+	- Based on the result of transactions data can be modified on a particular data source.
+	Properties
+		- Atomicity
+			- It ensures that, either all the changes are commited to the data source or nothing at all.
+		- Consistency
+		- Isolation
+		- Durability
+		
+IQueryable Vs IEnumerable
+	IQueryable - Allows queries being extended without gettting executed immediately. Used when iterating out-memory objects like data from database.
+	IEnumerable - Represents an object that can be enumerated. Used when iterating over in-memory objects like arrays, strings etc.
+
+-------------------------------------------------------------------------MVC-------------------------------------------------------------
+MVC
+	- MVC stands for Model View Controller. 
+	- It is an architectural model for building the .Net applications.
+	Models
+		- Store and retrieve data from the database.
+	View	
+		- View of the application in the for of UI.
+	Controllers
+		- Responsible for user interactions and handling HTTP requests.
+		
+Folder Structure
+	App_Data - Database files will be stored here
+	App_Start - Contains few classes which will be called when the application is started.
+		Routeconfig.cs - Configure routes for seleccting the controller based on the server request.
+		BundleConfig.cs - Bundling client side files like CSS, JavaScript for faster page load.
+	Content - Client side assets like CSS, images etc.,
+	Scripts - Place to store JavaScript files
+	Views - Containes folders named after controllers
+
+-------------------------------------------------------------------------Entity Framework-------------------------------------------------------------
+Install
+	>PM install-package EntityFramework
+
+CodeFirst 
+	Need to enable migrations only once in a projects
+		>PM enable-migrations
+	
+	After enabling, create classes for whatever tables that needs to be created in SQL
+	Then add migrations for the created classes by using,
+		>PM add-migrations
+	Finally update the created tables to the SQL by
+		>PM update-migrations
+	
+Workflows
+	1. Database first
+		Design the database and then EF will generate the domain classes 
+	2. Code First
+		We create our necessary domain classes and EF will generate database tables.
+	3. Model First
+		We create a UML diagram, based on that EF will generate both database tables and domain classes.
+		
+Lazy Loading Vs Eager Loading Vs Explicit Loading
+	Lazy Loading
+		Load the objects only when used or necessary
+	Eager Loading
+		Load all the objects prior to use. It uses JOINS to load the objects
+		
+-------------------------------------------------------------------------SQL-------------------------------------------------------------
+RDBMS
+	- Relational Database Management system
+	- Maintains data in the form of tables containing rows & columns.
+	- We can create a relationship between different tables.
+
+Function vs Store Procedures
+	- Both are used to perform specific operation
+	- SP may or may not return a value whereas the function must return the value
+	- SP has both input & output parameters but the function has only input parameters
+	- Function can be called inside of SP but SP can't be called inside of a function.
+	- Exception can be handled inside an SP but in function we can't.
+
+SQL Server agent
+	- It helps to create a tasks to run at a scheduled date & time.
+
+Magic Tables
+	 - During DML operations like INSERT, UPDATE, DELETE sql server automatically creates a table to hold the values of the manupulated table.
+	 - These are used inside the trigger.
+
+No of Indexs in a table
+ - 1000
+	1 : Clustered index
+	999 : Non clustered index
+
+VARCHAR vs NVARCHAR
+	VARCHAR 
+		- Unicode characters can't be stored.
+		- Reserve storage space for the no. of characters present even if we don't use all the space.
+	NVARCHAR
+		- Used to store unicode characters.
+		- Takes more/twice space.
+
+GETDATE vs SYSDATETIME
+	- Both are same but GETDATE can give time till milliseconds and SYSDATETIME can give precision till nanoseconds. 
+	- SYSDATE TIME is more accurate than GETDATE.
+
+Clustered vs Non Clustered Index
+	Clustered
+		- The index will be created in the table itself.
+		- We can create only one CI in a table.
+		- The CI will be automatically created if we create a primary key in a table.
+		- The data will be sorted based on the columns specified in index.
+		- Gives faster retrieval of data.
+		- Slower data insert or update.
+		- A table w/o CI is a heap.
+	
+	Non Clustered Index
+		- The index will be created seperate from the table.
+		- We can create one or more NCI in a table.
+		- The data may or may not get sorted based on the columns specified in the index.
+		- NCI will be automatically created if UNIQUE constrait is created in table.
+		- Slower performance compared to CI.
+		- Faster data insert or update.
+
+Normalization
+	- The process of designing a table to minimize the data redundancy.
+
+De-Normalization
+	- De-normalization is the process of adding redundant data to a database to enhance the performance of it.
+
+View
+	- A view is a virtual table that contains data from one or more tables.

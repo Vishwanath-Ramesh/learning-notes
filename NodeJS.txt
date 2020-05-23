@@ -1,0 +1,65 @@
+NodeJS
+    1.Runs on V8 engine
+    2.It keeps on running as long as there are event listeners are registered.
+      Eg : server.listen(3000);
+    3.Entire node process uses Single threaded JavaScript.
+    4.We can export modules in difference ways
+      1.module.exports.handler = requestHandler;
+      2.exports.handler = requestHandler;
+      3.module.exports = {
+        handler: requestHandler,
+        value: "Some Text"
+      }
+
+NPM
+  1.We can configure the entry point in package.JSON
+    "scripts" : {
+      "start" : "node app.js"
+    }
+    > npm start
+  2.we can also create additional scripts rather built-in keywords.
+    "scripts" : {
+      "start" : "node app.js",
+      "start-server" : "node app.js"
+    }
+    The script keywords other that built-in can be run by
+    > npm run start-server
+  3.Install package with env. dependancy
+    --save  production dependancy
+    --save-dev  development dependancy
+    -g  install globally and can be accessed any where.
+  4.We can configure nodemon for autorestarts
+    "scripts" : {
+      "start" : "nodemon app.js"
+    }
+    > npm start
+
+Debugging
+  1.Autorestart can be configured for debugging once code changes
+    1.Menu -> Debugging -> -> Add Configurations -> launch.json file -> in configurations object -> set "restart": true, "runtimeExecutable": "nodemon".
+  2.Change console by
+    1.Menu -> Debugging -> -> Add Configurations -> launch.json file -> in configurations object -> set "console": "integratedTerminal".
+
+Routes
+  1.We can n number of routes in root file.
+  2.If multiple routes were registered, next() should be called to switch over the next routes in the current / previous routes.
+  3.Request body should be parsed before using.
+  4.The request body can be parsed using the 3rd party package - body-parser
+    Eg: app.use(bodyParse.urlencoded({extended: false}));
+        req.body  //{title: "book"}
+  5.app.use() triggers for both POST and GET requests
+    We can avoid by using,
+    app.post() -> for POST
+    app.get() -> for GET
+    app.get & app.post executes exact match routes.
+  6.Status codes, headers and other methods can be set before sending the response to the server by chaining the methods.
+    res.Status(404).send();
+
+package
+  1.Path
+    1.It builds a path by joining sub directories and able handle for different OS environments.
+    2.The global variable '__dirname' gives the current path in which the file is located.
+
+Serving Static Files
+  1.Static files can be served by specifying the directory path in root file
+    Eg : app.use(express.static(path.join(__dirname, 'public')));

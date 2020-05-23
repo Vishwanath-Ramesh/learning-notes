@@ -1,0 +1,198 @@
+Git Version
+    $ git Version
+
+Set git global variables
+    $ git config --global user.name "Vishwanath"
+    $ git config --global user.email "vishwanathr.dev@outlook.com"
+
+List global config variables
+    $ git config --global --list
+
+Clone git repository
+    $ git clone https://github.com/Vishwanath-Ramesh/github-tutorial.git
+
+Get status of the git repository
+    $ git status
+
+To add the file to the staging area
+    $ git add sample.txt
+
+To add multiple file recursively to the staging area
+    $ git add .
+
+To remove/unstage the changes back to working directory from staging area
+    $ git reset HEAD sample.txt
+
+Commit changes from the staging area to the local git repository
+    $ git commit -m "Added the simple file"
+
+Adding & Commiting the changes at one shot(Express commit)
+    $ git commit -am "Add & Commit"
+
+To checkout/get latest version for a particular file(Revert back to recently commited state)
+    $ git checkout -- sample.txt
+
+Push changes from local repository to github repository
+    $ git push origin master
+
+Pull changes from remote git repository to our working directory i.e., get latest version
+    $ git pull origin master
+
+Show contents of git config file in user directory
+    $ cat ~/.gitconfig
+
+Edit the config file using the default configured editor
+    $ git config --global -e
+
+Create repository from cmd
+    $ git init repo-from-cmd
+
+Initialize git with already existing directory
+    $ cd /source-directory
+    $ git init
+
+List of files that git is tracking in the current repository
+    $ git ls-files
+    $ ls -al
+
+Rename file name 
+    $ git mv sample.txt demo.txt
+
+If a particular file was renamed/moved/deleted at a OS level, then following command can be used to track the renamed/moved/deleted files also used to add the files recursively.
+    $ git add -A 
+
+If we renamed a files and it's not been added to the staging area yet, we can simply rename back to the original file name instead of reset/checkout.
+    $ git mv demo.txt sample.txt
+
+If there are multiples files that need to be staged after renamed/moved/deleted and we want to stage only one file, we add that particular file first and then update the index of that files
+    $ git add -u
+
+We cant delete the file using the below command if the file has not been added to the staging area instead we need to use os level commands.
+    $ git rm sample.txt
+
+If a git tracking file is deleted by os level, git doesn't know the deletion or changes made. For that wee need to update the changes in git    
+    $ git add -A
+
+Git help
+    $ git help log
+
+Add new git remote
+    If a new repo was created in cmd line which needs to commited in remote repo following cmd can be used.
+    $git remote add origin https://github.com/Vishwanath-Ramesh/learning-notes.git
+
+Commit history
+    $ git log
+    $ git log --oneline
+    $ git log --all --oneline --graph --decorate - Plain commits
+    $ git log --since="3 days ago" - Get commits from 3 days before.
+    $ git log -- sample.txt - Show commits for the specified file
+    $ git show [commit id] - Shows whats changed in particular commit
+
+Alias
+    $ git config --global alias.history "log --all --oneline --graph --decorate"
+
+Configure Merge/Diff tool 
+    $ git config --global merge.tool p4merge
+    $ git config --global mergetool.p4merge.path "C:/p4merge.exe"
+    $ git config --global mergetool.promp false
+
+    $ git config --global diff.tool p4merge
+    $ git config --global difftool.p4merge.path "C:/p4merge.exe"
+    $ git config --global difftool.promp false
+
+Comparisions
+    Command line results of changes in working directory and staging area.
+        $ git diff
+    Working directory Vs Staging area
+        $ git difftool
+    Working directory vs git repository(.git/Last commit)
+        $ git difftool HEAD
+    To compare Staging area vs repository(.git/Last commit)
+        $ git difftool --staged HEAD
+    Compare between different commits
+        $ git difftool abcde xyz42
+    Compare HEAD and HEAD-1
+        $ git difftool HEAD HEAD^
+    Compare local master branch and remote master branch
+        $ git difftool master origin/master
+    Limit the no of files to compare
+        $ git difftool -- README.md
+
+Branching & Merging
+    List branches in local alone
+        $ git branch
+    List all the branches in local and remote(* denotes current active branch)
+        $ git branch -a
+    Create a new branch
+        $ git branch mynwebranch
+    Move to another branch  
+        $ git checkout mynwebranch
+    Rename branch name  
+        $ git branch -m mynewbranch newbranch
+    Delete a branch 
+        $ git branch -d newbranch        
+    Create a new branch from existing branch    
+        $ git checkout -b newMasterBranch
+    Compare differences between branches    
+        $ git diff master newbranch
+    Merge changes from source branch into current branch, this is only used when there is no commits in source branch. Also know as fast forward merge  
+        $ git merge newbranch - Merges changes from 'newbranch' into current active branch(master). 
+    Merge changes from source branch to master with disabled fast forward. Means it has commits done in source branch
+        $ git merge newbranch --no-ff
+    HEAD - Last commit in a local branch
+    origin/HEAD - Last commite on a remote branch
+
+Rebasing
+    Including all the changes done in master branch into child branch so that changes done in new branch can be fast forward merge into master branch.
+    $(new-branch) git rebase master 
+
+Stashing
+    Move the uncommited files to a temporary location, so that those files can be completed in future by reverting the working directory to the recent commit(HEAD) with 
+    the hep of stashing.
+        $ git stash - Move all the uncommited files to a temporary location and revert back the working directory to previous commit state.
+    After completing the changes for the priority task files, we can retrieve back the changes done from temporary location so that we can continue with the changes from there on.
+        $ git stash apply
+    In order to clear the stash once all the in-progress task gets completed.
+        $ git stash drop
+    List all the files in stash
+        $ git stash list
+    Include un-tracked and commited file for stashing
+        $ git stash -u
+    Express way of doing Apply and drop on stash    
+        $ git stash pop
+    In case of multiple stash, to provide name for the stash to differentiate
+        $ git stash save "New stash"
+    Show the specific stash 
+        $ git stash show stash@{1}
+    Apply/Continue with the specific stash from the different stash list
+        $ git stash apply stash@{1}
+    Drop specific stash
+        $ git stash drop stash@{2}
+    Empty or clear all the available stashes
+        $ git stash clear
+    To move all the changes in stash into a new branch and drop the changes from stash  
+        $ git stash branch newBranchFromStash
+
+Tagging
+    A key reference for a specific commit
+
+    Create a lighweight Tag - Tags the most recent commit(HEAD)
+        $ git tag newTag
+    To get the list of available tags
+        $ git tag --list
+    Shows the specific tag  
+        $ git tag myTag
+    Delete a tag
+        $ git tag --delete myTag
+    Annotated tag - Similar to lighweight tag with little extra information.
+        $ git tag -a v-1.0 
+    Comparing two different tags    
+        $ git diff v-1.1 v-1.1
+    Tag specific commit 
+        $ git tag -a myTag 5R77tE
+    Update/Move the tag from one commit to another commit
+        $ git tag -a v-1.1 -f 9R77tE
+    Push specific tag to github
+        $ git push origin v-1.1
+    Push the tags all at once
+        $ git push origin master --tags 

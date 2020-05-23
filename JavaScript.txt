@@ -1,0 +1,13 @@
+N.1
+    - Initially always there will be a Global execution context.
+    - Setup memory space for variables and Functions - "Hoisting".
+    - JavaScript will create an Execution Context before executing any code.
+    - The creation of Execution context involves 2 phases, creation and Exection phase.
+    - In creation phase, JavaScript sets up memory space for variables and Functions and where they are actually created. For variables, the values 
+      are Initially set to 'undefined' and for Functions, they are created as it is.
+    - In Exection phase, JavaScript begins to execute the code with the created memory space.
+
+N.3
+  -'==' are coersive whereas '===' aren't.
+    Coersive - Automatically converts the operands based on the other operand. 
+    Eg : false == 0 -> false will be converted to '0'

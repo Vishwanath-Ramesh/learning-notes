@@ -1,0 +1,52 @@
+MongoDB 
+	Humongos data - Store large volume of data
+	Collection of documents
+	NoSQL - a mechanism for storage and retrieval of data that is modeled in means other than the tabular relations used in relational databases
+	Schema less
+	We write query in JSON, this JSON will be converted to a binary(BSON).
+	Working
+		Application					Data
+		Frontent	Backend		Drivers	<----->	MongoDB Server<------------>Storage Engine<------------->Database
+		(ui)		(Server)	NodeJS	Queries			Communicate (Wired Tiger)  File/CRUD Data access
+						Java
+										
+
+2.Intalling MongoDB
+	1.Install the setup files.
+	2.Add to system env. variables to 'Path' for the 'bin' folder.
+	3.Verify by 'mongo' command.
+	4.Set mongod path by 'mongodb --dbpath "..\server\4.0\data\db"
+	5.We can also set log path by using mongod path by 'mongodb --dbpath "..\server\4.0\data\db" --logpath "..\server\4.0\data\logs\log.log"
+	6.Then start the mongodb server by 'mongo' command.
+
+3.Additional Configurations 
+	1.We can change the ports by mongod --port 27018
+	2.Start the server by mongo --port 27018 if the port has changed explicitly
+
+4.Running MongoDB as a background service
+	1.Start cmd prompt as admin, then run net start MongoDB
+	2.To stop,
+		i. Switch to admin db then run db.shutdownServer() or using cmd prompt run, net stop MongoDB.
+
+5.Run MongoDB using config files
+	1.Create a config file in any path.
+	2.Start mongodb by mongod -config / -f "..\server\4.0\bin\mongod.cfg"
+
+3.Basics
+	1.MongoDB stores data in BSON (Binary JSON).
+	2.We write code in JSON and the MongoDB drivers convert this JSON code into BSON.
+	3.Unique ID can be specified for the records by using the property "_id". We can't store duplicate values in this property. 
+	4.For updating the documents, updatable data should be the value of '$set' property.
+	  Ex: db.flightsData.updateOne({distance: "500"}, {$set: {marker: "delete"}}).
+	5.Find returns cursor rather returning whole documents.
+	6.A specific property can be retrieved by using projection. 
+	  Ex. db.flightsData.find({distnace: 500}, {name: 1, _id: 0});
+	7.While inserting many, we can change the ordering config so that if any errors occurs for a particular error may not affect the successive inserts.
+		Ex: db.col.insertMany([{_id: 'aaa', name: 'Max'},{_id: 'aaa', name: 'Max2'},{_id: 'bbb', name: 'Max3'}], {ordered: false(It's true by default)})
+4.Query Selectors
+	1.db.persons.find() -> Retrieves all the data
+	2.db.persons.findOne() -> Retrieves the first data whether or not the filter is supplied.
+	3.db.persons.find({age : 30}) -> Gives all the records matching age equals 30.
+	4.db.persons.find({age : {$gt : 18}}) -> Gives all the records greater than 18.
+	5.db.persons.find({"name.firstName" : "Max"}) -> Gives all the records matching whose first name equals "Max".
+	6.db.persons.find({$or : [{age : {$gt : 18}}, {age : {$lt : 25}}]});

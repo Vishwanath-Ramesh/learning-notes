@@ -12,6 +12,9 @@ Virtual DOM
 Components
 	It may be a class or a function which optionally accepts props as inputs and returns a single react element that describes how a part of UI sould apprear.
 	
+Fragment
+	Instead of specifying a div to return a single element in a component, we can specify it as a fragment to list all the elements under the root component.
+	
 SPA
 	Contains only one HTML page which is retrieved from the server once we make the request to the server.
 
@@ -148,11 +151,16 @@ Additional Packages
 			4.Supply parameters for the route.
 				<Link to="/" + 1>Home</Link>
 				<Route path="/:id" component={FullPosts}/>
+			  Optional Parameters
+				<Route to="/:year?/:month?" />
 			5.Extract route parameter values
 				this.props.match.params.id	
 			6.Extract query parameter values
 				this.props.location.search	//id=123
 				const query = URLSearchParams(this.props.location.search)	//query.entries[0] = ['start', '5']	
+				
+				From 3rd party library : query-string
+				queryString.parse(this,props.location.search);
 			7.Extract fragment values
 				this.props.location.hash	//'submit'
 			8.Make only one route i.e., first matched route should execute by wrapping all the routes with in Switch.
@@ -163,6 +171,11 @@ Additional Packages
 			9.To redirect to the another route if some route is visited, then	
 				<Redirect from="/" to="/new-post" />
 				from should only be specified only if the Route is wrapped in Switch.
+				
+			  Programmatic redirect
+				Push - Adds new location to history, goes back to previous page when click back button in a browser
+					this.props.history.push('/products');
+				Replace - Prevents from redrecting back to previous page
 			10.We can handle 404 error by
 				<Route render={() => {<h1>file not found </h1>}} />
 			11.Lazy loading or Code splitting
@@ -178,11 +191,22 @@ Additional Packages
 
 
 React Lifeccyle Events
-	componentDidMount() – Executes on the client side after the first render
-	componentDidUpdate() – Called immediately after rendering takes place in the DOM
+	Mount
+		Instance of the component is created and inserted into the DOM.
+		Lifeccyle hooks are constructor, render and componentDidMount in order.
+		componentDidMount()
+			Called when component is rendered into the DOM / Executes on the client side after the first render.
+			Here we can make AJAX calls to get data from the server and state can also be modified here.	 	
+	Update
+		Triggers when props or state of the component gets changed
+		Lifeccyle hooks are render and componentDidUpdate.
+		componentDidUpdate(prevProp, prevState) – Called when component gets updated.
+	Unmount
+		Triggers when component or any react element is removed from the DOM.
+		componentWillUnmount() – Used to clear up the memory space. Called right after the component is unmounted from the DOM
+		53
 	componentWillMount() – Executes immediately before rendering starts on both the client-side and the server-side
 	componentWillReceiveProps() – Invokes when props are received from the parent class and before another render is called
-	componentWillUnmount() – Used to clear up the memory space. Called right after the component is unmounted from the DOM
 	componentWillUpdate() – Called immediately before rendering takes place in the DOM
 	shouldComponentUpdate() – Returns either true or false. Though false by default, needs to be set to return true if the component needs to be updated
 
@@ -293,3 +317,11 @@ Manupulate State in Redux Dev Tools
 	import { createStore, applyMiddleware, compose } from 'redux';
 	const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 	const store = createStore(Reducer, composeEnhancers(applyMiddleware(logger)));
+	
+Refs
+	In order to access the DOM elements inside a component we have to use refs.
+	Ex : 
+		usernameRef = React.createRef();
+		<input ref={this.usernameRef} className='form-control' type='text' name='' id='username' />
+		this.usernameRef.current.value;
+	
