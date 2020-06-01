@@ -183,11 +183,54 @@ Additional Packages
 			12.To access match, history etc location, the component should be wrapped in BrowserRouter otherwise we have to do the following
 				import {withRouter} from 'react-router-dom';
 				export default withRouter(Burger);
-	4.Deploy app to server
-		1.Execute npm run build 
-		2.Execute firebase login
-		3.Execute firebase init
-		4.Execute firebase deploy
+	4.React toastify
+		Display toast messages in react application
+			npm i react-toastify
+		Include in App.js file	
+			import { ToastContainer } from 'react-toastify';
+			import 'react-toastify/dist/ReactToastify.css';
+			<ToastContainer />
+		Show messages in any container by importing and calling the imported function.
+			import { toast } from 'react-toastify';
+			toast.error('Unexpected error occured.');
+	5.Logging service
+		We use sentry.io for error logging because of its popularity.
+		We can integrate sentry in react app by two methods,
+		1. 
+			Install raven
+				npm i raven-js
+			Import it in index.js
+				import Raven from 'raven-js';
+			After import configure by below code
+				Raven.config(
+					'https://30540785a3204e749775c9d089119ae7@o397291.ingest.sentry.io/5251639',
+					{
+						release: '1-0-0',
+						environment: 'development',
+					}
+				).install();
+		2.
+			Install Sentry(Sentry.io)
+				npm install @sentry/browser
+			Then initialize with below code
+				Sentry.init({
+					dsn:
+						'https://30540785a3204e749775c9d089119ae7@o397291.ingest.sentry.io/5251639',
+				});
+	6.JWT decode
+		Its used to decode the JWT.
+		Install
+			npm i jwt-decode
+		Import 
+			import {JwtDecode} from 'jwt-decode';
+		Use
+			const data = JwtDecode(jwt);
+
+Deploy app to server
+	1.Execute npm run build 
+	2.Execute firebase login
+	3.Execute firebase init
+	4.Execute firebase deploy
 
 
 React Lifeccyle Events
