@@ -356,6 +356,64 @@ Folder Structure
 	Scripts - Place to store JavaScript files
 	Views - Containes folders named after controllers
 
+-------------------------------------------------------------------------Web API-------------------------------------------------------------
+Configuration
+	Create a WebApiConfig in 'App_Start' folder with the following code.
+		namespace Vidly
+		{
+			public static class WebApiConfig
+			{
+				public static void Register(HttpConfiguration config)
+				{
+					// TODO: Add any additional configuration code.
+
+					// Web API routes
+					config.MapHttpAttributeRoutes();
+
+					config.Routes.MapHttpRoute(
+						name: "DefaultApi",
+						routeTemplate: "api/{controller}/{id}",
+						defaults: new { id = RouteParameter.Optional }
+					);
+				}
+			}
+		}
+	
+	Registering the WebApiCOnfig in Global application file.
+		GlobalConfiguration.Configure(WebApiConfig.Register);
+	
+	Creating a controller to handle HTTP verbs.
+		public class CustomersController : ApiController
+		{
+			// GET api/<controller>
+			public IEnumerable<string> Get()
+			{
+				return new string[] { "value1", "value2" };
+			}
+
+			// GET api/<controller>/5
+			public string Get(int id)
+			{
+				return "value";
+			}
+
+			// POST api/<controller>
+			public IHttpActionResult Post([FromBody]string value)
+			{
+				return Created(new Uri(Request.RequestUri + "/" + "1"), "value");
+			}
+
+			// PUT api/<controller>/5
+			public void Put(int id, [FromBody]string value)
+			{
+			}
+
+			// DELETE api/<controller>/5
+			public void Delete(int id)
+			{
+			}
+		}
+
 -------------------------------------------------------------------------Entity Framework-------------------------------------------------------------
 Install
 	>PM install-package EntityFramework
