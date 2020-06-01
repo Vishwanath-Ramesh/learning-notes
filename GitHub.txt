@@ -38,6 +38,9 @@ Push changes from local repository to github repository
 Pull changes from remote git repository to our working directory i.e., get latest version
     $ git pull origin master
 
+The “fatal: refusing to merge unrelated histories” Git error occurs when two unrelated projects are merged.
+    $ git pull origin master --allow-unrelated-histories
+
 Show contents of git config file in user directory
     $ cat ~/.gitconfig
 
