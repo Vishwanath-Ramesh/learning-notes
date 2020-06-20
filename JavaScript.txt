@@ -11,3 +11,41 @@ N.3
   -'==' are coersive whereas '===' aren't.
     Coersive - Automatically converts the operands based on the other operand. 
     Eg : false == 0 -> false will be converted to '0'
+
+Functional Programming
+  Higher order Functions
+    A functions which takes another function as an argument or returns a function is said to be a HOF.
+  Function Composition
+    Nested function arguments call in a function. 
+    Eg : wrapInDiv(toLowerCase(trim(input)));
+    Since there are too many paranthesis here. So to overcome this we use a 3rd party library called lodash.
+      To install lodash - npm i lodash
+      
+      import {compose, pipe } from 'lodash/fp';
+
+      cosnt transform = compose(wrapInDiv, toLowerCase, trim);
+      transform(input);
+    
+    But in compose, the order of functions should be treated in reverse order. So to overcome this,
+      const transform = pipe(trim, toLowerCase, wrapInDiv);
+      pipe(input);
+  
+  Pure Functions
+    A function returns same value every time when we pass a particular value all the time.
+
+  Immutable
+    In JavaScript, Objects and arrays are immutable.
+    JavaScript is not a pure Functional Programming language. So we use 3rd party library(ImmutableJS/ImmerJS/MoriJS) to work with objects and arrays.
+    To install ImmutableJS,
+      npm i immutable
+  
+  ImmerJS
+    Since ImmutableJS looks ugly because it requires getter & setter for creating the objects. So we go for ImmerJS
+    To install ImmerJS
+      npm i ImmerJS
+
+    Import {produce} from 'immer';
+    book = {name: 'abc'};
+    const updated = produce(book, updateBook => {
+      updateBook.isPublished = true;
+    })
