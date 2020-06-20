@@ -20,9 +20,6 @@ To add the file to the staging area
 To add multiple file recursively to the staging area
     $ git add .
 
-To remove/unstage the changes back to working directory from staging area
-    $ git reset HEAD sample.txt
-
 Commit changes from the staging area to the local git repository
     $ git commit -m "Added the simple file"
 
@@ -30,7 +27,24 @@ Adding & Commiting the changes at one shot(Express commit)
     $ git commit -am "Add & Commit"
 
 To checkout/get latest version for a particular file(Revert back to recently commited state)
-    $ git checkout -- sample.txt
+    specific file
+        $ git checkout -- sample.txt
+    All files   
+        $ git checkout .
+
+To remove/unstage the changes back to working directory from staging area
+    Specific file
+        $ git reset HEAD sample.txt        
+    All files
+        $ git reset HEAD .
+    Unstage recent commit
+        $ git reset HEAD~1
+    Unstage recent 3 commits
+        $ git reset HEAD~3
+    Options
+        --mixed | Unstages to the working directory. It's the default.
+        --soft | Unstages to the staging area
+        --hard | removes completely from the local.
 
 Push changes from local repository to github repository
     $ git push origin master
@@ -61,6 +75,18 @@ List of files that git is tracking in the current repository
 Rename file name 
     $ git mv sample.txt demo.txt
 
+Remove untracked files in current working directory
+    Remove the untracked files
+        $ git clean
+    Options
+        -d | Also removed directories.
+        -f | Force git to delete the files.
+        -n | Don’t actually remove anything, just show what would be done.
+        -i | Show what would be done and clean files interactively.
+        -q | Be quiet, only report errors, but not the files that are successfully removed.
+        -X | Remove only files ignored by Git.
+        -x | Remove ignored as well as non-ignored files
+
 If a particular file was renamed/moved/deleted at a OS level, then following command can be used to track the renamed/moved/deleted files also used to add the files recursively.
     $ git add -A 
 
@@ -81,7 +107,13 @@ Git help
 
 Add new git remote
     If a new repo was created in cmd line which needs to commited in remote repo following cmd can be used.
-    $git remote add origin https://github.com/Vishwanath-Ramesh/learning-notes.git
+    $ git remote add origin https://github.com/Vishwanath-Ramesh/learning-notes.git
+
+Update remote url
+    $ git remote set-url origin https://github.com/Vishwanath-Ramesh/learning-notes.git
+
+Show git remote
+    $ git remote show origin
 
 Commit history
     $ git log
@@ -199,3 +231,13 @@ Tagging
         $ git push origin v-1.1
     Push the tags all at once
         $ git push origin master --tags 
+
+Saving credentials
+    Save credentials for a small amount of time(15 min by default) / session.
+        $ git config --global credential.helper cache
+    For a specific time
+        $ git config --global credential.helper 'cache --timeout=36000'
+    Save credentials locally
+        $ git config --global credential.helper store
+    View credentials
+        $ cat ~/.git-credentials
