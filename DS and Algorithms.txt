@@ -1,0 +1,39 @@
+Arrays
+    Lookup - O(1)
+    Insert - O(n)
+    Delete - O(n)
+
+    Exercise
+        Create a class(Array) to perform insert, removeAt, indexOf, print
+
+Linked Lists
+    Lookup - O(n)
+    Insert  
+        At Beginning - O(1)
+        At middle - O(n)
+        At end - O(1)
+    Delete
+        From Beginning - O(1)
+        From middle - O(n)
+        From end - O(n)
+    Exercise
+        Implement LinkedList with operations for addFirst, addLast, deleteFirst, deleteLast, contains, indexOf, size, reverse, getKthFromTheEnd
+
+Stack
+    Push - O(1)
+    Pop - O(1)
+    Peek - O(1)
+    isEmpty - O(1)
+
+Queue
+    Enqueue - O(1)
+    Dequeue - O(1)
+    Peek - O(1)
+    isEmpty - O(1)
+    isFull - O(1)
+
+Hashtables/Hashmap
+    Insert - O(1)
+    Delete - O(1)
+    Lookup - O(1)
+    
