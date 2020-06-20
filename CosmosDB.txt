@@ -1,0 +1,19 @@
+Latency
+    Wait time.
+Throughput
+    How many requests can be served in a specific period of time.
+Request Units
+    Managing Throughput or Throughput currency
+
+Horizontal Partitioning
+    Partitioning - Massive scale out within a container
+
+Cosmos DB SQL API
+    Scalar Expressions
+        SELECT "hello' AS MESSAGE
+        {
+            MESSAGE: "hello"
+        }
+    
+        SELECT VALUE "Hello"
+        ["Hello"]
