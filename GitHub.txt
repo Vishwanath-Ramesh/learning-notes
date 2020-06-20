@@ -46,6 +46,22 @@ To remove/unstage the changes back to working directory from staging area
         --soft | Unstages to the staging area
         --hard | removes completely from the local.
 
+To revert already commited changes to the git
+    $ git revert <commit-id>
+    Note : It will create a new commit for the reverting changes.
+
+Remove untracked files in current working directory
+    Remove the untracked files
+        $ git clean
+    Options
+        -d | Also removed directories.
+        -f | Force git to delete the files.
+        -n | Don’t actually remove anything, just show what would be done.
+        -i | Show what would be done and clean files interactively.
+        -q | Be quiet, only report errors, but not the files that are successfully removed.
+        -X | Remove only files ignored by Git.
+        -x | Remove ignored as well as non-ignored files
+
 Push changes from local repository to github repository
     $ git push origin master
 
@@ -74,18 +90,6 @@ List of files that git is tracking in the current repository
 
 Rename file name 
     $ git mv sample.txt demo.txt
-
-Remove untracked files in current working directory
-    Remove the untracked files
-        $ git clean
-    Options
-        -d | Also removed directories.
-        -f | Force git to delete the files.
-        -n | Don’t actually remove anything, just show what would be done.
-        -i | Show what would be done and clean files interactively.
-        -q | Be quiet, only report errors, but not the files that are successfully removed.
-        -X | Remove only files ignored by Git.
-        -x | Remove ignored as well as non-ignored files
 
 If a particular file was renamed/moved/deleted at a OS level, then following command can be used to track the renamed/moved/deleted files also used to add the files recursively.
     $ git add -A 
@@ -241,3 +245,6 @@ Saving credentials
         $ git config --global credential.helper store
     View credentials
         $ cat ~/.git-credentials
+    Prevent git from asking credentials while cloning
+        $ git clone https://<username>:<password>@github.com/Vishwanath-Ramesh/github-tutorial.git
+
