@@ -170,7 +170,7 @@ Branching & Merging
         $ git branch -m mynewbranch newbranch
     Delete a branch 
         $ git branch -d newbranch        
-    Create a new branch from existing branch    
+    Create a new branch from existing branch and will leave the current branch as it is. Also used for creating a new branch for the worked changes.
         $ git checkout -b newMasterBranch
     Compare differences between branches    
         $ git diff master newbranch
