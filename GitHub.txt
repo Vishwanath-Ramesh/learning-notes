@@ -9,7 +9,11 @@ List global config variables
     $ git config --global --list
 
 Clone git repository
-    $ git clone https://github.com/Vishwanath-Ramesh/github-tutorial.git
+    Master branch or the branch in which the HEAD is point to
+        $ git clone https://github.com/Vishwanath-Ramesh/github-tutorial.git
+    Specific branch
+        $ git clone -b <branch-name> https://github.com/Vishwanath-Ramesh/github-tutorial.git
+
 
 Get status of the git repository
     $ git status
