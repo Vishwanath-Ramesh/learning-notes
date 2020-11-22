@@ -1,0 +1,81 @@
+Install webpack & CLI
+	> webpack webpack-cli --dev
+	
+Webpack Configuration
+	const path = require('path');
+
+	module.exports = {
+	  entry: './src/index.js',
+	  output: {
+		filename: 'main.js',
+		path: path.resolve(__dirname, 'dist'),
+	  },
+	};
+	
+NPM Scripts
+	build - webpack
+	
+Loaders
+	CSS
+		yarn add --dev style-loader css-loader
+	module: {
+		rules: [
+		  {
+			test: /\.css$/,
+			use: ['style-loader', 'css-loader'],
+		  },
+		],
+	  },		
+
+Plugins
+	Cleaning up the /dist folder on each build	
+		Install
+			> yarn add --dev clean-webpack-plugin
+		Code in webpack.config.js
+			const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+			
+			plugins: [new CleanWebpackPlugin()],
+
+	If we changed the name of one of our entry points, or even added a new one? The generated bundles would be renamed on a build, but our index.html file would still reference the old names. 
+	Let's fix that with the HtmlWebpackPlugin.
+		Install
+			> yarn add --dev html-webpack-plugin
+		Code in webpack.config.js
+			const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+			plugins: [
+				new HtmlWebpackPlugin({
+				title: 'Output Management',
+			}),
+			]
+		
+		To use custom template for starup HTML page, configure below option in plugin
+			template: path.resolve(__dirname, 'src/index.html'),
+
+		
+Source Map
+	- In order to make it easier to track down errors and warnings, JavaScript offers source maps, which map your compiled code back to your original source code. 
+	If an error originates from b.js, the source map will tell you exactly that.
+	- Code in webpack.config.js
+		devtool: 'inline-source-map'
+		
+Dev Server
+	Install
+		> yarn add --dev webpack-dev-server
+	Code in webpack.config.js
+		devServer: {
+			contentBase: './dist',
+		}
+	Options
+		Inline - Adds “Live reloading” for the entire page
+			inline: true,
+		Hot - Enables “Hot Module Reloading” that tries to reload just the component that’s changed (instead of the entire page).
+		If we pass both options, then, when the source changes, the webpack-dev-server will try to HMR first. If that doesn’t work, then it will reload the entire page.
+		
+Babel For React
+	Install
+		> yarn add --dev @babel/core babel-loader @babel/preset-env @babel/preset-react
+		
+React
+	Install
+		> yarn add react react-dom

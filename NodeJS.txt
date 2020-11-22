@@ -34,6 +34,24 @@ NPM
     }
     > npm start
 
+Command Line args
+	1. Access command line args in app source
+	   process.argv	// prints all the commands specified on terminal
+	2. Parse command line arguments with a package called yargs
+	   npm i yargs
+	3. Acces CLA using yargs
+	   const yargs = require('yargs')
+	   yargs.argv
+	4. yargs customizations
+	   Version - yargs.version('1.1.0')
+	   Command - yargs.command({command: 'add', describe: 'Adds something', handler: () => {})
+	5. Configure for additional parameters to CLA so that can be accessed within the handler
+	   yargs.command({command: 'add', describe: 'Adds something', handler: (argv) => {}, builder: { title: { describe: 'Note title', demandOption: true // required / not, type: 'string' // what type of value should be passed } })
+	   > node app.js add --title="New note"
+	6. All the above yargs config won't work if we haven't logged CLA of yargs(yargs.argv) or yargs.parse()
+
+	
+
 Debugging
   1.Autorestart can be configured for debugging once code changes
     1.Menu -> Debugging -> -> Add Configurations -> launch.json file -> in configurations object -> set "restart": true, "runtimeExecutable": "nodemon".
@@ -63,3 +81,36 @@ package
 Serving Static Files
   1.Static files can be served by specifying the directory path in root file
     Eg : app.use(express.static(path.join(__dirname, 'public')));
+	
+Accessing query string in routes	
+	console.log(req.query)
+	
+Parse incoming request as JSON
+	app.use(express.json());
+
+Deployment
+	1.Install heroku
+	2.Login to heroku
+	3.Create a repository in git for the project
+	4.Create SSH key in case you dont have one
+	  $ ssh-keygen -t rsa -b 4096 -C "Any comment"
+	  Start SSH agent
+	  $ eval ssh-agent -s
+	  Add the created key 
+	  $ ssh-add -K  ~/.ssh/id_rsa
+	5.Test whether SSH is working or not
+	  $ ssh -T git@github.com
+	6.Push source to git
+	7.Add SSH keys to heroku
+	  > heroku keys:add
+	8.In root of the project, create heroku app
+	  > heroku create vishwa-node-app
+	9.Specify start scripts in package.json
+	  "start" : "node src/app.js"
+	10.Specify port in startup page
+	   const port = process.env.PORT || 3000
+	   app.listen(port)
+	11.Push to heroku git remote
+	   $ git push heroku master
+	12.New feature deployment
+	   Push to git and heroku. That's it.

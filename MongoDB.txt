@@ -32,6 +32,36 @@ MongoDB
 	1.Create a config file in any path.
 	2.Start mongodb by mongod -config / -f "..\server\4.0\bin\mongod.cfg"
 
+6.Connect MongoDB server from code
+	import mongodb = require('mongodb')
+	
+	const MongoClient = mongodb.MongoClient;
+	
+	const connectionURL = 'mongodb://127.0.0.1:27017';
+	const databaseName = 'task-manager'
+
+	MongoClient.connect(connectionURL, { useNewUrlParser: true}, (error, client) => {
+		if(error) return console.log('Unable to connect');
+		
+		console.log('Connected Successfully');
+		const db = client.db(databaseName);
+		
+		db.collections('users').insertOne({ name: 'Arun', age: 22 });
+	});
+	
+7.Connecting with Mongoose
+	import mongoose = require('mongoose');
+	
+	mongoose.connect('mongodb://127.0.0.1:27017/task-manager', { useNewUrlParser: true, useCreateIndex: true });
+	
+	const User = mongoose.model('User', { name: { type: String }, age: { type: Number }})
+	
+	const newUser = new User({ name: 'Arun', age: 20 });
+	newUser.save().then(() => {}).catch(() => {})
+	
+8.Validation in mongoose
+	const User = mongoose.model('User', { name: { type: String, required: true }, age: { type: Number, validate(value) { if(value < 0) throw new Error('Age should be a positive value') } }})
+
 3.Basics
 	1.MongoDB stores data in BSON (Binary JSON).
 	2.We write code in JSON and the MongoDB drivers convert this JSON code into BSON.

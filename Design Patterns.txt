@@ -1,0 +1,24 @@
+Design Patterns
+    DP are reusable solutions for common problems in software Design.
+    There are 23 design patterns classified into 3 categories.
+    categories
+        1. Creational - Different ways to create objects
+        2. Structural - Relation between the objects
+        3. Behavioral - Interaction/Communication between objects
+
+Coupling
+    How classes or software components are bound to each other.
+    Types
+        1. Loosely coupled
+            Each & Every class is independent of each other
+        2. Tightly coupled
+            One or more classes are dependent on another class. In that case, we have re-compile all the dependent classes if any change is made in one of the classes.
+            To ovecome this, we can use interfaces.
+
+Interface
+    Interfaces are contracts which specifies the capabilities that a class should provide.
+    Mainly used to build Loosely coupled softwares
+
+UML
+    Unified Modeling Language
+    

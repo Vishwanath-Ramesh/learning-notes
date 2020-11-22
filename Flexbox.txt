@@ -1,0 +1,75 @@
+display: flex
+flex-direction
+    row
+        Flex items are stretches to the column wide starting from the 1st item  and stack the items horizontally.
+        Main Axis from LEft to Right and Cross Axis from Top to Bottom
+        It's the default one.
+    row-reverse
+        Flex items are stretches to the column wide starting from the last item and stack the items vertically.
+        Main Axis from Right to LEft and Cross Axis from Bottom to Top
+    column
+        Flex items are stretches to the row wide starting from the 1st item.
+        Main Axis from Top to Bottom and Cross Axis from LEft to Right
+    column-reverse
+        Flex items are stretches to the row wide starting from the last item.
+        Main Axis from Bottom to Top and Cross Axis from Right to LEft
+flex-wrap
+    nowrap
+    wrap
+    wrap-reverse
+
+order
+    default value is 0.
+    Re-Arranges the flex items to the end or the beginning based on the value specified.
+
+justify-content
+    How flex items are aligned to Main Axis
+    
+    flex-start
+        Flex items are aligned from the left. It is the default one.
+
+    flex-end
+        Flex items are shifted to the right.
+
+    center
+        Flex items are aligned in the middle.
+    
+    space-between
+        Makes the flex items spaced evenly.
+
+    space-around
+        Provides equal spaces for all the flex items both left/top and right/bottom
+
+align-content
+    How flex items are aligned to Main Axis
+
+    stretch
+        It is the default one.
+    flex-start
+        align items from top to bottom
+        It automatically stretches other items if one item is bigger to match with it.
+
+align-items
+    flex-start
+    flex-end
+    center
+    stretch
+    baseline
+        If the flext items have different heights, all the content in the flex items are aligned above the baseline.
+
+align-self
+    Align individual items to its own in an flex container.
+
+flex
+    flex: 1
+        Simple flex is equal to flex-groq flex-shrink flex-basis
+        Same as flex-grow: 1 & flex-shrink: 1
+        if the are any extra space, how all the items will take that extra space.
+
+    flex-basis
+        flex-basis: 400px - Takes all the item to 400px
+
+    flex-shrink 
+        how much the corresponding item should shrink or give up the space to the other one.
+        Default is 1.
+    
