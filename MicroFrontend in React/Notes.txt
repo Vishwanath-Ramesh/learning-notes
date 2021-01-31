@@ -1,0 +1,2 @@
+Host - It is an application which try to make use of code from another project. In our case, it's 'Container'
+Remote - It's a project which makes it code available for other projects. In our case, it's 'Products'
