@@ -114,3 +114,13 @@ Deployment
 	   $ git push heroku master
 	12.New feature deployment
 	   Push to git and heroku. That's it.
+
+Authentication
+  - Whenever the user is signing up, jwt token is created using the user id and secret key. The same token will be sent back to the client.
+  Eg :  const token = jwt.sign({id: 'john'}, process.env.JSON_SECRET, {expiresIn: JWT_EXPIRES_IN})
+
+Protecting routes
+	1. Check whether the token is available in 'Authorization' header and it starts with 'Bearer'
+	2. Verify the received token - const decoded = await promisify(jwt.verify)(receivedToken, SECRET_KEY) 
+	3. Check user still exits - findOne({id: decoded.id })
+	4. Check whether the user has changed the password after login

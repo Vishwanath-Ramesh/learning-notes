@@ -1,22 +1,78 @@
-Variables
-  - var - Function scoped
-  - let - Block scoped
-  - const - Block scoped
 
-Types
-  SNOB'N'US
-  String
-  Number
-  Objects
-  Boolean
-  Null
-  Undefined
-  Symbol
+JavaScript
+  - Dynamically typed language
+  - It determines the type during the run time
+
+Primitive Types
+  - A type of data that represents single value. That's not an object
+  - There are 6 primitive types in JavaScript
+    1. undefined - Lack of existense
+    2. null - Lack of existense
+    3. boolean
+    4. number
+    5. string
+    6. symbol
+  - SNOB'N'US
+    String
+    Number
+    Objects
+    Boolean
+    Null
+    Undefined
+    Symbol
+
+Single Threaded
+  - One command at a time.
+  - The execution of instructions in a single sequence
+
+Synchronous 
+  - One at a time in order
+  
+Lexical Environment
+  - Where something sits physically in the code
+  Eg: Variable declaration inside a function. That is, the variable sits lexically inside the function.
+
+Execution Context
+  - This is where the code actually starts and run
+  - It creates the global object called 'this'
+  - In browser, each tab is a seperate execution context which in turn has seperate global object
+  - There are two phases  
+    1. Creation phase
+    2. Execution phase
+
+Hoisting
+  - Logically, during the creation phase, the JavaScript engine moves the variable and function declarations to the top of your code. But technically, they are stored in
+  the memory(heap).
+  - Variables using 'var' are initialized with 'undefined' during the creation phase but the 'let' does not. 
+  - Functions are also stored in memory during the creation phase not anonymous or arrow function.
+
+Variables
+  1. let
+    - It's a block scope
+    - We can not redeclare a variable
+  2. var
+    - It's either function-scoped or global-scoped
+    - We can redeclare a variable any number of times
+    - It is used in older days to create private variables using IIFE
+  3. const
+    - Block scoped
+
+N.1
+    - Initially always there will be a Global execution context.
+    - Setup memory space for variables and Functions - "Hoisting".
+    - JavaScript will create an Execution Context before executing any code.
+    - The creation of Execution context involves 2 phases, creation and Exection phase.
+    - In creation phase, JavaScript sets up memory space for variables and Functions and where they are actually created. For variables, the values 
+      are Initially set to 'undefined' and for Functions, they are created as it is.
+    - In Exection phase, JavaScript begins to execute the code with the created memory space.
+
+N.3
+  -'==' are coersive whereas '===' aren't.
+    Coersive - Automatically converts the operands based on the other operand. 
+    Eg : false == 0 -> false will be converted to '0'
 
 Operators
   typeof - Tells what type is.
-
-
 
 Use strict mode
   - 'use strict mode'; at the top of the file.
@@ -51,16 +107,19 @@ Hoisting
     are Initially set to 'undefined' and for Functions, they are created as it is.
   - In Exection phase, JavaScript begins to execute the code with the created memory space.
 
-N.3
-  -'==' are coersive whereas '===' aren't.
-    Coersive - Automatically converts the operands based on the other operand. 
-    Eg : false == 0 -> false will be converted to '0'
-
 Imperative Vs Declarative programming
   Imperative
 	- Explicitly showing how everything is achieved(step by step process).
   Declarative
 	- It only focus on what something is done rather how it's done.
+  
+Coersion
+  - Converting a value from one type to another
+  Eg : 1 + '2' => '12'   false < 1 => true    false == 0 => true
+
+Functions
+  - Functions are 1st class citizens in JavaScript
+  - Meaning, everything you can do with other types can also be done with functions
 
 Functional Programming
   Higher order Functions
@@ -83,6 +142,19 @@ Functional Programming
   Pure Functions
     A function returns same value every time when we pass a particular value all the time.
 
+  Inheritance
+    One object gets access to the properties and methods of another object
+
+  Prototypes 
+    Prototypes are the mechanism by which JavaScript objects inherit features from one another.
+
+  Reflection
+    An object can look at itself, listing and changing its properties and methods.
+    In other words, reflection is the ability of a program to manipulate variables, properties, and methods of objects at runtime
+
+  Proxy
+    A Proxy object wraps another object and intercepts operations, like reading/writing properties and others, optionally handling them on its own, or transparently allowing the object to handle them
+
   Immutable
     Can't be modified once it's created.
     In JavaScript, Objects and arrays are immutable.
@@ -100,3 +172,53 @@ Functional Programming
     const updated = produce(book, updateBook => {
       updateBook.isPublished = true;
     })
+
+Latest ES Version
+Features in Latest ES Version
+The Component Lifecycle
+redux vs context api
+ES5 vs ES6
+What is HTML Canvas
+How do I loop through or enumerate a JavaScript object?
+CSS Box Model
+Flexbox vs. CSS Grid
+Promise states
+Functional Components VS Class Components
+HTML5 features
+
+Arrow Funtion Vs Regular Function
+    Arrow function
+        - It doesn’t define its own execution context, so the value of this is always equals to the outer function's this value
+        - It can't be used as a constructor
+	- Same like 'this', using 'arguments' results the outside function arguments, not able to access the 'arguments' of it's immediate parameters, but can be used rest operator parameter instead.
+	- Explicitly returns if only one statement is present inside the function.
+	- Inside a class, 'this' can be referenced in any arrow functions
+
+    Regular function
+        - the value of this depends on how the function is invoked
+        - Can be used as a constructor
+	- Can able to access 'arguments'.
+	- Here, returns undefined if no return statement is provided
+	- 'this' can't be accessed inside class, so manual binding is required. Eg: func.bind(obj)
+
+document.createDocumentFragment()
+	- Suppose we have huge list items which are appended to the DOM element dynamically using append, there may be some issue in performance wise.
+	  So instead, we can use DocumentFragment, which only append to the DOM only after DOM has dynamically created completely.
+
+document.querySelector('p').insertAdjacentHTML('beforebegin', '<li>test</li>')
+	- For performance reasons, using template string with innerHTML or appending to the element dynamically cause issues.
+	- So, we can use insertAdjacentHTML for that.
+
+replaceWith
+	- Replace one element with the other
+	Eg: div.replaceWith(newDiv)
+
+cloneNode
+	- Creates a copy of DOM node.
+	- div.cloneNode(false) or div.cloneNode() clones only the top element.
+	- div.cloneNode(true) clones entire tree.
+
+remove
+	- Remove DOM node
+	Eg: div.remove()
+	

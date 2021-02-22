@@ -6,8 +6,38 @@ Design Patterns
         2. Structural - Relation between the objects
         3. Behavioral - Interaction/Communication between objects
 
+Categories
+    1. Creational - Different ways to create objects
+        1. Builder
+        2. Factories
+            1. Abstract factory
+            2. Factory method
+        3. Prototype
+        4. Singleton - Single, having only one object of a class. This object will be globally accessible
+            - Create private variable for the class
+    2. Structural - Relationships between the objects or describes hoe objects are connected to each other
+        1. Adapter
+        2. Bridge
+        3. Composite
+        4. Decorator
+        5. Facade
+        6. Flyweight
+        7. Proxy
+    3. Behavioural - Interaction or Communication between the objects
+        1. Chain of Responsibility
+        2. Command
+        3. Interpreter
+        4. Iterator
+        5. Mediator
+        6. Memento
+        7. Observer
+        8. State
+        9. Stategy
+        10. Template method
+        11. Visitor
+
 Coupling
-    How classes or software components are bound to each other.
+    How classes or software components are bound to each other. In other words, How much of a Class is coupled/dependent on other class
     Types
         1. Loosely coupled
             Each & Every class is independent of each other
@@ -22,3 +52,51 @@ Interface
 UML
     Unified Modeling Language
     
+    - Elements of re-usable object oriented software
+
+SOLID design principles
+    - It is a set of 5 design principles which make it easier for a programmer to develop software that are easy to maintain, extend and refactor.
+    - These are also a part of the agile or adaptive software development.
+    - Types
+      SRP – Single Responsibility Principle
+                "A class should have one and only one reason to change, meaning that a class should have only one job"
+        - A class should have a sigle primary responsibility
+        - It only has one reason to change
+      OCP – Open/Closed Principle
+        - A Objects or entities should be open for extension but closed for modification
+      LSP – Liskov Substitution Principle
+      ISP – Interface Segregation Principle
+        - Clients should not be forced to depend upon interfaces that they do not use.
+      DIP – Dependency Inversion Principle
+    
+Interface
+    - A contract that specifies the capabilities that a class can provide
+    - It solves the problem of tightly coupled software components and build Loosely coupled components
+
+Encapsulation
+    - Binding the data and objects into a single entity or class while hiding the state of the object inside the class
+    Eg : 
+        1. Suppose you have a class having bank account details in it like bank balance etc.
+        2. The consumer of the class should not able to access the balance directly.
+        3. So we must provide a safer way to access by getter & setter for withdrawing or deposit the amount.
+
+Abstraction
+    - Reduce complexity by hiding the unneccesary details in a class
+    Eg : Remote control
+
+Inheritance
+    - It is a mechanism to re-use classes
+    Eg : 
+        1. Suppose we have classes for different UI components like Textbox, Button etc.
+        2. We could have a set of common functions like focus, disable related to all these components.
+        3. Instead of using the same logic in each and every UI components, we can de-couple those logic and extend it whenever needed. With that we're resuing the same logic.
+
+Polymorphism
+    - means many forms
+    - Ablity of an object to take on many forms
+    Eg : Suppose we have a different UI components like Square, Triangle etc. each one needs to do common things like 'Drawing'. Those tasks are different to each other.
+         So, we create a abstract class with abstract function called draw(). Then extend that class in each UI component and define that abstract function based on specific UI component.
+
+UML 
+    - Unified Modeling Language
+    - Represent classes 

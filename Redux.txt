@@ -1,0 +1,15 @@
+Redux
+    - Redux is a predictable state container for JavaScript apps.
+    - Redux is a library for managing global application state in application
+    - uses a "one-way data flow" app structure
+    - The whole global state of your app is stored in an object tree inside a single store
+    - The only way to change the state tree is to create an action, an object describing what happened, and dispatch it to the store
+Action
+    - It's just a plain javascript object which describes what happened
+Reducers
+    - Reducers are functions that calculate a new state value based on previous state + an action
+Store
+    - A Redux store runs the root reducer whenever an action is dispatched
+
+Slice
+     It is a collection of Redux reducer logic and actions for a single feature in your app, typically defined together in a single file

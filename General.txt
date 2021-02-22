@@ -1,0 +1,13 @@
+Test Driven Development
+	- It is a software development process where we write test cases before writing code.
+	- requirements are turned into test cases then the software is developed and improved to pass tests
+
+RGR Cycle
+	- Red, Green and Refactor
+	Red : Write tests that fail
+	Green : Make the test pass by writing the necessary code
+	Refactor : Cleanup the code written and make the tests pass
+
+Regression testing
+	- Regression testing is re-running functional and non-functional tests to ensure that previously developed and tested software still performs after a change. 
+	- If not, that would be called a regression.

@@ -1,15 +1,16 @@
 MongoDB 
 	Humongos data - Store large volume of data
 	Collection of documents
+	Collection - Similar to tables in relational databases
 	NoSQL - a mechanism for storage and retrieval of data that is modeled in means other than the tabular relations used in relational databases
 	Schema less
+	MongoDB stores data records as documents (specifically BSON documents) which are gathered together in collections.
 	We write query in JSON, this JSON will be converted to a binary(BSON).
 	Working
 		Application					Data
 		Frontent	Backend		Drivers	<----->	MongoDB Server<------------>Storage Engine<------------->Database
 		(ui)		(Server)	NodeJS	Queries			Communicate (Wired Tiger)  File/CRUD Data access
-						Java
-										
+						Java							
 
 2.Intalling MongoDB
 	1.Install the setup files.
@@ -19,13 +20,13 @@ MongoDB
 	5.We can also set log path by using mongod path by 'mongodb --dbpath "..\server\4.0\data\db" --logpath "..\server\4.0\data\logs\log.log"
 	6.Then start the mongodb server by 'mongo' command.
 
-3.Additional Configurations 
-	1.We can change the ports by mongod --port 27018
-	2.Start the server by mongo --port 27018 if the port has changed explicitly
-
 4.Running MongoDB as a background service
-	1.Start cmd prompt as admin, then run net start MongoDB
-	2.To stop,
+	- We can change the ports by mongod --port 27018
+	- to connect to a MongoDB instance running on a remote host machine
+		mongo --host mongodb0.example.com --port 28015
+	- Start the server by mongo --port 27018 if the port has changed explicitly
+	- Start cmd prompt as admin, then run net start MongoDB
+	- To stop,
 		i. Switch to admin db then run db.shutdownServer() or using cmd prompt run, net stop MongoDB.
 
 5.Run MongoDB using config files
@@ -71,12 +72,184 @@ MongoDB
 	5.Find returns cursor rather returning whole documents.
 	6.A specific property can be retrieved by using projection. 
 	  Ex. db.flightsData.find({distnace: 500}, {name: 1, _id: 0});
-	7.While inserting many, we can change the ordering config so that if any errors occurs for a particular error may not affect the successive inserts.
-		Ex: db.col.insertMany([{_id: 'aaa', name: 'Max'},{_id: 'aaa', name: 'Max2'},{_id: 'bbb', name: 'Max3'}], {ordered: false(It's true by default)})
-4.Query Selectors
-	1.db.persons.find() -> Retrieves all the data
-	2.db.persons.findOne() -> Retrieves the first data whether or not the filter is supplied.
-	3.db.persons.find({age : 30}) -> Gives all the records matching age equals 30.
-	4.db.persons.find({age : {$gt : 18}}) -> Gives all the records greater than 18.
-	5.db.persons.find({"name.firstName" : "Max"}) -> Gives all the records matching whose first name equals "Max".
-	6.db.persons.find({$or : [{age : {$gt : 18}}, {age : {$lt : 25}}]});
+
+Replica Set
+	A replica set is a group of MongoDB servers that maintain the same data set, providing redundancy and increasing data availability.
+
+Commands
+	Mongo shell connection string
+		mongo "mongodb+srv://cluster-vedas-mumbai.rfemj.mongodb.net/<dbname>" --username <username> --password <password> 
+	db - Current database
+	use <db-name> - Switch database. You do not need to create the database before you switch. MongoDB creates the database when you first store data in that database.
+	show dbs - Print a list of all databases on the server.
+	show collections or db.getCollectionNames() - Print a list of all collections for current database.
+	show users - Print a list of users for current database.
+	show roles - Print a list of all roles, both user-defined and built-in, for the current database.
+	show databases - Print a list of all available databases.
+	db.dropDatabase() - Drops the current database.
+	db.fromColl.renameCollection(<toColl>) - Rename collection
+	db = connect("<host><:port>/<dbname>") or conn = new Mongo() - Create new connection
+
+	Data Types
+		- The mongo shell treats all numbers as 64-bit floating-point double values by default
+		Date
+		ObjectId
+		NumberLong - 64bit integer
+		NumberInt - 32bit integer
+		NumberDecimal - 128bit decimal based floating point. This accepts values both in quotes and w/o. But w/o quotes is not recommended. Since it automatically converts 
+		to precision of 15 digits
+		Eg : NumberDecimal("1000.55") => NumberDecimal("1000.55"), NumberDecimal(1000.55) => NumberDecimal("1000.55000000000")
+	db.createCollection() - to explicitly create a collection with various options, such as setting the maximum size or the documentation validation rules
+	db.getCollectionInfos() - To retrieve the UUID for a collection
+	db.persons.find() or db.getCollection("persons").find()-> Retrieves all the data
+	db.persons.findOne() -> Retrieves the first data whether or not the filter is supplied.
+	db.persons.find({age : 30}) -> Gives all the records matching age equals 30.
+	db.persons.find({age : {$gt : 18}}) -> Gives all the records greater than 18.
+	db.persons.find({name : {$regex : '^p'}}) -> Gives all the records where the name starts with p.
+	db.persons.find({"name.firstName" : "Max"}) -> Gives all the records matching whose first name equals "Max".
+	db.persons.find({$or : [{age : {$gt : 18}}, {age : {$lt : 25}}]});
+	db.collection.insertOne() - Insert single document
+	db.collection.insertMany() - Insert multiple document
+	db.persons.insertMany([
+		{ item: "journal", qty: 25, status: "A", size: { h: 14, w: 21, uom: "cm" }, tags: [ "blank", "red" ] },
+   		{ item: "notebook", qty: 50, status: "A", size: { h: 8.5, w: 11, uom: "in" }, tags: [ "red", "blank" ] }
+	]) - The operation returns a document that contains the acknowledgement indicator and an array that contains the _id of each successfully inserted documents.
+	we can change the ordering config so that if any errors occurs for a particular error may not affect the successive inserts.
+	Ex: db.col.insertMany([{_id: 'aaa', name: 'Max'},{_id: 'aaa', name: 'Max2'},{_id: 'bbb', name: 'Max3'}], {ordered: false(It's true by default)})
+	db.collection.insert() - Insert one or more documents
+	db.collection('inventory').find({ tags: ['red', 'blank'] }) - Get all the records with the specified values in tags property with the same order
+	db.collection('inventory').find({ tags: { $all: ['red', 'blank'] } }) - Get all the records with the specified values in tags property with the order doesn't matter 
+	db.collection('inventory').find({ dim_cm: { $gt: 15, $lt: 20 } }) - Get all the records where dim_cm value either grater than 15 or less than 20 or the record which matches both
+	db.collection('inventory').find({ dim_cm: { $elemMatch: { $gt: 15, $lt: 20 } } }) - Get all the records where dim_cm value should be grater than 15 and less than 20 
+	db.collection('inventory').find({ 'dim_cm.1': { $gt: 25 } }) - Get all the records where the 2nd position of dim_cm matches the value grater than 25
+	db.collection('inventory').find({ 'dim_cm.1.qty': { $gt: 25 } }) - Get all the records where the 2nd position of dim_cm whose qty property matches the value grater than 25
+	db.collection('inventory').find({ tags: { $size: 3 } }) - Get all the records where the tags array length is 3
+	db.collection('inventory').find({ tags: { $slice: -1 } }) - Get the last index record of the tags array
+	db.collection('inventory').find({ item: null }) - matches documents that either contain the item field whose value is null or that do not contain the item field.
+	db.numbers.find({val: { $type: "decimal" }}) - Find records by data type
+	db.collection('inventory').find({ item: { $exists: false } }) - matches documents that do not contain the item field
+	db.collection.save() - Insert either a new document or update an existing document in the collection.
+	db.getSiblingDB() - 	Return a reference to another database using this same connection without explicitly switching the current database. This allows for cross database queries.
+
+Import
+	$ mongoimport persons.json -d contactsData -c contacts jsonArray
+
+Aggregation
+	- It processes data and returns computed results
+	- Aggregation operations group values from multiple documents together, and can perform a variety of operations on the grouped data to return a single result
+
+Aggregation pipeline
+	- It's a framework for data aggregation where documents enter multi-stage pipelines that transforms data into aggregated results
+
+	Pipeline expressions
+		- It specifies the transformations to apply on the input documents
+		- It can only operate on the current document in the pipeline and cannot refer to data from other document 
+
+	Aggregation pipeline for updates			
+		db.collection.findOneAndUpdate()
+		db.collection.findAndModify()
+		db.collection.updateOne()
+		db.collection.updateMany()
+		db.collection.update()
+
+View
+	Views are read-only; write operations on views will error.
+	db.createCollection(
+	"<viewName>",
+	{
+	"viewOn" : "<source>",
+	"pipeline" : [<pipeline>],
+	"collation" : { <collation> }
+	}
+	)	
+				or
+	db.createView(
+	"<viewName>",
+	"<source>",
+	[<pipeline>],
+	{
+	"collation" : { <collation> }
+	}
+	)
+
+Watch
+	- to monitor a collection for changes to a collection that match certain criteria
+	Eg : 
+	const changeStream = orders.watch([
+	{ $match: { operationType: "insert" } },
+	{
+		$project: {
+		"fullDocument.name": 1,
+		"fullDocument.address": 1,
+		},
+	},
+	]);
+	changeStream.on("change", change => {
+	const { name, address } = change.fullDocument;
+	console.log(`New order for ${name} at ${address}.`);
+	});
+
+$match
+	- The $match stage filters the documents by the status field and passes to the next stage those documents that have status equal to "A".
+	- The $match stage can use an index to filter documents if it occurs at the beginning of a pipeline
+	Eg : { $match: { status: "A" } }
+
+$group
+	- The $group stage groups the documents by the cust_id field to calculate the sum of the amount for each unique cust_id.
+	Eg : { $group: { _id: "$cust_id", total: { $sum: "$amount" } } }
+
+$sort
+	- Sorts all input documents and returns them to the pipeline in sorted order.
+	Eg: { $sort : { borough : 1 } }
+	- When sorting on a field which contains duplicate values, documents containing those values may be returned in any order. To achieve a consistent sort, add a field which contains exclusively unique values to the sort
+	Eg: { $sort : { borough : 1, _id: 1 } }
+	Syntax: { $sort: { <field1>: <sort order>, <field2>: <sort order> ... } }
+	1	Sort ascending.
+	-1	Sort descending.
+	- The $sort stage can use an index as long as it is not preceded by a $project, $unwind, or $group stage
+
+$unwind
+	- Expands the particular array field by creating duplicate documents
+	Eg: db.persons.aggregate([{$unwind: "$hobbies"}])
+
+$push
+	- Push all the items into an array by combining the multiple documents into single document
+	Eg: db.persons.aggregate([{$group: {allHobbies: {$push: "$hobbies"}}}])
+
+$addToSet
+	- It's similar to push except that it removes the duplicate entries in the final result array
+	Eg: db.persons.aggregate([{$group: {allHobbies: {$addToSet: "$hobbies"}}}])
+
+$size
+	- To get the length of an array
+	Eg: db.persons.aggregate([{$project: {hobbiesLength: {$size: "$hobbies"}}}])
+
+$filter
+	- Filter the documents
+	Eg: db.persons.aggregate([{$project: {_id: 0, scores: {$filter: {input: "$examScores", as: "sc", cond: {$gt: ["$$sc.score", 60]}}}}}])
+
+$bucket
+	- Group documents based on certain criteria
+	Eg: db.persons.aggregate([{$bucket: { groupBy: "$dob.age", boundaries: [0, 20, 40, 60, 80, 100], output: { numPersons: { $sum: 1 }, average: { $avg: "$dob.age" } } }}])
+	- automatically creates the boundaries based on number of buckets
+	Eg: db.persons.aggregate([{$bucketAuto: { groupBy: "$dob.age", buckets: 5, output: { numPersons: { $sum: 1 }, average: { $avg: "$dob.age" } } }}])
+
+$project
+	- Transforms the document into the selected from
+	Eg: db.persons.aggregate([{$project: {_id: 0, gender: 1, fullName: {$concat: [{$toUpper: '$name.first'}, " ", {$toLower: '$name.last'}]}}])
+$accumulator
+$function
+
+$convert
+	Eg: db.persons.aggregate([{$project: {birthDate: {$convert: {$input: "$dob.date", to: "date"}}, age: "$dob.age"}}])
+
+
+
+In Progress
+https://docs.mongodb.com/drivers/node/fundamentals/crud/read-operations/cursor
+Completed
+https://docs.mongodb.com/manual/tutorial/iterate-a-cursor/
+
+L&T tech servicees
+del vs pop
+sync update in setstate

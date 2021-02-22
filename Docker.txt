@@ -1,0 +1,25 @@
+Why Docker
+    - It's make it really easy to install sofwares on any given machine
+
+What is Docker
+    - Docker is a platform for creating and running containers
+
+Containers
+    - Instance of an image/program
+    - It is a combination of software program, kernel and portion of HD, memory, RAM etc
+
+Image 
+    - It's single file gets stored on a harddrive/system containing all the necessary things to run a particular program.
+    - We use this image to create a container 
+    - Eg : Redis
+
+Namespacing
+    - Isolating resources per process. i.e this area of HD is for that process and that for another
+    Eg : Having multiple versions of python installed, so that chrome can use python v2, and NodeJS use python v3
+
+Control groups
+    - Limit the amount of resources that the process can use
+
+Commands
+    docker version
+    docker run hello-world
