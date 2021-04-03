@@ -23,3 +23,73 @@ Control groups
 Commands
     docker version
     docker run hello-world
+	- docker run = docker create + docker start
+	Eg: docker create hello-world // guid
+	    docker start -a <guid>    // -a => take the output from the container and print it in the user's console
+    docker ps - Lists all running containers
+    docker ps --all - Lists all containers created on a machine
+    docker system prune - Removes/deletes stopped containers permanently
+    docker logs <container-id>    // retrieves the logs emitted from the supplied container
+    docker stop <container-id> - Shutdowns/stops the running container but takes some time(10sec).
+    docker kill <container-id> - Shutdowns/stops the running container instantly. 
+    Run additional commands into to the already running container
+        Eg: docker run redis
+	    docker exec -it <container-id> redis-cli
+	        -it => Gives ability to input or run some commands after running 
+		    i - Attach the commands typed in the terminal to the running process(redis-cli)
+		    t - format the text typed/retuned from the console
+    docker exec -it <container-id> sh - Create/Open a terminal in a running container context
+    docker run -it busybox sh - Create/Open a terminal in a running container context when creating a container
+    docker build -t <docker-id>/<project-name>:<version-number> . - Create a name/tag the image with a name
+        Eg: docker build -t vishwa/netflix-clone:latest .
+    docker run -d <image-id>	- Run in background
+
+Overriding default commands on docker run
+    docker run busybox ls
+    docker run busybox echo hi there
+
+Creating a Dockerfile
+    - cd into the root directory of the project
+    - create a file called Dockerfile wihout any extension
+    - Specify base image, commands to run some additional programs and command to run on container startup.
+    - run > docker build . to create an image. It returs with a container id.
+    - Start the container using docker start <container-id>.
+    Eg: 
+	# comments
+	FROM alpine	// Contains some supporting/built-in files/programs to create a container
+	RUN apk add --update redis	// Command to run on container creation. Here, it'll Install/update redis on a newly created container
+	CMD ["redis-server"]	// Command to run when the container starts to run. Here it'll starts up the redis server.
+
+Creating an Image for Node web app using Docker
+    Dockerfile
+        FROM node:alpine	// repo from docker hub which has built-in support for node
+        WORKDIR /usr/app	// instead of polluting the root directory, we can change into the working directory for the project files to be copied
+	COPY ./package.json ./	// Whenever we make changes to any of the source files, we have to make a complete re-build of the image. Doing so, will re-install all the dependencies in the container. So, inorder to avoid that, we can copy dependency files before installing dependencies and then copy all the files over.
+	RUN npm install
+	COPY ./ ./	// Since we can't access the project files, we have to copy those project files into the container 
+	CMD ["npm","start"]
+
+    If we run the container, we can't able to access the site, since the server is running on the container not on the local machine. So we have to forward the port to the container's local port whenever accessing local machine's port. For that we have to run below command.
+    docker run -p 8080:8080 vishwa/node-app 
+
+Docker compose
+    - Suppose we want to have some communication between two or more containers running, we need to have some sort of link between those containers. For that we use docker compose.
+    Eg: Container 1 - Node app
+	Container 2 - Redis server
+	In order to link those two containers, we have to create a docker-compose.yml file with some configurations.
+	docker-compose.yml
+		version: '3'
+		services:
+			redis-server:
+				image: 'redis'
+			node-app:
+				restart: always	// restart polices, whenever the container crashes, whether to restart or not. 'always'/'no'/'on-failure'(status code other than 0)/'unless-stopped'(Always restart unless we forcibly stopped)
+				build: .	// use docker file in the project root directory
+				ports:
+					- "4001:8081"
+    - Run the containers by
+    docker-compose up => docker run <image-id>
+    docker-compose up --build => docker build . && docker run <image-id>
+    docker-compose up -d	- launch in background
+    docker-compose down    - Stop running containers
+    docker-compose ps - gives the status of the running compose containers

@@ -1,0 +1,102 @@
+display
+	inline
+		default value for all the elements, but 'user agent' style sheet of the browser overrides for some elements.
+		An inline element will accept margin and padding, but the element still sits inline. Margin and padding will only push other elements horizontally away, not vertically
+		An inline element will not accept height and width. It will just ignore it
+	inline-block
+		An element set to inline-block is very similar to inline, the difference is that you are able to set a width and height
+	block
+		elements that are set to block by the browser UA stylesheet is said to be block level elements. Eg. div, p etc.
+		Block level elements do not sit inline but breaks and take up as much horizontal space as they can
+	none
+		Entirely removes the element visually from the page, while the element is still in the DOM
+		you can’t tab to it or its children, it is ignored by screen readers
+
+Grid
+Enable grid
+	display: grid;
+
+Enable rows
+	grid-template-rows
+	Eg: grid-template-rows: auto 10px auto;
+
+Enable columns
+	grid-template-columns 
+	Eg: grid-template-columns: 100px 10px 100px 10px 100px;
+
+Positioning rows
+	Eg:
+	grid-row-start: 1;
+	grid-row-end: 2;
+
+	Shorthand
+	grid-row: 1 / 2	or 1 / span 1
+
+Positioning columns
+	Eg:
+	grid-column-start: 1;
+	grid-column-end: 2;
+
+	shorthand
+	grid-column: 1 / 2
+
+Shorthand for positioning rows and columns
+	grid-area: grid-row-start / grid-column-start / grid-row-end / grid-column-end
+	Eg: grid-area: 1 / 1 / 2 / 2
+
+Terminologies
+	Grid lines
+		Grid lines make up the grid and can be horizontal or vertical.
+		They can be referred to by number, but they can also be named. 
+	Grid track
+		A grid track is the space between two grid lines. It can be either horizontal or vertical. 
+	
+	Grid cell
+		The space between four grid lines
+
+	Grid area
+		A grid area is any area of the grid bound by four grid lines. 
+		It can contain a number of grid cells.
+
+Named grid lines
+	Eg:
+	.wrapper {
+  		display: grid;
+  		grid-template-columns: [col1-start] 100px [col1-end] 10px [col2-start] 100px [col2-end] 10px [col3-start] 100px [col3-end];
+  		grid-template-rows: [row1-start] auto [row1-end] 10px [row2-start] auto [row2-end];
+	}
+
+Grid template areas
+	Eg:
+.header {
+  grid-area: header;
+  background: grey;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: grey;
+}
+
+.content {
+  grid-area: content;
+  background: grey;
+}
+
+.footer {
+  grid-area: footer;
+  background: grey;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 200px 10px auto;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header header header"	// Repeating the name of an area causes the content to span those cells
+    "sidebar . content"		// one or more sequential period characters means that the cell remains empty
+    "footer footer footer";
+}
+
+Code
+https://github.com/abookapart/css-grid-layout-code/
