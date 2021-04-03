@@ -42,6 +42,7 @@ Commands
     docker run -it busybox sh - Create/Open a terminal in a running container context when creating a container
     docker build -t <docker-id>/<project-name>:<version-number> . - Create a name/tag the image with a name
         Eg: docker build -t vishwa/netflix-clone:latest .
+    docker build -f Dockerfile.dev . - Specifying filename in the build command
     docker run -d <image-id>	- Run in background
 
 Overriding default commands on docker run
@@ -93,3 +94,77 @@ Docker compose
     docker-compose up -d	- launch in background
     docker-compose down    - Stop running containers
     docker-compose ps - gives the status of the running compose containers
+
+Docker Volumes
+    - Previously when we create a image from any project we are just copying the project files and running it in the container. So if any changes made to the code present in local folder will not get propagated in the container.
+    - In order to do so, we can make use of an feature called Docker volumes in Docker.
+    - What i'll do is, instead of copying the entire project files, we just specify the references to the local project folders, so docker will run the container with files from that reference folder. Then if any code gets changed, the changes will get automatically reflected.
+    Eg: docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app <container-id>
+    -v /app/node_modules => Since we are running the project from the local folders, so if we dont have the node_modules folder in there, it'll throw error. In order to do so, we need to bookmark the node_modules folder while running the container
+    -v $(pwd):/app => mapping the local working directory to be used as the project files inside the container
+    - The above long command can be elimated by using docker compose. 
+    Eg: 
+    docker-compose.yml
+    version: '3'
+    services: 
+    	web:
+	    build:
+		context: .
+		dockerfile: Dockerfile.dev
+	    ports:
+	    	- "3000:3000"
+	    volumes:
+		- /app/node_modules
+	    	- .:/app
+    - For running the test suites, once the container is started, while running when we change the test suites, it'll not be reflected in execution. In order to do that, we can attach to the same running container by following command
+    Eg: docker exec -it <container-id> npm run test
+    - Another approach is like creating another service inside the docker-compose file.
+    Eg: 
+    docker-compose.yml
+    version: '3'
+    services: 
+    	web:
+	    build:
+		context: .
+		dockerfile: Dockerfile.dev
+	    ports:
+	    	- "3000:3000"
+	    volumes:
+		- /app/node_modules
+	    	- .:/app
+    	tests:
+	    build:
+		context: .
+		dockerfile: Dockerfile.dev
+	    volumes:
+		- /app/node_modules
+	    	- .:/app
+	    command:	["npm", "run", "test"]
+
+Serving build files
+    Dockerfile
+	FROM node:alpine as builder
+	WORKDIR '/app'
+	COPY package.json .
+	RUN npm install
+	COPY . .
+	RUN npm run build
+
+	FROM nginx
+	COPY --from=builder /app/build /usr/share/nginx/html
+
+CI using Travis
+    .travis.yml
+	sudo: required
+	services:
+		- docker
+	before_install:
+		- docker build -t vishwanath/docker-react -f Dockerfile.dev .
+	script:
+		- docker run vishwanath/docker-react npm run test -- --coverage	// Since running test suites will not exit, so we are adding the coverage flag at the end
+	deploy:
+		provider: elasticbeanstalk
+		...
+		...
+		on:
+		   branch: master
