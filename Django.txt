@@ -1,0 +1,76 @@
+Install Virtual Environment
+    >> pip3 install virtualenv
+
+Create new virtual environment
+    >> virtualenv env
+
+Start virtual environment
+    >> source env/Scripts/activate
+
+Install django
+    >> pip install django
+
+Creating a new project
+    >> django-admin.py startproject tango_with_django_project
+    Add . at the end, to create the project in the current working directory
+
+Running the dev server
+    - cd into the project folder and run
+    >> python manage.py runserver
+    - Specify different ports
+    >> python manage.py runserver <your_machines_ip_address>:5555
+
+Migrate python dependencies
+    >> python manage.py migrate
+
+Creating an App
+    >> python manage.py startapp todo
+
+Create migrations after creating a Model
+    >> python managr.py makemigrations
+    >> python managr.py migrate - Then run this inorder to apply migrations which are not been already applied
+
+Manage Admin
+    - Navigate to the link /admin, you will see a login screen.
+    - If you dont have the credentials yet, create one.
+    - For that, run
+    >> python manage.py createsuperuser
+
+Register models
+    - import the created model in admin.py
+    > from .models import Todo
+    > admin.site.register(Todo)
+
+Creating function for overwriting default data created for models
+    - By default, if we create any entry in any of the models, django represent it as Object or something.
+    - In order to overwrite this, we have to manually code for that in models.py
+    > def __str__(self):
+          return self.name
+
+Creating a View
+    - Create a function which returns some response whenever particular URL is being accessed.
+    Eg: <app>/views.py
+    from django.http import HttpResponse
+
+    def todo_lists(request):
+        return HttpResponse("Hello world!")
+    - Specify the route for the view in <project>/urls.py
+    Eg: 
+    from todo.views import todo_lists 
+    urlpatterns = [
+        path('', todo_lists),
+    ]
+
+HTML templates as a response
+    - We can return a HTML page as a response. For that we have to create some HTML files and respond it to any of the requests.
+    - In order to create an HTML file, there are two possible conventions where the particular HTML can be created.
+      1. In <project-folder>/templates/todo_lists.html
+      2. In <app-folder>/<app-name>/templates/todo_lists.html
+    - If we preferred to use the template files in global/project directory, we have to tell the directory to the django in <project>/settings.py.
+    Eg: TEMPLATES: [{DIRS: [os.path.join(BASE_DIR, 'templates')]}]
+    - To use the template from app directory, 
+    > return render(request, 'todo/todo_lists.html')
+    - To use the templates from project directory,
+    > return render(request, 'todo_lists2.html')
+
+Progress - 01.3.8

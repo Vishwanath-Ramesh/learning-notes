@@ -1,0 +1,175 @@
+History
+    - Created by Guido van Rossam in 1990
+    - Python 3 was released in 2008
+    - Specifically designed as an easy to use language
+    - Highly focused on redability of code
+
+Why Python
+    - Focuses on optimizing developer time rather than computer processing time
+
+Python  
+    - It uses dynamic typing
+    - We can reassign variables to different Datatypes 
+
+Datatypes
+    int
+        - Whole nubers
+        Eg: 10
+    float
+        Decimal numbers
+        Eg: 20.45
+    str
+        Ordered sequence of characters
+        Eg: "Hello"
+    list
+        Ordered sequence of objects
+        Eg: [1, 2, "hello"]
+    dict
+        Un Ordered key value pairs
+        Eg: {"name": "John"}
+    tup
+        Ordered immutable sequence of objects
+        Eg: (1, 2, "hello")   
+    set
+        Un Ordered collections of unique objects
+        Eg: {"a", "b"}
+    bool
+        Eg: true or false     
+
+Strings
+    Indexing & Slicing
+        my_string = 'abcdef'
+        my_string[0] // a
+        my_string[1:4] // bcd
+        my_string[0:4:2] // ac
+        my_string[::-1] // fedcba
+
+Inbuilt methods
+    format
+        Eg: print("This is a {}".format("string")) // This is a string
+            print("Name is {1}, {0}".format("John", "Doe")) // Name is Doe, John
+            print("Name is {lName}, {fName}".format(fName="John", lName="Doe")) // Name is Doe, John
+            result = 100 / 777
+            print("The result is {r:1.3f}".format(r=result)) // The result is 0.129
+    f-string
+        Eg: print(f"My name is {name}")
+
+    range
+        range(10) // 0 -> 9
+        range(3, 10) // 3 -> 9
+        range(0, 10, 2) // 2, 4, 6..
+
+    enumerate
+        for index,value in enumerate('Hello')
+            print(index) // 0...
+
+    zip
+        for value1,value2 in zip(['a', 'b', 'c'], [1,2,3])
+            print(value1)   // 'a'
+
+    min & max
+        min([1, 2, 3]) // 1
+        max([1, 2, 3]) // 3
+
+    input
+        result = input('What is ur name?') // Returns the typed value
+
+    type
+        type(10) // int
+
+    int
+        int("10") // 10
+
+    float
+        float(10) // 10.0
+
+Inbuilt keywords
+    in
+        'a' in 'abc' // true
+        1 in [1, 2, 3] // True
+        'key1' in {'key1' : 100 } // True
+        100 in {'key1' : 100 }.values() // True
+
+Conditional Statements
+    if, elif, else
+        Eg: 
+        loc = 'USA'
+        if loc == 'USA':
+            print('Welcome to USA')
+        elif loc == 'UK':
+            print('Welcome to UK')
+        else
+            print('Welcome to India')
+    for
+        Eg:
+        for item in [1, 2, 3, 4]:
+            print(item)
+        
+        for <(a, b) | a,b> in [(1, 2), (3, 4)]:
+            print(a)
+            print(b)
+
+        for item in {'k1': 1, 'k2': 2, 'k3': 3}:
+            print(item)  // k1
+
+        for key,value in {'k1': 1, 'k2': 2, 'k3': 3}.items():
+            print(key + ' ' + value)  // "k1 1"
+
+    while
+        while <condition>:
+            <statement>
+        else:
+            <statement>
+
+List comprehension / Flattened for
+    Eg:
+    word = 'Hello'
+    myList = []
+    for letter in word
+        myList.append(letter)
+    myList // ['H', 'e', 'l', 'l', 'o']
+                    ||
+    myList = [letter for letter in word]
+    myList // ['H', 'e', 'l', 'l', 'o']
+
+    myList = [num**2 for num in range(0, 11)]
+    myList // [0, 1, 4...]         
+
+    myList = [num for num in range(0, 11) if num % 2 == 0]
+    myList // [0, 2, 4, 6...]
+
+    myList = [x*y for x in [1, 2, 3] for y in [10, 100, 1000]]
+    myList // [10, 100, 1000, 20, 200, 2000 ...]
+
+Functions
+    Syntax
+    def name_of_function():
+    '''
+        function documentation
+    '''
+        print('Hello')
+
+    name_of_function() // Hello
+
+File system
+    myFile = open('myfile.txt)
+    myFile = open('myfile.txt, mode='r/w/a/r+/w+')
+    myFile.write('Sample Text')
+    myFile.write('Sample Text 2')
+    myFile.read() // Sample Text\nSample Text 2
+    myFile.readline() // ['Sample Text\n', 'Sample Text 2']
+
+import
+    from random import shuffle
+
+    random
+    1. shuffle
+    shuffle([1, 2, 3]) // random shuffled order
+
+    2. randint
+    Returns random integer for the specified min and max range
+    randint(0, 100) // 79
+
+
+References:
+https://github.com/Pierian-Data/Complete-Python-3-Bootcamp

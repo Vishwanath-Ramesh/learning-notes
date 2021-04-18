@@ -78,7 +78,8 @@ Operators
   typeof - Tells what type is.
 
 Use strict mode
-  - 'use strict mode'; at the top of the file.
+  - Eliminates some JavaScript silent errors by changing them to throw errors.
+  - include 'use strict'; in wherever scope it's needed.
 
 Disable ESLint
   - /* eslint-disable */ at the top of the file
@@ -179,15 +180,92 @@ Functional Programming
 Latest ES Version
 Features in Latest ES Version
 The Component Lifecycle
+    - There are 3 phases.
+      1. Mounting
+	 constructor
+	 render
+	 componentDidMount
+      2. Updating
+	 shouldComponentUpdate
+	 render
+	 componentDidUpdate
+      3. Unmounting
+	 componentWillUnmount
+      4. Error handling
+	 componentDidCatch
 redux vs context api
 ES5 vs ES6
+    - ES5
+    	- It's the 5th edition of Ecma script, introduced in 2009.
+    	- It supports only primitive data types like SNOB'N'S.
+    	- Variables can be created only by using 'var'
+	- It has lower performance
+	- function and return keywords are used to define a function.
+    - ES5
+    	- It's the 5th edition of Ecma script, introduced in 2015
+    	- It's support a new datatype called Symbol
+    	- Variables can be created by using 'let' and 'const'
+	- It has higher performance
+	- We can create a new function without function and return keyword using arrow function
+
+Symbol
+    - Symbols are often used to add unique property keys to an object
+    - A symbol is a primitive which cannot be recreated
+
 What is HTML Canvas
+    - It is used to draw graphics, on the fly, via JavaScript.
+
 How do I loop through or enumerate a JavaScript object?
+    1. for in - Iterates over entire property chain
+    2. Object.entries, keys, values - Iterates only for the object properties
+
+for..in vs for..of
+    - for..in
+	- Iterates over the enumerable properties of the object and returns list of 'keys'
+	- Can be used with objects
+	- Can be used with Arrays and string but not advisable
+    - for..of
+	- Iterates over the iterable collections of the object and returns list of 'values'
+	- Can not be used with objects
+	- Can be used with Arrays and string
+
 CSS Box Model
+    - The CSS box model is essentially a box that wraps around every HTML element. It consists of: margins, borders, padding, and the actual content.
+
 Flexbox vs. CSS Grid
+
 Promise states
+    1. Pending
+    2. fulfilled
+    3. Rejected
+    4. Settled
+
 Functional Components VS Class Components
+    - Functional components
+	- It is also called stateless component
+	- It's just a regular function without any boilerplate code
+	- It doesn't support any lifecycle methods but with hooks, it'll
+    - Class components
+	- It is also called statefull component
+	- It has boilerplate code like extends, constructor etc.,
+	- It has an inbuilt support for lifecycle methods
+
+Presentational vs container
+  Presentational
+  - Also called dumb, stateless
+  - concerned with how things look
+  - Its only responsibility is to present something to the DOM
+  - Its doesn’t have internal state to manage
+  - Receive data and callbacks exclusively via props
+
+  container
+  - Also called smart, stateful 
+  - concerned with how things work
+  - Provide the data and behavior to presentational or other container components
+  - Are often stateful
+
 HTML5 features
+    - header, footer, section, video, nav, figure, canvas
 
 Arrow Funtion Vs Regular Function
     Arrow function
@@ -203,6 +281,32 @@ Arrow Funtion Vs Regular Function
 	- Can able to access 'arguments'.
 	- Here, returns undefined if no return statement is provided
 	- 'this' can't be accessed inside class, so manual binding is required. Eg: func.bind(obj)
+
+Keys in React
+    - Keys help React identify which items have changed, are added, or are removed
+
+Refs
+    - Refs provide a way to access DOM nodes or React elements
+
+Render Props
+    - It's a technique for sharing code between React components using a prop whose value is a function.
+    - a render prop is a function prop that a component uses to know what to render
+
+HOC vs Render prop
+    - It is possible two HOC could be using the same prop meaning one would overwrite the other silently
+    - Boilerplate code like setting the displayName with the HOC function name e.g. (withHOC(Component)) to help with debugging
+    - Ensure all relevant props are passed through to the component
+    - It is easy to compose several HOCs together and then this creates a deeply nested tree making it difficult to debug
+
+Synthetic Event
+    - It's a cross-browser wrapper around the browser’s native event. It has the same interface as the browser’s native event.
+
+Event bubbling
+    - When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors.
+
+Code splitting
+    - If we have more 3rd party dependencies in our app, the output bundle will become large and make the app takes a long time to load.
+    - Code-Splitting is a feature supported by bundlers like Webpack, Rollup and Browserify, where it'll split the bundle into multiple chunks which can be dynamically loaded at runtime. 
 
 document.createDocumentFragment()
 	- Suppose we have huge list items which are appended to the DOM element dynamically using append, there may be some issue in performance wise.
@@ -225,3 +329,39 @@ remove
 	- Remove DOM node
 	Eg: div.remove()
 	
+bind
+  - It creates a new function that, when called, has its this keyword set to the provided value.
+  Eg : Refer code file
+
+call
+  - It calls a function with a given this value and arguments provided individually.
+  Eg : Refer code file
+
+apply
+  - It calls a function with a given this value, and arguments provided as an array
+  Eg : Refer code file
+
+Pure Functions
+	- For the given input, the function returns the same output always.
+	- It does not depend on any data outside/inside the function
+	- It doesn't have any side effects.
+
+Closures
+	- Data of the outside function can be accessible in the inside function eventhough the outer function has returned.
+
+Higher Order Functions(HOF)
+	- It takes a function as argument and returns another function.
+
+Currying
+	- It is a HoF which transforms function like func(a, b, c) into func(a)(b)(c).
+  - Creating a copy of a function but with some preset parameters
+
+Function Composition & Pipes
+
+Recursion
+
+Memoization
+
+Promises
+
+Async/Await

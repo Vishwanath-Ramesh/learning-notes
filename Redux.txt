@@ -1,15 +1,40 @@
 Redux
     - Redux is a predictable state container for JavaScript apps.
-    - Redux is a library for managing global application state in application
+    - Redux is a pattern & a library for managing and updating global application state in application. It serves as a centralized store for state that needs to be used across your entire application.
     - uses a "one-way data flow" app structure
     - The whole global state of your app is stored in an object tree inside a single store
     - The only way to change the state tree is to create an action, an object describing what happened, and dispatch it to the store
+
+When to use Redux
+    - If we have a large amount of application state that needs in many parts of the application
+
+Workflow
+    - It's a cycle with three different stages
+    1. state
+        - State is single source of truth that serves data to the application
+    2. View
+        - It is a UI representation based on current state.
+    3. Action   
+        - It is an event that triggers an update into the state.
+
+    Initial setup:
+        A Redux store is created using a root reducer function
+        The store calls the root reducer once, and saves the return value as its initial state
+        When the UI is first rendered, UI components access the current state of the Redux store, and use that data to decide what to render. They also subscribe to any future store updates so they can know if the state has changed.
+    Updates:
+        Something happens in the app, such as a user clicking a button
+        The app code dispatches an action to the Redux store, like dispatch({type: 'counter/increment'})
+        The store runs the reducer function again with the previous state and the current action, and saves the return value as the new state
+        The store notifies all parts of the UI that are subscribed that the store has been updated
+        Each UI component that needs data from the store checks to see if the parts of the state they need have changed.
+        Each component that sees its data has changed forces a re-render with the new data, so it can update what's shown on the screen
+
 Action
     - It's just a plain javascript object which describes what happened
 Reducers
-    - Reducers are functions that calculate a new state value based on previous state + an action
+    - Reducers are functions that calculate a new state value based on previous state + an action. 
+    - You can think of a reducer as an event listener which handles events based on the received action (event) type
 Store
     - A Redux store runs the root reducer whenever an action is dispatched
-
 Slice
      It is a collection of Redux reducer logic and actions for a single feature in your app, typically defined together in a single file

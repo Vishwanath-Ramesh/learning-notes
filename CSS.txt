@@ -100,3 +100,42 @@ Grid template areas
 
 Code
 https://github.com/abookapart/css-grid-layout-code/
+
+Establish grid on a contaienr
+    display: grid
+
+Specify how grid will look like
+    grid-template-rows
+    Eg: grid-template-rows: auto 10px auto; // Two rows with 10px gutter
+
+    grid-template-columns: <column-size> <column-gutter>
+    Eg: grid-template-columns: 100px 10px 100px 10px 100px; // Three columns with 10px gutter
+
+If no placement is made on child items, grid will automatically place them which simply fill each cell
+
+Line based placement
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  
+  Shorthand
+  grid-column: 1 / 2;  
+  grid-row: 1 / 2;
+
+  Even shorter
+  grid-area: <grid-row-start> / <grid-column-start> / <grid-row-end> / <grid-column-end>
+
+  Grid lines
+  Grid lines make up the grid and can be horizontal or vertical. 
+
+  Grid track
+  A grid track is the space between two grid lines.
+
+  Grid cell
+  The space between four grid lines
+
+  Grid area
+  A grid area is any area of the grid bound by four grid lines. It can contain a number of grid cells.
+
+  page no 13

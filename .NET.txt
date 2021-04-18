@@ -55,7 +55,7 @@ Overloading Vs Overriding
 				  Eg : void function(int value){};
 					   void function(string value){};
 	Overriding - Modifying the method in derived class which is also implemented in base class.
-	"virtual" - Gives ability to override or modify the implementation in derived class. 
+	"virtual" - Gives ability to override or modify the implementation in derived class. A virtual method has an implementation in the base class that can optionally be overridden
 	"override" - Modify the base class implementation with the derived class implementation.
 	"sealed" - If applied to a Class, prevents inherting it and if applied to a method it prevents from overriding it.
 	
@@ -182,12 +182,19 @@ class Program{
 	cookie["name"] = "MAx";
 	
 Delegates
+	It's a type that represents references to the methods with certain parameter lists and return type.
 	A reference to a function that call a or group of function.
+	It is used to pass methods as arguments to other methods.
 	Eg : Photoprocessor
 		IF we have an inbuilt class which processes photo like Brightness, Color etc., and we want to add new processing of the photo it's not possible.
 		Through delegate it's possible.
+
+Generics
+	Generic means the general form, not specific.
+	Generics allows to define generic type classes, methods, interfaces etc using the type parameter without any specific data type.
 		
 Lambda Expressions
+	It is used to create anonymous function
 	Eg : Func<int, int> square = number => number * number;
 
 Default Operator
@@ -207,6 +214,8 @@ Nullable Types
 Dependency Injection
 	It is one of the feature in Design pattern.
 	It decreases the development of tightly coupled software components and increase loosely coupled components.
+	The intent of Dependency Injection is to make code maintainable
+	Technically Dependency Injection reduces the hard-coded dependencies among your classes by injecting those dependencies at run time instead of design time
 
 Managed Code vs Un Managed Code
 	Managed Code
