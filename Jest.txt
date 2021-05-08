@@ -1,0 +1,95 @@
+Jest
+	- It is a JavaScript Testing Framework used for projects like Node, React, Vue, Angular etc.
+
+Installation
+	yarn add --D jest
+
+Initial Setup
+	- Include command scripts for "test" in package.json file.
+	  "test": "jest"
+	- Create a test suite folder inside the project root directory.
+	- Under the "test" suites folder, you can create as many test suites as per your needs.
+	- Each test suite should be named containing ".test" followed by extension.
+	  Eg: sample.test.js
+			or
+	- Create a folder named '__tests__' in 'src' folder and keep all the test case files under it.
+
+CLI Options
+	- Watch files for changes and rerun tests related to changed files. Similar to nodemon while development.
+	  "test": "jest --watch"
+	- If you want to re-run all tests when a file has changed
+	  "test": "jest --watchAll"
+
+Test
+	- Each test cases should be created by creating a function named "test" in the test suite.
+	- The test function can have two parameters. One for 'Test case name' and the other one is a function containing the 'Test case' itself.
+	  Eg: test('Sample Test', () => {})
+	- Test cases will be passed if there is no error thrown inside the callback function.
+	- Test cases will be failed if there is an error occurs inside the callback function.
+	  Eg: Pass Test Case
+		test('Sample Test', () => {
+		   const sum = add(1, 2)
+
+		   if (sum !== 3) throw new Error('Sample Test failed with value ' + sum)
+		})		
+	- Instead of manually checking the test case conditions, we can use built-in functions given by jest.
+	  Fail : expect(10).toBe(100)
+	  Pass : expect(10).toBe(10)
+
+Async Testing 
+	- Async functions can be tested in two ways.
+	  1. Using callback function provided by Jest.
+	  Eg: test('Sample Test', done => {
+   		setTimeout(() => {
+      		expect(10).toBe(10)
+      		done()
+   	      	}, 200)
+      	      })
+	  2. Using Async/Await.
+	  Eg: test('Sample Test', async () => {
+    		const result = await apiCall()
+    		expect(result).toBe(10)
+	      })
+
+Debugging while running tests
+	- Create a script for debug in package.json like 
+	"test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch"
+	--inspect-brk : Before running any of the code, node will add a breakpoint so that we can hookup the chrome debugger to debug in that node process(jest in this case).
+	./node_modules/jest/bin/jest.js : We can't pass the jest directly, node can't understand this. So we have to pass the root file instead.
+	--runInBand : Running in parallel won't work in this case so, it ensures that all the test suites run in the same node process.
+
+Configurations
+	1. If import is not supported in test case files, we can configure the .babelrc files by replacing with .babelrc.js
+	Code: 
+		const isTest = String(process.env.NODE_ENV) === 'test'	//Automatically sets by jest
+		
+		module.exports = {
+			presets: ["@babel/preset-env", { "modules": isTest ? 'commonjs' : false }]
+		}
+
+	2. Setting the test environment.
+	- Create a configuration file called 'jest.config.js' in root folder with the following code.
+	Code: 
+		module.exports = {
+  			testEnvironment: 'jest-environment-node', // Setting the test environment to node. i.e., window/DOM object is not accessible. To have that replace to 'jest-environment-jsdom'.
+		}
+
+	3. If you are importing the React component which in turn imports css files internally, jest throws Sytax error. For that, we need
+	create a mock css module and resolve to that in configuration file.
+	Code: 
+		module.exports = {
+  			'\\.css$': require.resolve('./test/style-mock.js'),
+		}
+
+	4. If you are testing a React component which internally imports some other 3rd party libraries, jest will throw error. So we 
+	can include those module directory in the those modules are present.
+	Code: 
+		module.exports = {
+			moduleDirectories: ['node_modules'],
+		}
+	5.coverageThreshold - Initially you have written a function and created the test cases for that. Also You have decided to set the threshold values so that it should
+	matches with the coverage report. After some time someone has modified that function. Now if the coverage report values doesn't match with the threshold values,
+	jest will throw an exception. With that can ensure that particular file is always matches with the threshold values.
+
+Revists: 
+	39, 79, 80, 81

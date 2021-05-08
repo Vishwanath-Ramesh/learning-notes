@@ -1,0 +1,18 @@
+OAuth
+     - Accessing API's
+
+OpenID
+    - Identifying Users
+
+Stages in accesing typical API
+    1. User - Resource owner
+    2. Device - User agent
+    3. Application - OAuth client
+    4. API - Resource server
+
+Application Types
+    1. Confidential - Application deployed with client secret
+    2. Public - Application gives the client secret when accessing the resource
+
+Front & Back Channel
+     - These are the 2 ways in which the data moves around the system

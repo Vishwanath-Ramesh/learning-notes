@@ -1,0 +1,188 @@
+--------------------------------------------------General References---------------------------------------------------------------
+Roadmaps
+  https://roadmap.sh/
+
+Learn Web development
+  https://www.internetingishard.com/
+
+--------------------------------------------------CSS---------------------------------------------------------------
+Frameworks & Libraries
+  https://material-ui.com/
+  https://www.muicss.com/docs/v1/react/checkbox
+  https://tailwindcss.com/
+  https://semantic-ui.com/
+  https://reach.tech/
+
+Articles
+  Layouting
+    https://css-tricks.com/a-course-about-css-layout-and-animations/
+
+  What, exactly, is the DOM?
+    https://bitsofco.de/what-exactly-is-the-dom/
+
+  Flexbox
+    Register for a new account in the below site and access the course for free
+    https://flexbox.io/ 
+    https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+    https://bocoup.com/blog/dive-into-flexbox
+    https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container
+
+  CSS Grid
+    Register for a new account in the below site and access the course for free
+    https://cssgrid.io/
+    https://css-tricks.com/snippets/css/complete-guide-grid/
+    https://abookapart.com/products/get-ready-for-css-grid-layout
+    http://cepegra-labs.be/webdesign/fed/marie/theorie/ouvrages/get-ready-for-css-grid-layout.pdf
+    https://gridbyexample.com/
+    https://thecssworkshop.com/
+    https://courses.thecssworkshop.com/
+    https://www.youtube.com/channel/UCJ0_R6U3ZClQDGpVJNjuPAQ?feature=emb_ch_name_ex
+    https://learncssgrid.com/
+    https://github.com/simoneas02/awesome-grid-layout#books
+    https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Realizing_common_layouts_using_CSS_Grid_Layout
+    https://css-tricks.com/boxes-fill-height-dont-squish/
+
+  Scrollbar customizations
+    https://codepen.io/devstreak/pen/dMYgeO
+    https://css-tricks.com/almanac/properties/s/scrollbar/
+    https://medium.com/spemer/customize-websites-scrollbar-with-css-270ca436d6c1
+    https://css-tricks.com/custom-scrollbars-in-webkit/
+    https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp
+
+  EM and REM
+    https://zellwk.com/blog/media-query-units/
+    https://stackoverflow.com/questions/22228568/switching-to-em-based-media-queries
+    https://webdesign.tutsplus.com/tutorials/comprehensive-guide-when-to-use-em-vs-rem--cms-23984
+
+  Code examples
+    Nested Menu
+    https://codepen.io/antoniputra/pen/BzyWmb
+
+--------------------------------------------------JavaScript---------------------------------------------------------------
+Courses
+  JavaScript - Understanding the Weird Parts
+    https://mega.nz/folder/fYF2TDjY#MqmgYz7c5tTXGGm2Rg1z5w
+  UI.DEV - Advanced JS
+    https://mega.nz/folder/ENVTkSzK#IFZEKoaZMODaxz-g1cpBPg
+  Modern JavaScript
+    https://mega.nz/folder/pUsQFYiA#VaPK8dKfhlxR-GMQCs9Log
+  Udemy - The Complete JavaScript Course 2020: Build Real Projects!
+    https://mega.nz/folder/g35HFR4T#ik82lUTbr7FfrYrg82W-UQ
+  Udemy - Microservices with Node JS and React
+    https://mega.nz/folder/DMJCUSSb#XzzKSEKyRYvduspqrwpDbw
+  Pure React: Learn to think in React
+    https://mega.nz/folder/fh52jCqQ#Mlh-MuX65WHXvmYwYGgAeg
+  Learn JavaScript Closures
+    https://mega.nz/folder/zpsSFaDB#wzS_1bPkNoNHh_iYDQJ5RA
+  React Router V5
+    https://mega.nz/folder/0ccTFKhZ#usvG7hdh4lA8rMZExtEy8g
+
+Articles
+  Event Loop
+    https://www.youtube.com/watch?v=8aGhZQkoFbQ
+  Closures
+    https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8
+    https://medium.com/jspoint/a-minimal-guide-to-ecmascript-decorators-55b70338215e
+  ES Features
+    https://medium.com/better-programming/javascript-es2020-features-with-simple-examples-d301dbef2c37
+    https://www.freecodecamp.org/news/javascript-new-features-es2020/
+    https://morioh.com/p/a2f99ca5fca5?fbclid=IwAR2WUiHUYTsR29HclMilcaM5bZSM71mwf2g3OXa3tpnQmXJTqxw3rkuypTo
+    https://dev.to/carlillo/es2020-features-in-simple-examples-1513
+
+--------------------------------------------------React---------------------------------------------------------------
+Courses
+  React
+    Epic React
+      https://linkdatanet-my.sharepoint.com/:f:/g/personal/ad2_konto365_cf/Etj0W7AIYPJLpJscd3GKwsABXOWmvFmPaMdGltCjs3MVQQ?e=tRkDUv
+  React Security
+    React Security Fundamentals - Register for a new account in the below site and access the course for free
+      https://reactsecurity.io/
+    Reactsecurity.io - Advanced React Security Patterns
+      https://mega.nz/folder/VF51SRDR#pCu6mZmgGIEDhiu7aV1bvw
+
+Icons
+  https://material-ui.com/components/material-icons/
+  https://iconify.design/icon-sets/ic/baseline-pin.html
+
+Articles
+  Useful articles for React
+    https://kentcdodds.com/blog/
+
+  How JavaScript works: inside the V8 engine
+    https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e
+
+  Error boundaries
+    https://www.digitalocean.com/community/tutorials/react-error-boundaries
+
+  React charts & variable radius charts
+    https://dev.to/giteden/top-5-react-chart-libraries-for-2020-1amb
+    https://recharts.org/en-US
+    https://www.npmjs.com/package/recharts
+    https://www.amcharts.com/demos/variable-radius-pie-chart/?theme=dataviz
+
+  Microfrontend
+    https://medium.com/better-programming/5-steps-to-turn-a-random-react-application-into-a-micro-frontend-946718c147e7
+    https://levelup.gitconnected.com/a-micro-frontend-solution-for-react-1914b19663b
+
+  Implementing Azure B2C in SPA
+    https://docs.microsoft.com/en-us/samples/azure-samples/active-directory-b2c-javascript-msal-singlepageapp/active-directory-b2c-javascript-msal-singlepageapp/
+    https://adrianhall.github.io/javascript/react/2020/03/06/msal-react-redux/
+    https://www.npmjs.com/package/@azure/msal-browser
+    https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-browser
+    https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-javascript-auth-code
+    https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/getting-started.md
+    https://docs.microsoft.com/en-gb/azure/active-directory/develop/tutorial-v2-javascript-spa
+    https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-react
+    https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-browser
+    https://github.com/AzureAD/microsoft-authentication-library-for-js
+    https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-single-page-app?tabs=app-reg-auth%2Cconfig-auth%2Creview-implicit
+    https://docs.microsoft.com/en-us/samples/azure-samples/active-directory-b2c-javascript-msal-singlepageapp/active-directory-b2c-javascript-msal-singlepageapp/
+
+  B2C Authentication
+    https://medium.com/@fiqriismail/how-to-secure-your-reactjs-frontend-with-azure-ad-b2c-8fd165f602e8
+    https://bilot.group/articles/authentication-with-azure-ad-using-msal-react-app/
+    https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-configuration
+    https://www.npmjs.com/package/msal
+    https://docs.microsoft.com/en-gb/azure/active-directory/develop/quickstart-v2-javascript
+    https://github.com/AzureAD/microsoft-authentication-library-for-js
+
+  Redux
+    https://redux.js.org/
+    https://daveceddia.com/react-redux-immutability-guide/
+
+  JSON to tree structure code examples
+    http://jsfiddle.net/arunpjohny/MkTA6/1/
+    https://stackoverflow.com/questions/15376251/hierarchical-json-from-flat-with-parent-id
+    https://www.programmersought.com/article/51241019301/
+    https://stackoverflow.com/questions/64517580/how-to-convert-parent-child-array-to-json-tree-structure-by-javascript
+    https://cloudstack.ninja/mohammad-momtaz/how-to-convert-parent-child-array-to-json-tree-structure-by-javascript/
+    https://gist.github.com/alonronin/2592a6a81db67804db1f
+
+  Get all childrens from parent - JSON
+    https://jsfiddle.net/6ydog1tj/2/
+    https://stackoverflow.com/questions/39976089/get-all-children-from-parent-child-json-data/39976162
+
+--------------------------------------------------Others---------------------------------------------------------------
+OAuth 2.0
+  https://send.cm/s/500/The_Nuts_and_Bolts_of_OAuth_2.0
+
+OData
+  https://docs.microsoft.com/en-us/archive/msdn-magazine/2014/december/node-js-building-web-apps-on-the-mean-stack-with-odata-in-microsoft-azure
+  https://codeburst.io/so-what-is-odata-anyway-673009e71930
+  https://github.com/larkintuckerllc/hello-odata
+
+CI/CD in Azure
+  https://medium.com/@iqan/ci-cd-for-reactjs-app-using-azure-devops-16b452558019
+
+Issue References
+  GET request does not send data
+  https://github.com/axios/axios/issues/787
+
+Icons for Markdown file
+  https://shields.io/category/size
+  https://gist.github.com/rxaviers/7360908
+
+PX to VW Converter
+  https://pxtovwconverter.ga/
+  https://synex.tech/tools/px-vw-converter.html
+  https://khaledkzy.github.io/pixel-vh-vw-converter/

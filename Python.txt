@@ -171,5 +171,94 @@ import
     randint(0, 100) // 79
 
 
+Creating modules
+    - Create a new python script file with some name. For Eg: myModule.py
+    myModule.py
+        def from_module():
+            print("I am from module")
+
+    - Importing the module in program
+    myProgram.py
+        from myModule import from_module
+
+        from_module() // I am from module
+
+Creating Package
+    - Create a folder named MyMainPackage. Inside that, create a python script file with name __init__.py and leave it empty.
+    - Create another python script file inside MyMainPackage folder. For Eg: 
+    myMainProgram.py
+        def from_mainpackage():
+            print("I am from main package")
+    - Inside that MyMainPackage, create another folder with name MySubPackage. Inside that create a python script file with name as __init__.py and leave it empty.
+    - Create another python script file inside MySubPackage folder. For Eg: 
+    mySubProgram.py
+        def from_subpackage():
+            print("I am from sub package")
+    - Importing the package in program
+    myProgram.py
+        from MyMainPackage import myMainProgram
+        from MyMainPackage.MySubPackage import mySubProgram
+
+        myMainProgram.from_mainpackage() // I am from main package
+        mySubProgram.from_subpackage() // I am from sub package
+
+Check whether the python script is executing directly
+    - if __name__ == "__main__":
+
+Exception Handling
+    Eg: 
+    try:
+        // some code
+    except TypeError:
+        // some code
+    except:
+        // All other error
+    else:
+        // In case of no error
+    finally:
+        // Always run
+
+Unit testing
+    Eg: 
+    cap.py
+        def cap_text(input):
+            return input.capitalize()
+
+    cap_test.py
+        import unittest
+        import cap
+
+        class TestCap(unittest.TestCase):
+            def test_one(self):
+                text = 'python'
+                result = cap.cap_text(text)
+                self.assertEqual(result, 'Python')
+        
+        if __name__ == '__main__':
+            unittest.main()
+
+Decorators
+    Eg:
+    def new_decorator(decoratee):
+        def wrapper():
+            // some extra code
+            decoratee()
+
+        return wrapper
+    
+    def func_needs_decoration():
+        print('I am decorated')
+
+    Usage:
+    after_decoration = new_decorator(func_needs_decoration)
+    after_decoration()
+
+    The above usage can also be written using decorators
+    @new_decorator
+    def func_needs_decoration():
+        print('I am decorated')
+
+    func_needs_decoration()
+
 References:
 https://github.com/Pierian-Data/Complete-Python-3-Bootcamp

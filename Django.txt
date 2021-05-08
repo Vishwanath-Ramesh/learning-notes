@@ -73,4 +73,108 @@ HTML templates as a response
     - To use the templates from project directory,
     > return render(request, 'todo_lists2.html')
 
-Progress - 01.3.8
+Create HTML base templates
+    - Create a base html file template in <app-folder>/templates as base.html
+    Eg: base.html
+        <body>
+        {% block content %} {% endblock content %}
+    - Reuse that template in other html pages.
+    Eg: {% extends "base.html" %} {% block content %} <h4>Create a Todo</h4> {% endblock content %}
+
+Models
+    1. Creating a foreign key field
+    Eg:
+      User
+        firstname = models.CharField(max_length=30)
+
+      Website
+        owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    2. Creating a primary key field
+    Eg:
+      User
+        firstname = models.CharField(primary_key=True)
+    3. Creating a field with verbose name
+    Eg:
+      User
+        firstname = models.CharField("this is person's first name", max_length=30)
+    4. Creating a many to many link field
+    Eg:
+      User
+        cars = models.ManyToManyField('Car', verbose_name="the user's cars")
+    5. Meta - Things that are not represented as fields
+    Eg: 
+      Website
+        owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+        class Meta:
+            ordering = ['owner']    
+            db_table = 'Website_custom_table_name'
+            verbose_name = 'The Website'
+            verbose_name_plural = 'The Websites'
+    6. Methods
+    Eg:
+      User
+        firstname = models.CharField(max_length=30)
+        lastname = models.CharField(max_length=30)
+
+        def get_fullname(self):
+            return f"my fullname is {self.firstname} {self.lastname}"
+
+      Accessing model methods
+      >> from user.models import User
+      >> u = User.objects.first()
+      >> u.get_fullname()
+    7. Property
+    Eg:
+      User
+        firstname = models.CharField(max_length=30)
+        lastname = models.CharField(max_length=30)
+
+        @property
+        def get_fullname(self):
+            return f"my fullname is {self.firstname} {self.lastname}"
+
+      Accessing model methods
+      >> from user.models import User
+      >> u = User.objects.first()
+      >> u.get_fullname
+    8. Overriding built-in methods
+    Eg:      
+      User
+        firstname = models.CharField(max_length=30)
+        lastname = models.CharField(max_length=30)
+
+        def __str__(self):
+            return f"my fullname is {self.firstname} {self.lastname}"
+    9. Overriding save method
+      User
+        firstname = models.CharField(max_length=30)
+        lastname = models.CharField(max_length=30)
+
+        def save(self, *args, **kwargs):
+            // do something
+            super().save(*args, **kwargs) // important
+
+QuerySets
+    1. Create / Update
+    Eg:
+    >> from posts.models import Blog
+    b = Blog(name='Some name', tagline='some tag line') // other way(no need to call save after): Blog.objects.create(name='Some name', tagline='some tag line')
+    b.save()
+    Blog.objects.all()  // returns all the values as QuerySets
+    b.name = 'name updated' // update QuerySets
+    b.save()
+    2. Filtering
+    Eg:
+      User
+        firstname = models.CharField(max_length=30)
+        lastname = models.CharField(max_length=30)
+        dob = models.DateField()
+        age = models.IntegerField()    
+
+        User.objects.filter(name='some name')   // filter by string field
+        User.objects.filter(name__startswith='some')   // filter by string field
+        User.objects.filter(dob__year=1995, dob__month=12) // filter by year in a date field
+        User.objects.filter(age__gte=18)    // filter by numeric field
+
+Progress - 03.2.12(3)

@@ -1,0 +1,64 @@
+Install
+	- npm install socket.io
+
+
+Usage
+	const io = require('socket.io')(server, {pingTimeOut: 60000})
+
+Server
+	io.on("connection", (socket) => {
+		socket.on("setup", (clientData) => {
+			socket.join(userId)
+			socker.emit("connected");
+		})
+	});
+
+
+Client
+var socket = io('<server-domain>')
+var connected = false
+socket.emit("setup", data)
+
+socket.on("connected", () => {
+	connected = true
+})
+
+Joining a room
+Server
+	socket.on('join room', room => socket.join(room));
+
+Client
+	clientSocket.emit('join room', roomId);
+
+
+
+
+
+
+
+Typing Notification
+Client
+$().keydown((event) => {
+	updateTyping();
+	if(event.which === 13){
+		
+	}
+})
+
+updateTyping(){
+	socket.emit("typing", roomId)
+}
+
+socket.on("typing", console.log("User is typing");
+
+Server
+socket.on("typing", room => socket.in(room).emit("typing"))	// Everyone in the room gets notified
+
+Stop typing notification
+Client
+	socket.emit("stop typing", roomId); => to server
+
+	socket.on("stop typing", console.log("User has stopped typing"))
+
+Server
+	socket.on("stop typing", room => socket.in(room).emit("stop typing"))	// Everyone in the room gets notified of the user has stopped typing

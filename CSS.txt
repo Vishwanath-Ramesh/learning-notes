@@ -12,130 +12,92 @@ display
 		Entirely removes the element visually from the page, while the element is still in the DOM
 		you can’t tab to it or its children, it is ignored by screen readers
 
-Grid
-Enable grid
-	display: grid;
+width on div
+	- Setting the width of a block-level element will prevent it from stretching out to the edges of its container to the left and right.
 
-Enable rows
-	grid-template-rows
-	Eg: grid-template-rows: auto 10px auto;
+Center the div
+	- You can set the left and right margins to auto to horizontally center that element within its container. The element will take up the width you specify, then the remaining space will be split evenly between the two margins.
+	- When the browser window is narrower than the width of your element, then the browser resolves this by creating a horizontal scrollbar on the page.
 
-Enable columns
-	grid-template-columns 
-	Eg: grid-template-columns: 100px 10px 100px 10px 100px;
+max-width in div
+	- Using max-width instead of width in this situation will improve the browser's handling of small windows.
 
-Positioning rows
-	Eg:
-	grid-row-start: 1;
-	grid-row-end: 2;
+the box model
+	- When you set the width of an element, the element can actually appear bigger than what you set: the element's border and padding will stretch out the element beyond the specified width
+	- To overcome this, we do
+	-webkit-box-sizing: border-box;
+     	-moz-box-sizing: border-box;
+        box-sizing: border-box;
 
-	Shorthand
-	grid-row: 1 / 2	or 1 / span 1
+Position
+	Static
+	- It is the default value. An element with position: static; is not positioned in any special way.
+	Relative
+	- It behaves the same as static unless you add some extra properties.
+	Fixed
+	- A fixed element is positioned relative to the viewport, which means it always stays in the same place even if the page is scrolled.
+	Absolute
+	- It behaves like fixed except relative to the nearest positioned ancestor instead of relative to the viewport. 
+	If an absolutely-positioned element has no positioned ancestors, it uses the document body, and still moves along with page scrolling.
 
-Positioning columns
-	Eg:
-	grid-column-start: 1;
-	grid-column-end: 2;
+Clear
+	http://learnlayout.com/clear.html
 
-	shorthand
-	grid-column: 1 / 2
+Column
+	Multi column text
+	.three-column {
+  padding: 1em;
+  -moz-column-count: 3;
+  -moz-column-gap: 1em;
+  -webkit-column-count: 3;
+  -webkit-column-gap: 1em;
+  column-count: 3;
+  column-gap: 1em;
+}
 
-Shorthand for positioning rows and columns
-	grid-area: grid-row-start / grid-column-start / grid-row-end / grid-column-end
-	Eg: grid-area: 1 / 1 / 2 / 2
+CSS Transforms
+Scale
+	Increase or Decrease size through X or Y
+Skew
+	Tilts the element to the left or right
+	+X => Left tilt
+	-X => Right tilt
+	+Y => Down tilt
+	-Y => Up tilt
+Rotate
+	Rotates the element either clockwise or anti clockwise
+Translate
+	Moves the element sideways or up or down
+	+X => Moves right
+	-X => Moves left
+	+Y => Moves downwards
+	-Y => Moves upwards
 
-Terminologies
-	Grid lines
-		Grid lines make up the grid and can be horizontal or vertical.
-		They can be referred to by number, but they can also be named. 
-	Grid track
-		A grid track is the space between two grid lines. It can be either horizontal or vertical. 
+Transform
+	perspective
+		- The perspective property defines how far the object is away from the user. So, a lower value will result in a more intensive 3D effect than a higher value.
+		- When defining the perspective property for an element, it is the CHILD elements that get the perspective view, NOT the element itself.
 	
-	Grid cell
-		The space between four grid lines
+	translate3d
+		- repositions an element in 3D space
+		- values in (X, Y, Z)
 
-	Grid area
-		A grid area is any area of the grid bound by four grid lines. 
-		It can contain a number of grid cells.
+Keyframe animations
+	animation(shorthand)
+	animation-name - name given to the keyframe
+	animation-duration - time of animation
+	animation-timing-function - same like transition. CB/easeout etc
+	animation-delay - animation plays after this delay
+	animation-direction - movement direction
+	animation-iteration-count - no of animation going to play
+	animation-fill-mode - direction in which the 100% completed. forward backward etc
+	animation-play-state
 
-Named grid lines
-	Eg:
-	.wrapper {
-  		display: grid;
-  		grid-template-columns: [col1-start] 100px [col1-end] 10px [col2-start] 100px [col2-end] 10px [col3-start] 100px [col3-end];
-  		grid-template-rows: [row1-start] auto [row1-end] 10px [row2-start] auto [row2-end];
+	@keyframes bounce{
+		0%{
+		   transform	
+		}
+		100%{
+		   transform	
+		}
 	}
-
-Grid template areas
-	Eg:
-.header {
-  grid-area: header;
-  background: grey;
-}
-
-.sidebar {
-  grid-area: sidebar;
-  background: grey;
-}
-
-.content {
-  grid-area: content;
-  background: grey;
-}
-
-.footer {
-  grid-area: footer;
-  background: grey;
-}
-
-.wrapper {
-  display: grid;
-  grid-template-columns: 200px 10px auto;
-  grid-template-rows: auto;
-  grid-template-areas:
-    "header header header"	// Repeating the name of an area causes the content to span those cells
-    "sidebar . content"		// one or more sequential period characters means that the cell remains empty
-    "footer footer footer";
-}
-
-Code
-https://github.com/abookapart/css-grid-layout-code/
-
-Establish grid on a contaienr
-    display: grid
-
-Specify how grid will look like
-    grid-template-rows
-    Eg: grid-template-rows: auto 10px auto; // Two rows with 10px gutter
-
-    grid-template-columns: <column-size> <column-gutter>
-    Eg: grid-template-columns: 100px 10px 100px 10px 100px; // Three columns with 10px gutter
-
-If no placement is made on child items, grid will automatically place them which simply fill each cell
-
-Line based placement
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  
-  Shorthand
-  grid-column: 1 / 2;  
-  grid-row: 1 / 2;
-
-  Even shorter
-  grid-area: <grid-row-start> / <grid-column-start> / <grid-row-end> / <grid-column-end>
-
-  Grid lines
-  Grid lines make up the grid and can be horizontal or vertical. 
-
-  Grid track
-  A grid track is the space between two grid lines.
-
-  Grid cell
-  The space between four grid lines
-
-  Grid area
-  A grid area is any area of the grid bound by four grid lines. It can contain a number of grid cells.
-
-  page no 13

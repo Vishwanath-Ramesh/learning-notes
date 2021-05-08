@@ -18,6 +18,21 @@ Fragment
 SPA
 	Contains only one HTML page which is retrieved from the server once we make the request to the server.
 
+The Component Lifecycle
+    - There are 3 phases.
+      1. Mounting
+	 constructor
+	 render
+	 componentDidMount
+      2. Updating
+	 shouldComponentUpdate
+	 render
+	 componentDidUpdate
+      3. Unmounting
+	 componentWillUnmount
+      4. Error handling
+	 componentDidCatch
+
 Create React Project
 	1.Install create-react-app using npm globally.
 		npm install -g create-react-app or npm init react-app myapp
@@ -66,6 +81,39 @@ Hooks
 	4.useState is unlike class based component state where it replaces the other states.
 	const newState = setPersonState({person : [name : "Max", age: 25]});
 	newState only has 'Person' object and 'otherState' gets overwritten/replaced.
+
+Keys in React
+    - Keys help React identify which items have changed, are added, or are removed
+
+Refs
+    - Refs provide a way to access DOM nodes or React elements
+
+Render Props
+    - It's a technique for sharing code between React components using a prop whose value is a function.
+    - a render prop is a function prop that a component uses to know what to render
+
+HOC vs Render prop
+    - It is possible two HOC could be using the same prop meaning one would overwrite the other silently
+    - Boilerplate code like setting the displayName with the HOC function name e.g. (withHOC(Component)) to help with debugging
+    - Ensure all relevant props are passed through to the component
+    - It is easy to compose several HOCs together and then this creates a deeply nested tree making it difficult to debug
+
+Synthetic Event
+    - It's a cross-browser wrapper around the browser’s native event. It has the same interface as the browser’s native event.
+
+Code splitting
+    - If we have more 3rd party dependencies in our app, the output bundle will become large and make the app takes a long time to load.
+    - Code-Splitting is a feature supported by bundlers like Webpack, Rollup and Browserify, where it'll split the bundle into multiple chunks which can be dynamically loaded at runtime. 
+
+Pure Functions
+	- For the given input, the function returns the same output always.
+	- It does not depend on any data outside/inside the function
+	- It doesn't have any side effects.
+
+const ref = useRef() - ref.current can be mutable. Once it's, it wont rerender the component.
+getDerivedStateFromError - This lifecycle is invoked after an error has been thrown by a descendant component. It is called during the “render” phase, so side-effects are not permitted.
+componentDidCatch - This lifecycle is invoked after an error has been thrown by a descendant component.It is called during the “commit” phase, so side-effects are permitted.
+useReducer - when we have complex state logic that involves multiple sub-values or when the next state depends on the previous one
 
 Radium
 	1.An NPM package which helps to use inline styles with Psuedo selectors and media queries.

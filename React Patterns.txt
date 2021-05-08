@@ -1,0 +1,14 @@
+1. Compound Components
+Compound components is a pattern in which components are used together such that they share an implicit state that let’s them communicate with each other in the background.
+Link : https://kentcdodds.com/blog/compound-components-with-react-hooks
+
+2. Render prop
+The term “render prop” refers to a technique for sharing code between React components using a prop whose value is a function. More concretely, a render prop is a function 
+prop that a component uses to know what to render. Also, any prop that is a function that a component uses to know what to render is technically a “render prop”.
+Link : https://reactjs.org/docs/render-props.html
+https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce
+
+3. State reducer
+It provides control over the state of the component.
+Eg: Suppose we have a component called 'Toggle' with the state variable for controlling the 'ON/OFF' value. If we are using this component in another component, we can have
+control over the state variable by using the state reducer function implemented in the consumer component and passing as a prop to the Toggle component.

@@ -1,0 +1,196 @@
+display: grid;
+	- Telling the div as grid will make all the childrens inside that div as grid items.
+
+grid-template-columns: 100px 100px 100px
+	- Make three column grid with all the items in those columns have 100px in width.
+
+grid-template-columns: repeat(5, 100px)
+	- Make 5 columns having 100px each.
+
+grid-template-columns: auto 1fr
+	- Make the 1st column as per the content and the 2nd one to the remaining space.
+
+grid-template-columns: repeat(auto-fill, 100px)
+	- Make all the items 100px width and it automatically fill the entire horizontal width responsive/available space and the explicit track ends at the end.
+
+grid-template-columns: repeat(auto-fit, 100px)
+	- same as auto-fill except the explicit marker ends where the grid items ends.
+
+grid-template-columns: repeat(auto-fill, minmax(100px, 1fr))
+	- If the content inside the grid item is larger, then the content will spill outside of the grid item.
+	- For that we can use 'minmax' with minimum allowed size and maximum allowed size allowed as seperate arguments.
+
+grid-template-columns: repeat(auto-fit, minmax(100px, 1fr))
+	- Same as above, expect the grid items stretches to the row end.
+
+grid-template-columns: fit-content(100px) 100px 100px 100px
+	- Make 4 column grid with st column having 100px wide and remaining as specified.
+
+grid-template-columns: repeat(auto-fill, 100px)
+grid-column-end: -1
+	- Make the grid item positioned at the end while the remaining are at the beginning.
+
+grid-template-rows: 100px 100px 100px
+	- Make three row grid with all the items in those rows have 100px in height.
+
+grid-auto-rows: 500px;
+	- Make implicitly/browser created rows 500px height.
+
+grid-gap: 20px
+	- Provide aa gap between each items 20px both side as well ass below.
+
+grid-auto-flow: column/row;
+	- If the items in the grid is greater than the defined grid column sizing, the we can make the remaining items(implicit items) will show as row or column.
+
+grid-column-start: 2
+grid-column-end: 5
+	- Makes the item span from 2nd track number to the 5th track number
+	- Shorthand for the same is grid-column: 2 / 5 or grid-column: 2 / span 3
+
+grid-column: 1 / -1
+	- Makes the grid item span from 1 to till the end.
+
+grid-column/row: span 2;
+	- Make the grid item to span to two grid item size.
+	- Which is similar to grid-column-start: 2 and grid-column-end: auto
+
+grid-template-columns: 100px 100px
+grid-template-rows: 100px 100px
+grid-column: 1 / -1
+grid-row: 1 / -1
+	- Makes the grid item to take up the full grid.
+
+grid-area: content
+grid-template-areas: "sidebar1 content sidebar2" "sidebar1 content sidebar2" "footer content ."
+	- Makes the grid items having some area names.
+
+grid-column: container-start / container-end
+	- We can get the start position by using grid template area.
+
+
+The below reference is noted down when reading this book("https://abookapart.com/products/get-ready-for-css-grid-layout"  )
+Grid
+Enable grid
+	display: grid;
+
+Enable rows
+	grid-template-rows
+	Eg: grid-template-rows: auto 10px auto;
+
+Enable columns
+	grid-template-columns 
+	Eg: grid-template-columns: 100px 10px 100px 10px 100px;
+
+Positioning rows
+	Eg:
+	grid-row-start: 1;
+	grid-row-end: 2;
+
+	Shorthand
+	grid-row: 1 / 2	or 1 / span 1
+
+Positioning columns
+	Eg:
+	grid-column-start: 1;
+	grid-column-end: 2;
+
+	shorthand
+	grid-column: 1 / 2
+
+Shorthand for positioning rows and columns
+	grid-area: grid-row-start / grid-column-start / grid-row-end / grid-column-end
+	Eg: grid-area: 1 / 1 / 2 / 2
+
+Terminologies
+	Grid lines
+		Grid lines make up the grid and can be horizontal or vertical.
+		They can be referred to by number, but they can also be named. 
+	Grid track
+		A grid track is the space between two grid lines. It can be either horizontal or vertical. 
+	
+	Grid cell
+		The space between four grid lines
+
+	Grid area
+		A grid area is any area of the grid bound by four grid lines. 
+		It can contain a number of grid cells.
+
+Named grid lines
+	Eg:
+	.wrapper {
+  		display: grid;
+  		grid-template-columns: [col1-start] 100px [col1-end] 10px [col2-start] 100px [col2-end] 10px [col3-start] 100px [col3-end];
+  		grid-template-rows: [row1-start] auto [row1-end] 10px [row2-start] auto [row2-end];
+	}
+
+Grid template areas
+	Eg:
+.header {
+  grid-area: header;
+  background: grey;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: grey;
+}
+
+.content {
+  grid-area: content;
+  background: grey;
+}
+
+.footer {
+  grid-area: footer;
+  background: grey;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 200px 10px auto;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header header header"	// Repeating the name of an area causes the content to span those cells
+    "sidebar . content"		// one or more sequential period characters means that the cell remains empty
+    "footer footer footer";
+}
+
+Code
+https://github.com/abookapart/css-grid-layout-code/
+
+Establish grid on a contaienr
+    display: grid
+
+Specify how grid will look like
+    grid-template-rows
+    Eg: grid-template-rows: auto 10px auto; // Two rows with 10px gutter
+
+    grid-template-columns: <column-size> <column-gutter>
+    Eg: grid-template-columns: 100px 10px 100px 10px 100px; // Three columns with 10px gutter
+
+If no placement is made on child items, grid will automatically place them which simply fill each cell
+
+Line based placement
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  
+  Shorthand
+  grid-column: 1 / 2;  
+  grid-row: 1 / 2;
+
+  Even shorter
+  grid-area: <grid-row-start> / <grid-column-start> / <grid-row-end> / <grid-column-end>
+
+  Grid lines
+  Grid lines make up the grid and can be horizontal or vertical. 
+
+  Grid track
+  A grid track is the space between two grid lines.
+
+  Grid cell
+  The space between four grid lines
+
+  Grid area
+  A grid area is any area of the grid bound by four grid lines. It can contain a number of grid cells.

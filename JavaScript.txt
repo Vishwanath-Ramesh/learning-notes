@@ -60,7 +60,7 @@ Variables
   3. const
     - Block scoped
 
-N.1
+How JavaScript works
     - Initially always there will be a Global execution context.
     - Setup memory space for variables and Functions - "Hoisting".
     - JavaScript will create an Execution Context before executing any code.
@@ -69,10 +69,14 @@ N.1
       are Initially set to 'undefined' and for Functions, they are created as it is.
     - In Exection phase, JavaScript begins to execute the code with the created memory space.
 
-N.3
+Coersion
   -'==' are coersive whereas '===' aren't.
-    Coersive - Automatically converts the operands based on the other operand. 
-    Eg : false == 0 -> false will be converted to '0'
+    Coersive - Automatically converts the operands based on the other operand. In other words, converting a value from one type to another
+    Eg : 
+    1 + '2' => '12'   
+    false < 1 => true    
+    false == 0 => true
+    false == 0 => false will be converted to '0'
 
 Operators
   typeof - Tells what type is.
@@ -116,10 +120,6 @@ Imperative Vs Declarative programming
 	- Explicitly showing how everything is achieved(step by step process).
   Declarative
 	- It only focus on what something is done rather how it's done.
-  
-Coersion
-  - Converting a value from one type to another
-  Eg : 1 + '2' => '12'   false < 1 => true    false == 0 => true
 
 Functions
   - Functions are 1st class citizens in JavaScript
@@ -128,6 +128,7 @@ Functions
 Functional Programming
   Higher order Functions
     A functions which takes another function as an argument or returns a function is said to be a HOF.
+
   Function Composition
     Nested function arguments call in a function. 
     Eg : wrapInDiv(toLowerCase(trim(input)));
@@ -145,6 +146,9 @@ Functional Programming
   
   Pure Functions
     A function returns same value every time when we pass a particular value all the time.
+    - For the given input, the function returns the same output always.
+    - It does not depend on any data outside/inside the function
+    - It doesn't have any side effects.
 
   Inheritance
     One object gets access to the properties and methods of another object
@@ -177,36 +181,19 @@ Functional Programming
       updateBook.isPublished = true;
     })
 
-Latest ES Version
-Features in Latest ES Version
-The Component Lifecycle
-    - There are 3 phases.
-      1. Mounting
-	 constructor
-	 render
-	 componentDidMount
-      2. Updating
-	 shouldComponentUpdate
-	 render
-	 componentDidUpdate
-      3. Unmounting
-	 componentWillUnmount
-      4. Error handling
-	 componentDidCatch
-redux vs context api
 ES5 vs ES6
-    - ES5
+    ES5
     	- It's the 5th edition of Ecma script, introduced in 2009.
     	- It supports only primitive data types like SNOB'N'S.
     	- Variables can be created only by using 'var'
-	- It has lower performance
-	- function and return keywords are used to define a function.
-    - ES5
-    	- It's the 5th edition of Ecma script, introduced in 2015
+      - It has lower performance
+      - function and return keywords are used to define a function.
+    ES6
+    	- It's the 6th edition of Ecma script, introduced in 2015
     	- It's support a new datatype called Symbol
     	- Variables can be created by using 'let' and 'const'
-	- It has higher performance
-	- We can create a new function without function and return keyword using arrow function
+      - It has higher performance
+      - We can create a new function without function and return keyword using arrow function
 
 Symbol
     - Symbols are often used to add unique property keys to an object
@@ -241,14 +228,14 @@ Promise states
     4. Settled
 
 Functional Components VS Class Components
-    - Functional components
-	- It is also called stateless component
-	- It's just a regular function without any boilerplate code
-	- It doesn't support any lifecycle methods but with hooks, it'll
-    - Class components
-	- It is also called statefull component
-	- It has boilerplate code like extends, constructor etc.,
-	- It has an inbuilt support for lifecycle methods
+  Functional components
+    - It is also called stateless component
+    - It's just a regular function without any boilerplate code
+    - It doesn't support any lifecycle methods but with hooks, it'll
+  Class components
+    - It is also called statefull component
+    - It has boilerplate code like extends, constructor etc.,
+    - It has an inbuilt support for lifecycle methods
 
 Presentational vs container
   Presentational
@@ -258,7 +245,7 @@ Presentational vs container
   - Its doesn’t have internal state to manage
   - Receive data and callbacks exclusively via props
 
-  container
+  Container
   - Also called smart, stateful 
   - concerned with how things work
   - Provide the data and behavior to presentational or other container components
@@ -268,66 +255,22 @@ HTML5 features
     - header, footer, section, video, nav, figure, canvas
 
 Arrow Funtion Vs Regular Function
-    Arrow function
-        - It doesn’t define its own execution context, so the value of this is always equals to the outer function's this value
-        - It can't be used as a constructor
-	- Same like 'this', using 'arguments' results the outside function arguments, not able to access the 'arguments' of it's immediate parameters, but can be used rest operator parameter instead.
-	- Explicitly returns if only one statement is present inside the function.
-	- Inside a class, 'this' can be referenced in any arrow functions
+  Arrow function
+  - It doesn’t define its own execution context, so the value of this is always equals to the outer function's this value
+  - It can't be used as a constructor
+  - Same like 'this', using 'arguments' results the outside function arguments, not able to access the 'arguments' of it's immediate parameters, but can be used rest operator parameter instead.
+  - Explicitly returns if only one statement is present inside the function.
+  - Inside a class, 'this' can be referenced in any arrow functions
 
-    Regular function
-        - the value of this depends on how the function is invoked
-        - Can be used as a constructor
-	- Can able to access 'arguments'.
-	- Here, returns undefined if no return statement is provided
-	- 'this' can't be accessed inside class, so manual binding is required. Eg: func.bind(obj)
-
-Keys in React
-    - Keys help React identify which items have changed, are added, or are removed
-
-Refs
-    - Refs provide a way to access DOM nodes or React elements
-
-Render Props
-    - It's a technique for sharing code between React components using a prop whose value is a function.
-    - a render prop is a function prop that a component uses to know what to render
-
-HOC vs Render prop
-    - It is possible two HOC could be using the same prop meaning one would overwrite the other silently
-    - Boilerplate code like setting the displayName with the HOC function name e.g. (withHOC(Component)) to help with debugging
-    - Ensure all relevant props are passed through to the component
-    - It is easy to compose several HOCs together and then this creates a deeply nested tree making it difficult to debug
-
-Synthetic Event
-    - It's a cross-browser wrapper around the browser’s native event. It has the same interface as the browser’s native event.
+  Regular function
+  - the value of this depends on how the function is invoked
+  - Can be used as a constructor
+  - Can able to access 'arguments'.
+  - Here, returns undefined if no return statement is provided
+  - 'this' can't be accessed inside class, so manual binding is required. Eg: func.bind(obj)
 
 Event bubbling
     - When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors.
-
-Code splitting
-    - If we have more 3rd party dependencies in our app, the output bundle will become large and make the app takes a long time to load.
-    - Code-Splitting is a feature supported by bundlers like Webpack, Rollup and Browserify, where it'll split the bundle into multiple chunks which can be dynamically loaded at runtime. 
-
-document.createDocumentFragment()
-	- Suppose we have huge list items which are appended to the DOM element dynamically using append, there may be some issue in performance wise.
-	  So instead, we can use DocumentFragment, which only append to the DOM only after DOM has dynamically created completely.
-
-document.querySelector('p').insertAdjacentHTML('beforebegin', '<li>test</li>')
-	- For performance reasons, using template string with innerHTML or appending to the element dynamically cause issues.
-	- So, we can use insertAdjacentHTML for that.
-
-replaceWith
-	- Replace one element with the other
-	Eg: div.replaceWith(newDiv)
-
-cloneNode
-	- Creates a copy of DOM node.
-	- div.cloneNode(false) or div.cloneNode() clones only the top element.
-	- div.cloneNode(true) clones entire tree.
-
-remove
-	- Remove DOM node
-	Eg: div.remove()
 	
 bind
   - It creates a new function that, when called, has its this keyword set to the provided value.
@@ -340,11 +283,6 @@ call
 apply
   - It calls a function with a given this value, and arguments provided as an array
   Eg : Refer code file
-
-Pure Functions
-	- For the given input, the function returns the same output always.
-	- It does not depend on any data outside/inside the function
-	- It doesn't have any side effects.
 
 Closures
 	- Data of the outside function can be accessible in the inside function eventhough the outer function has returned.
@@ -365,3 +303,36 @@ Memoization
 Promises
 
 Async/Await
+
+React.lazy(lazy loading)
+	- Loads the component only when they are actually needed.
+
+Eager loading
+	- If we know that the particular component should be needed when the page loads, we can make that component to load priorly based on certain events.
+	  Eg: <checkbox onHover={loadComponent} />
+	  loadcomponent = () => import('../Component');
+
+Webpack magic comments 
+	- Similar to eager loading, instead of triggering the imports by certain events, we can tell webpack to load components as soon as the browser has no work to do(not busy) by specifying the magic comments in the import statement.
+	  Eg : const Component = React.lazy(() => import(/* webpackPrefetch: true */ '../Component');
+    
+document.createDocumentFragment()
+	- Suppose we have huge list items which are appended to the DOM element dynamically using append, there may be some issue in performance wise.
+	  So instead, we can use DocumentFragment, which only append to the DOM only after DOM has dynamically created completely.
+
+document.querySelector('p').insertAdjacentHTML('beforebegin', '<li>test</li>')
+	- For performance reasons, using template string with innerHTML or appending to the element dynamically cause issues.
+	- So, we can use insertAdjacentHTML for that.
+
+replaceWith
+	- Replace one element with the other
+	Eg: div.replaceWith(newDiv)
+
+cloneNode
+	- Creates a copy of DOM node.
+	- div.cloneNode(false) or div.cloneNode() clones only the top element.
+	- div.cloneNode(true) clones entire tree.
+
+remove
+	- Remove DOM node
+	Eg: div.remove()
