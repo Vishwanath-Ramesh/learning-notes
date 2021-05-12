@@ -195,6 +195,21 @@ ES5 vs ES6
       - It has higher performance
       - We can create a new function without function and return keyword using arrow function
 
+ES2016 or ES7 features
+  1. Array.prototype.includes
+  2. Exponentiation Operator (x ** y)
+
+ES2017 or ES8 features
+  1. Object.values/Object.entries
+  2. String Padding
+     Eg: 
+     'abc'.padStart(5) // "  abc"
+     'abc'.padStart(10, "foo") // "foofoofabc"
+     'abc'.padEnd(5) // "abc  "
+     'abc'.padEnd(10, "foo") // "abcfoofoof"
+  3. Object.getOwnPropertyDescriptors
+    - returns all own property descriptors of a given object
+
 Symbol
     - Symbols are often used to add unique property keys to an object
     - A symbol is a primitive which cannot be recreated
