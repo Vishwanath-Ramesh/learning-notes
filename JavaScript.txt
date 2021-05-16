@@ -155,6 +155,7 @@ Functional Programming
 
   Prototypes 
     Prototypes are the mechanism by which JavaScript objects inherit features from one another.
+    It's a property that every Funtion in JavaScript has and it allows to share methods across all instances of a function
 
   Reflection
     An object can look at itself, listing and changing its properties and methods.
@@ -209,6 +210,26 @@ ES2017 or ES8 features
      'abc'.padEnd(10, "foo") // "abcfoofoof"
   3. Object.getOwnPropertyDescriptors
     - returns all own property descriptors of a given object
+  4. Async Functions
+  5. Atomics
+
+ES2018 or ES9 features
+
+Modules
+  - Before modules support in browsers, we have to link every files in HTML file. Doing so, all the objects present in those files get exposed to the global scope.
+  - To solve this, we can wrap all the code inside a wrapper function so that, all the objects were not exposed to the global scope. However, the code is not exposed but these wrapper function is still exposed to global scope which is still an issue.
+  - We have a patter in JavaScript called IIFE(Immediately Invoked Function Expression), this prevents from polluting the global scope also the code is accessible only inside the IIFE. Still there is an issue, if the order of the file(script) reference is not proper in HTML file.
+  - We have another solution, CommonJS. But this requires additional tools like webpack. With this all the files are bundled together resulting in single file which contains all the code. So only that final bundled file is linked in the HTML file.
+  - Since JavaScript is living language, so from ES6, we have a feature called ES modules. With this, we can use import/export to achieve the same behaviour.
+
+Inheritance vs Composition
+  Inheritance
+    - 'is a' relationship 
+    - Tight coupling
+
+  Composition
+    - 'has a' relationship 
+    - Loose coupling
 
 Symbol
     - Symbols are often used to add unique property keys to an object
@@ -286,18 +307,6 @@ Arrow Funtion Vs Regular Function
 
 Event bubbling
     - When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors.
-	
-bind
-  - It creates a new function that, when called, has its this keyword set to the provided value.
-  Eg : Refer code file
-
-call
-  - It calls a function with a given this value and arguments provided individually.
-  Eg : Refer code file
-
-apply
-  - It calls a function with a given this value, and arguments provided as an array
-  Eg : Refer code file
 
 Closures
 	- Data of the outside function can be accessible in the inside function eventhough the outer function has returned.
@@ -318,6 +327,38 @@ Memoization
 Promises
 
 Async/Await
+
+'this' keyword
+  - 
+1. Implicit binding
+  - How function is invoked. 
+  Eg: person.getFullName()  // 'this' keyword in getFullName function references person object.
+
+2. Explicit binding
+  bind
+    - It creates a new function that, when called, has its this keyword set to the provided value.
+    Eg : Refer code file
+
+  call
+    - It calls a function with a given this value and arguments provided individually.
+    Eg : Refer code file
+
+  apply
+    - It calls a function with a given this value, and arguments provided as an array
+    Eg : Refer code file
+
+3. new binding
+  - Whenever a new object is created using 'new' keyword, JavaScript automatically creates 'this' 
+  Eg:
+    const Animal = function (name, color) {
+      // this = {} // this is automatically created by JavaScript
+      this.name = name;
+      this.color = color;
+    }
+    const animal = new Animal('Tiger', 'yellow')
+    console.log(animal) // {"name":"Tiger","color":"yellow"} 
+
+4. window binding
 
 React.lazy(lazy loading)
 	- Loads the component only when they are actually needed.

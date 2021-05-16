@@ -1,3 +1,18 @@
+// ? Equivalents
+class Animal {
+  eat() {}
+
+  sleep = () => {};
+}
+
+// which is eqal to
+
+function Animal() {
+  this.sleep = function () {};
+}
+
+Animal.prototype.eat = function () {};
+
 const person = {
   firstName: "John",
   lastName: "Doe",
@@ -35,7 +50,6 @@ function multiply(x, y) {
 const multiplyByTwo = multiply.bind(this, 2);
 
 console.log("Currying", multiplyByTwo(5));
-
 
 // Questions asked from NineLeaps
 // function outer() {
