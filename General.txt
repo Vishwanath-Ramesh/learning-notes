@@ -11,3 +11,10 @@ RGR Cycle
 Regression testing
 	- Regression testing is re-running functional and non-functional tests to ensure that previously developed and tested software still performs after a change. 
 	- If not, that would be called a regression.
+
+Authentication
+	- Authentication describes the process of claiming an identity. 
+	- That’s what you do when you log in to a service with a username and password, you authenticate yourself. 
+
+Authorization
+	- Authorization on the other hand describes permission rules that specify the access rights of individual users and user groups to certain parts of the system.

@@ -1,0 +1,150 @@
+GraphQL
+    - New API standard that was invented and open-sourced by Facebook.
+    - It enabled 'declarative data fetching' where a client can specify what exactly the data it needs from an API.
+    - Instead of having multiple endpoints, GraphQL server exposes single endpoint and responds to queries for what client has asked for. 
+
+Schema Definition Language (SDL)
+    - The syntax for writing schema is called "Schema Definition Language (SDL)".
+    1. Scalar Types
+        String
+        Int
+        Float
+        Boolean
+        ID
+
+    2. Object Types
+        type <type-name> {  }
+        Eg: type Post {  }
+
+    3. Enums
+        enum Weekday {
+            MONDAY
+            TUESDAY
+            WEDNESDAY
+            THURSDAY
+            FRIDAY
+            SATURDAY
+            SUNDAY
+        }
+    
+    4. Interface
+        interface Node {
+            id: ID!
+        }
+
+        type User implements Node {
+        id: ID!
+            name: String!
+            age: Int!
+        }
+
+    5. Union Types
+        - Union types can be used to express that a type should be either of a collection of other types.
+        Eg:
+            type Adult {
+                name: String!
+                work: String!
+            }
+
+            type Child {
+            name: String!
+            school: String!
+            }
+
+            union Person = Adult | Child
+
+            {
+            allPersons {
+                name # works for `Adult` and `Child`
+                ... on Child {
+                school
+                }
+                ... on Adult {
+                work
+                }
+            }
+            }
+
+Schema
+    - GraphQL has it's own type system which is used to define the schema of an API.
+    Eg:
+    1.
+      type Person {
+          id: ID!
+          name: String! // '!' means Required.
+          age: Int!
+          posts: [Post!] // posts can have many post(s). Also we created one to many relationships
+      }
+      type Post {
+          id: ID!
+          title: String!
+          author: Person! // Relation to the Person
+      }
+
+Root Types
+    - It defines the entry points for the API
+    1. Query
+    Eg:
+    type Query {
+        allPersons(last: Int): [Person!]!
+    }
+
+    {
+        allPersons {
+            name
+        }
+    }
+    2. Mutation
+    Eg:
+    type Mutation {
+        createPerson(name: String!, age: Int!): Person!
+    }
+
+    mutation {
+        createPerson(name: 'Bob', age: 35){
+            id
+        }
+    }
+    3. Subscription
+    Eg:
+    type Subscription {
+        newPerson: Person!
+    }
+
+    subscription {
+        newPerson {
+            name
+            age
+        }
+    }
+
+Architecture
+    1. GraphQL with a connected database
+        - Often used for Greenfield projects.
+        - Uses single web server that implements GraphQL.
+        - Server resolves queries and constructs response with data that it fetches from the database.
+    2. GraphQL server to integrate existing system
+    3. A hybrid approach with a connected database and integration of existing system 
+
+Resolver function
+    - The purpose of resolver is to retrieve the data for its corresponding field.
+    - GraphQL queries/mutations consists of set of fields.
+    - GraphQL server has one resolver function per field.
+
+Introspection
+    - GraphQL allows clients to ask a server for information about its schema.
+    Eg:
+        query {
+            __schema {
+                types {
+                    name
+                }
+            }
+        }
+
+        {
+            __type(name: "Author") {
+                name
+                description
+            }
+        }

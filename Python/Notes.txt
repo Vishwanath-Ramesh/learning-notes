@@ -260,5 +260,15 @@ Decorators
 
     func_needs_decoration()
 
+Debugging
+    import pdp
+
+    pdp.set_trace() // put breakpoints inside the code
+
+    - Quit the debugger
+        Press 'q'
+
+    Reference: https://docs.python.org/3/library/pdb.html
+
 References:
 https://github.com/Pierian-Data/Complete-Python-3-Bootcamp

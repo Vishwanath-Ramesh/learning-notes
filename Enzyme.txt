@@ -1,0 +1,15 @@
+Mount/Full Rendering
+    - It is ideal for use cases where you have components that may interact with DOM APIs, use React lifecycle methods or need to test components that are wrapped in higher order components.
+    - Full DOM rendering requires that a full DOM API be available at the global scope.This means that it must be run in an environment that at least “looks like” a browser environment.
+    - It mounts the component in the DOM.
+    - It can include child components.
+    - Allows access to both props directly passed into the root component (including default props) and props passed into child components.
+
+Shallow Rendering
+    - Renders only the single component, not including its children.
+    - Do have access to lifecycle methods by default.
+    - Cannot access props passed into the root component (therefore also not default props), but can those passed into child components.
+
+Static Rendering
+    - This 'render' function generate HTML from your React tree, and analyze the resulting HTML structure.
+    - Does not have access to React lifecycle methods.
