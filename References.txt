@@ -4,8 +4,12 @@ Roadmaps
 
 Learn Web development
   https://www.internetingishard.com/
+  https://fullstackopen.com/en/
 
 --------------------------------------------------CSS---------------------------------------------------------------
+Levels
+  https://www.w3.org/TR/css-2015/#css-levels
+
 Frameworks & Libraries
   https://material-ui.com/
   https://www.muicss.com/docs/v1/react/checkbox
@@ -26,6 +30,9 @@ Articles
     https://css-tricks.com/snippets/css/a-guide-to-flexbox/
     https://bocoup.com/blog/dive-into-flexbox
     https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container
+    http://www.flexboxdefense.com/
+    https://flexboxfroggy.com/
+    http://flexboxgrid.com/
 
   CSS Grid
     Register for a new account in the below site and access the course for free
@@ -41,6 +48,7 @@ Articles
     https://github.com/simoneas02/awesome-grid-layout#books
     https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Realizing_common_layouts_using_CSS_Grid_Layout
     https://css-tricks.com/boxes-fill-height-dont-squish/
+    https://rachelandrew.co.uk/css/cheatsheets/grid-fallbacks
 
   Scrollbar customizations
     https://codepen.io/devstreak/pen/dMYgeO
@@ -59,6 +67,9 @@ Articles
     https://codepen.io/antoniputra/pen/BzyWmb
 
 --------------------------------------------------JavaScript---------------------------------------------------------------
+Books
+  https://exploringjs.com/
+
 Courses
   JavaScript - Understanding the Weird Parts
     https://mega.nz/folder/fYF2TDjY#MqmgYz7c5tTXGGm2Rg1z5w
@@ -92,6 +103,22 @@ Articles
     https://flaviocopes.com/ecmascript/
     https://github.com/sudheerj/ECMAScript-features#arrow-functions
     https://github.com/lukehoban/es6features
+  Generators
+    https://exploringjs.com/es6/ch_generators.html
+    https://davidwalsh.name/es6-generators
+  Redux applyMiddleware
+    https://juincc.medium.com/how-does-applymiddleware-work-in-redux-4a00e1432e1f
+    https://github.com/ccniuj/tilap/issues/7
+    https://github.com/reduxjs/redux/blob/master/src/applyMiddleware.ts
+  TDZ
+    http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified
+  References/Pointers
+    https://daveceddia.com/javascript-references/
+  Immutability
+    https://daveceddia.com/react-redux-immutability-guide/
+  Compose
+    https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d
+    https://medium.com/free-code-camp/pipe-and-compose-in-javascript-5b04004ac937
 
  References
   Design Patterns
@@ -226,3 +253,14 @@ PX to VW Converter
   https://pxtovwconverter.ga/
   https://synex.tech/tools/px-vw-converter.html
   https://khaledkzy.github.io/pixel-vh-vw-converter/
+
+Contribute to open source
+  https://makeapullrequest.com/
+  https://egghead.io/courses/how-to-write-an-open-source-javascript-library
+  https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github
+  https://www.firsttimersonly.com/
+  https://kentcdodds.com/blog/how-getting-into-open-source-has-been-awesome-for-me
+  https://www.kcd.im/why-oss
+  https://www.kcd.im/write-oss
+  https://www.kcd.im/how-oss
+  https://cfe.dev/

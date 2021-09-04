@@ -31,10 +31,148 @@ Workflow
 
 Action
     - It's just a plain javascript object which describes what happened
+    - You can think of an action as an event that describes something that happened in the application.
 Reducers
     - Reducers are functions that calculate a new state value based on previous state + an action. 
     - You can think of a reducer as an event listener which handles events based on the received action (event) type
+	- Its signature is: (state, action) => newState
 Store
     - A Redux store runs the root reducer whenever an action is dispatched
 Slice
      It is a collection of Redux reducer logic and actions for a single feature in your app, typically defined together in a single file
+
+Redux Toolkit
+	- Redux Toolkit is our official recommended approach for writing Redux logic.
+	- It wraps around the Redux core, and contains packages and functions that we think are essential for building a Redux app.
+	- RTK includes utilities that help simplify many common use cases, including store setup, creating reducers and writing immutable update logic, and even creating entire "slices" of state at once.
+
+Creating Store
+	let store = createStore(counterReducer)
+	store // { subscribe, dispatch, getState }
+
+Resources
+	- https://www.learnwithjason.dev/let-s-learn-modern-redux
+	- https://blog.isquaredsoftware.com/series/practical-redux/
+	- https://www.educative.io/courses/practical-redux
+	- https://github.com/reduxjs/redux
+	- https://github.com/markerikson/react-redux-links
+	- https://github.com/markerikson/redux-ecosystem-links
+
+Redux binding - React
+	Install
+	$ npm install react-redux
+
+Redux Devtools
+	Install
+	$ npm install --save-dev redux-devtools
+	
+	Chrome extension
+	https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en
+    
+Redux
+	It's a 3rd party library totally independent of react.
+	It is an efficient state manegement technique which allows to access the state anywhere in the application.
+	It has four main function.
+		1.Central Store
+		2.Action - Can run Aync but only with 3rd party library like thunk etc.,
+		3.Reducer - Pure Synchronous code, It receives old state and action as an input and gives an updated state. Then it updates the central store with new state.
+		4.Subscription - In order to know state updation, redux triggers a subscription, which will then pass the updated state as props to the components.
+	Lifeccyle
+		It has a central store to manage the states.
+		A component dispacthes an 'Action'.
+		The Action then reaches the 'Reducer'.
+		Finally the 'Reducer' updates the 'central store'.
+		To get the updated state from the Central Store to the component, we need to subscribe for the triggers raised from Central Store.
+		The subscription then pass the updated state as Props to the Component.
+	Basic Redux Example
+		const redux = require('redux');
+
+		const createStore = redux.createStore;
+
+		//State
+		const initialState = {
+			counter: 0
+		}
+
+		//Reducers
+		const rootReducer = (state = initialState, action) => {
+			if (action.type === 'INC_COUNTER') {
+				return {
+					...state,
+					counter: state.counter + 1
+				}
+			}
+			if (action.type === 'ADD_COUNTER') {
+				return {
+					...state,
+					counter: state.counter + action.value
+				}
+			}
+
+			return state;
+		}
+
+		//Store
+		const store = createStore(rootReducer);
+
+		//Subscription
+		store.subscribe(() => {
+			console.log('[Subscription]', store.getState());
+		});
+
+		//Dispatching Action
+		store.dispatch({ type: 'INC_COUNTER' });
+		store.dispatch({ type: 'ADD_COUNTER', value: 10 });
+	
+	To use Redux in React we need to 'react-redux' library.
+	Import the 'react-redux' and wrap the root component inside the 'Provider' and supply prop for that Provider with what we have created in store ie., <Provider store={store}><App/></Provider>.
+	
+	To access the state inside a compnent using Redux, 
+		import { connect } from 'react-redux';
+	and map state to props by wrapping the compnent.
+		const mapStateToProps = (state) => {
+			return { ctr: state.counter }
+		}
+		
+	To map dispatch to props
+		const mapDispatchToProps = (dispatch) => {
+		return {
+			onIncrementCounter: () => dispatch({ type: 'INCREMENT' }),
+			onDecrementCounter: () => dispatch({ type: 'DECREMENT' }),
+			onAddCounter: () => dispatch({ type: 'ADD', value: 5 }),
+			onSubtractCounter: () => dispatch({ type: 'SUBTRACT', value: 5 })
+		}
+		}
+		export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+
+	Multiple reducers can be used by
+		import {combineReducers} from 'redux';
+
+		const rootReducer = combineReducers({
+			ctr: counterReducer,
+			res: resultReducer
+		});
+		const store = createStore(rootReducer);
+
+	The reducer from 'ctr' can be accessed by state.ctr.counter.
+
+Middlewares
+	The function executes between the dispatching of an action and the point of asction reaching the reducer.
+	 Eg:
+	 	import { createStore, applyMiddleware } from 'redux';
+		const logger = state => {
+			return next => {
+				return action => {
+					console.log('[Middleware] Dispatching', action);
+					const result = next(action);
+					console.log('[Middleware] Next State', store.getState());
+					return result;
+				}
+			}
+		}
+		const store = createStore(Reducer, applyMiddleware(logger));
+
+Manupulate State in Redux Dev Tools
+	import { createStore, applyMiddleware, compose } from 'redux';
+	const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+	const store = createStore(Reducer, composeEnhancers(applyMiddleware(logger)));

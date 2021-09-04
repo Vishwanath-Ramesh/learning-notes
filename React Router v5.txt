@@ -1,0 +1,22 @@
+useParams
+    - Returns the dynamically generated url params as objects
+    Eg: 
+        Route Path: /:account 
+        url: www.example.com/tyler
+        useParams: { account: "tyler" } 
+    
+useRouteMatch
+    - Returns the matched route object
+    Eg:
+        path: /topics/:topicId
+        url: www.example.com/topics/react-router
+        const { url, path } = useRouteMatch()
+        url => /topics/react-router
+        path => /topics/:topicId
+
+useLocation
+    - Used to grab query string parameters in an URL.
+    Eg:
+        url: www.example.com/user?userId=tyler
+        const { search } = useLocation()
+        search => ?userId=tyler

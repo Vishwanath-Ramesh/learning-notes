@@ -14,6 +14,20 @@ Clone git repository
     Specific branch
         $ git clone -b <branch-name> https://github.com/Vishwanath-Ramesh/github-tutorial.git
 
+Generate SSH Key
+    - Lists keys
+        $ ls -al ~/.ssh
+    - Generate
+        $ ssh-keygen -t -rsa -b 4096 -C <email>
+    - Add SSH key to SSH program
+        $ ssh-agent -s or eval "$(ssh-agent -s)"
+    - Add RSA key to SSH
+        $ ssh-add ~/.ssh/id_rsa
+    - Copy public SSH key to clipboard
+        $ clip < ~/.ssh/id_rsa.pub
+    - Verify that our host machine able to connect to git
+        $ ssh -T git@github.com
+
 
 Get status of the git repository
     $ git status
@@ -116,6 +130,11 @@ Git help
 Add new git remote
     If a new repo was created in cmd line which needs to commited in remote repo following cmd can be used.
     $ git remote add origin https://github.com/Vishwanath-Ramesh/learning-notes.git
+    Add remote for the forked repo into to our account so that our copy will be in sync(update) with the original/upstream repo.
+    $ git remote add upstream <original-ssh-url>
+
+When we fork any repo from other source, our local master branch will point to our own copy in our repo. We have to change master branch to point to original source repo, so that whenever we take pull, we have to make sure that our local copy is in sync with the source repo. In other words, we have to configure our master branch to track upstream/source branch to make sure we are in sync.
+    $ git branch --set-upstream-to=upstream/master master
 
 Update remote url
     $ git remote set-url origin https://github.com/Vishwanath-Ramesh/learning-notes.git

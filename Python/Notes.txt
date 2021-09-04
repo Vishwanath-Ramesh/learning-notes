@@ -83,6 +83,13 @@ Inbuilt methods
     float
         float(10) // 10.0
 
+    iter
+        - turn into iterator so that can be used like generator.
+        Eg:
+        word = 'Hello'
+        word_gen = iter(word)
+        next(word_gen) // 'H'
+
 Inbuilt keywords
     in
         'a' in 'abc' // true
@@ -135,6 +142,7 @@ List comprehension / Flattened for
     myList = [num**2 for num in range(0, 11)]
     myList // [0, 1, 4...]         
 
+    Generator comprehension
     myList = [num for num in range(0, 11) if num % 2 == 0]
     myList // [0, 2, 4, 6...]
 
@@ -269,6 +277,46 @@ Debugging
         Press 'q'
 
     Reference: https://docs.python.org/3/library/pdb.html
+    
+Collections
+    Refer /collection.py
+
+Generators
+    Eg:
+    /generators.py
+    def calculate_cubes(n):
+        for value in range(n):
+            yield value**3
+
+    for cubed in calculate_cubes(10)
+        print(cubed)
+    
+    list(calculate_cubes(10)) // [0, 1 ... 729]
+
+OS
+    Refer /os_module.py
+
+Shell Utils
+    Refer /shel_util.py
+
+Datetime
+    import datetime
+
+    # new time
+    mytime = datetime.time(2, 20) // hour: 2 minute: 20
+    mytime.minute // 20
+
+    # today
+    today = datetime.date.today() 
+    print(today) // 2020-08-22
+    today.yeay // 2020
+    today.month // 8
+
+    # date and time
+    today.ctime()
+
+    from datetime import datetime
+    mdydatetime = datetime(2021, 10, 3, 14, 20, 1)
 
 References:
 https://github.com/Pierian-Data/Complete-Python-3-Bootcamp

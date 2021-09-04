@@ -64,10 +64,12 @@ SOLID design principles
         - It only has one reason to change
       OCP – Open/Closed Principle
         - A Objects or entities should be open for extension but closed for modification
-      LSP – Liskov Substitution Principle
+      LSP – Liskov Substitution 
+        - You should always be able to substitute subtypes for their base class.
       ISP – Interface Segregation Principle
         - Clients should not be forced to depend upon interfaces that they do not use.
       DIP – Dependency Inversion Principle
+        - High level modules should not depends on low level modules.
     
 Interface
     - A contract that specifies the capabilities that a class can provide
@@ -100,3 +102,27 @@ Polymorphism
 UML 
     - Unified Modeling Language
     - Represent classes 
+
+
+Design principles
+    - General guildelines that can guide our class structure and relationships 
+
+    1. Encapsulate what varies
+        - Identify the aspects of your application that varies and seperate them from what stays the same.
+
+    2. Favour composition over Inheritance
+        - In other words, 'Has a' is better than 'Is a'.
+        Eg: 
+            Inheritance(Is a)
+            Animal <=== Dog
+            Automobile <=== Taxi
+
+            Composition(Has a)
+            Dog ===> Owner
+            Taxi ===> Passenger
+
+    3. Loose coupling
+        - Components should be independent, relying on knowledge of other components should be as little as possible.
+
+    4. Program to interfaces, Not implementation
+        - Where possible, components should use abstract classes or interfaces instead of specific implementation.  

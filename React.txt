@@ -20,18 +20,74 @@ SPA
 
 The Component Lifecycle
     - There are 3 phases.
-      1. Mounting
-	 constructor
-	 render
-	 componentDidMount
-      2. Updating
-	 shouldComponentUpdate
-	 render
-	 componentDidUpdate
-      3. Unmounting
-	 componentWillUnmount
-      4. Error handling
-	 componentDidCatch
+      1. Mounting - when an instance of a component is being created and inserted into the DOM
+		constructor(props)
+			- It is called before a component is mounted.
+			- It should call super(props) before any other statement.
+		static getDerivedStateFromProps(props, state)
+			- It should return an object to update the state, or null to update nothing.
+			- Triggered on every render.
+		componentWillMount
+			- This will continue to work untill v17. For v17 & above, it is renamed to UNSAFE_componentWillMount().
+			- No side effects are used in here.
+			- This is the only lifecycle method called on server rendering.
+		render()
+			- It should return one of the following types React elements, Arrays, fragments, Portals, String, numbers, Booleans or null.
+			- It should be a pure function. 
+		componentDidMount
+			- It is invoked immediately after a component is mounted (inserted into the tree).
+			- After this only, browser paint happens.
+      2. Updating - An update can be caused by changes to props or state
+		static getDerivedStateFromProps(props, state)
+			- Refer above.
+		shouldComponentUpdate(nextProps, nextState)
+			- It is used to control React component when there is a changes in props or state.
+			- It returns 'true' by default, so that component gets re-rendered on every state change.
+			- It is used for  performance optimization.
+			- Instead of implementing this by hand, we can also use React.PureComponent.
+			- If it returns,
+				true - Component gets re-rendered.
+				false - Component wll not re-render and UNSAFE_componentWillUpdate(), render(), and componentDidUpdate() will not be invoked.
+		render()
+			- Refer above. 
+		getSnapshotBeforeUpdate(prevProps, prevState)
+			- It is invoked right before the most recently rendered output is committed to the DOM.
+			- Any value returned by this lifecycle method will be passed as a parameter to componentDidUpdate()
+		componentWillReceiveProps(nextProps)
+			- This will continue to work untill v17. For v17 & above, it is renamed to UNSAFE_componentWillReceiveProps(nextProps).
+			- It is invoked before a mounted component receives new props or parent component re-renders even if it's props have not changed. 
+			- It's not triggered initially during mounting, only if props changed.
+		componentWillUpdate(nextProps, nextState)
+			- This will continue to work untill v17. For v17 & above, it is renamed to UNSAFE_componentWillUpdate(nextProps, nextState).
+			- It is invoked just before rendering when new props or state are being received
+		componentDidUpdate(prevProps, prevState, snapshot)
+			- It is invoked immediately after updating occurs. 
+			- It is not called for the initial render.
+      3. Unmounting - called when a component is being removed from the DOM.
+	 	componentWillUnmount
+	  		- It is invoked immediately before a component is unmounted and destroyed.
+			- It can be used to perform any necessary cleanup in this method.
+      4. Error handling - These methods are called when there is an error during rendering, in a lifecycle method, or in the constructor of any child component.
+		getDerivedStateFromError(error)
+			- It is invoked after an error has been thrown by a descendant component.
+			- It should return a value to update the component state.
+			- It is called during the “render” phase, so side-effects are not permitted.
+	 	componentDidCatch(error, info)
+		 	- It is invoked after an error has been thrown by a descendant component.
+			- It is called during the “commit” phase, so side-effects are permitted.
+
+Shallow comparison
+	- It checks for equality.
+	- If it compares scalar values(Strings and Numbers), it's values are compared. When comparing objects, it does not compare their attributes - only their references are compared.
+
+Regular component vs Pure component
+	Regular component
+		- It doesn’t implement shouldComponentUpdate() by default
+
+	Pure component
+		- It renders the same result given the same props and state
+		- It does implement shouldComponentUpdate() by default
+		- It performs a shallow comparison of props and state and reduces the chance that you’ll skip a necessary update
 
 Create React Project
 	1.Install create-react-app using npm globally.
@@ -332,114 +388,6 @@ React Lifeccyle Events
 	componentWillReceiveProps() – Invokes when props are received from the parent class and before another render is called
 	componentWillUpdate() – Called immediately before rendering takes place in the DOM
 	shouldComponentUpdate() – Returns either true or false. Though false by default, needs to be set to return true if the component needs to be updated
-
-Redux
-	It's a 3rd party library totally independent of react.
-	It is an efficient state manegement technique which allows to access the state anywhere in the application.
-	It has four main function.
-		1.Central Store
-		2.Action - Can run Aync but only with 3rd party library like thunk etc.,
-		3.Reducer - Pure Synchronous code, It receives old state and action as an input and gives an updated state. Then it updates the central store with new state.
-		4.Subscription - In order to know state updation, redux triggers a subscription, which will then pass the updated state as props to the components.
-	Lifeccyle
-		It has a central store to manage the states.
-		A component dispacthes an 'Action'.
-		The Action then reaches the 'Reducer'.
-		Finally the 'Reducer' updates the 'central store'.
-		To get the updated state from the Central Store to the component, we need to subscribe for the triggers raised from Central Store.
-		The subscription then pass the updated state as Props to the Component.
-	Basic Redux Example
-		const redux = require('redux');
-
-		const createStore = redux.createStore;
-
-		//State
-		const initialState = {
-			counter: 0
-		}
-
-		//Reducers
-		const rootReducer = (state = initialState, action) => {
-			if (action.type === 'INC_COUNTER') {
-				return {
-					...state,
-					counter: state.counter + 1
-				}
-			}
-			if (action.type === 'ADD_COUNTER') {
-				return {
-					...state,
-					counter: state.counter + action.value
-				}
-			}
-
-			return state;
-		}
-
-		//Store
-		const store = createStore(rootReducer);
-
-		//Subscription
-		store.subscribe(() => {
-			console.log('[Subscription]', store.getState());
-		});
-
-		//Dispatching Action
-		store.dispatch({ type: 'INC_COUNTER' });
-		store.dispatch({ type: 'ADD_COUNTER', value: 10 });
-	
-	To use Redux in React we need to 'react-redux' library.
-	Import the 'react-redux' and wrap the root component inside the 'Provider' and supply prop for that Provider with what we have created in store ie., <Provider store={store}><App/></Provider>.
-	
-	To access the state inside a compnent using Redux, 
-		import { connect } from 'react-redux';
-	and map state to props by wrapping the compnent.
-		const mapStateToProps = (state) => {
-			return { ctr: state.counter }
-		}
-		
-	To map dispatch to props
-		const mapDispatchToProps = (dispatch) => {
-		return {
-			onIncrementCounter: () => dispatch({ type: 'INCREMENT' }),
-			onDecrementCounter: () => dispatch({ type: 'DECREMENT' }),
-			onAddCounter: () => dispatch({ type: 'ADD', value: 5 }),
-			onSubtractCounter: () => dispatch({ type: 'SUBTRACT', value: 5 })
-		}
-		}
-		export default connect(mapStateToProps, mapDispatchToProps)(Counter);
-
-	Multiple reducers can be used by
-		import {combineReducers} from 'redux';
-
-		const rootReducer = combineReducers({
-			ctr: counterReducer,
-			res: resultReducer
-		});
-		const store = createStore(rootReducer);
-
-	The reducer from 'ctr' can be accessed by state.ctr.counter.
-
-Middlewares
-	The function executes between the dispatching of an action and the point of asction reaching the reducer.
-	 Eg:
-	 	import { createStore, applyMiddleware } from 'redux';
-		const logger = state => {
-			return next => {
-				return action => {
-					console.log('[Middleware] Dispatching', action);
-					const result = next(action);
-					console.log('[Middleware] Next State', store.getState());
-					return result;
-				}
-			}
-		}
-		const store = createStore(Reducer, applyMiddleware(logger));
-
-Manupulate State in Redux Dev Tools
-	import { createStore, applyMiddleware, compose } from 'redux';
-	const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-	const store = createStore(Reducer, composeEnhancers(applyMiddleware(logger)));
 	
 Refs
 	In order to access the DOM elements inside a component we have to use refs.

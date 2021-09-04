@@ -1,0 +1,264 @@
+Selectors
+	1. id selectors
+	2. class selectors
+	1. element selectors
+	Reference: https://estelle.github.io/cssmastery/selectors/selectors.html
+
+display
+	inline
+		default value for all the elements, but 'user agent' style sheet of the browser overrides for some elements.
+		An inline element will accept margin and padding, but the element still sits inline. Margin and padding will only push other elements horizontally away, not vertically
+		An inline element will not accept height and width. It will just ignore it
+	inline-block
+		An element set to inline-block is very similar to inline, the difference is that you are able to set a width and height
+	block
+		elements that are set to block by the browser UA stylesheet is said to be block level elements. Eg. div, p etc.
+		Block level elements do not sit inline but breaks and take up as much horizontal space as they can
+	none
+		Entirely removes the element visually from the page, while the element is still in the DOM
+		you can’t tab to it or its children, it is ignored by screen readers
+
+width on div
+	- Setting the width of a block-level element will prevent it from stretching out to the edges of its container to the left and right.
+
+Center the div
+	- You can set the left and right margins to auto to horizontally center that element within its container. The element will take up the width you specify, then the remaining space will be split evenly between the two margins.
+	- When the browser window is narrower than the width of your element, then the browser resolves this by creating a horizontal scrollbar on the page.
+
+max-width in div
+	- Using max-width instead of width in this situation will improve the browser's handling of small windows.
+
+the box model
+	- When you set the width of an element, the element can actually appear bigger than what you set: the element's border and padding will stretch out the element beyond the specified width
+	- To overcome this, we do
+	-webkit-box-sizing: border-box;
+     	-moz-box-sizing: border-box;
+        box-sizing: border-box;
+
+Position
+	- The CSS position property is used to specify how the element will be displayed on the page. 
+	Types
+		Static
+			- It is the default for every HTML element. An element with position: static; is not positioned in any special way.
+			- No matter what value you associate with top, right, bottom, and left properties, they will not change, and neither will the z-index property.
+		Relative
+			- It behaves the same as static unless you add some extra properties.
+			- It will be shifted relative to its initial position.
+			- There will be extra space where the element would have been.
+		Fixed
+			- A fixed element is positioned relative to the viewport, which means it always stays in the same place even if the page is scrolled.
+			- There's no space left where it would have been located in the page layout.
+			- Use the top, right, bottom, and left values to set the element's final position.
+		Absolute
+			- It behaves like fixed except relative to the nearest positioned ancestor instead of relative to the viewport. 
+			- If an absolutely-positioned element has no positioned ancestors, it uses the document body, and still moves along with page scrolling.
+			- In other words, if the parent ancestor is positioned, then it's relative to that ancestor else relative to viewport.
+		Sticky
+			- The element's position is determined by the user's scroll.
+Clear
+	http://learnlayout.com/clear.html
+
+Column
+	Multi column text
+	.three-column {
+  padding: 1em;
+  -moz-column-count: 3;
+  -moz-column-gap: 1em;
+  -webkit-column-count: 3;
+  -webkit-column-gap: 1em;
+  column-count: 3;
+  column-gap: 1em;
+}
+
+CSS Transforms
+Scale
+	Increase or Decrease size through X or Y
+Skew
+	Tilts the element to the left or right
+	+X => Left tilt
+	-X => Right tilt
+	+Y => Down tilt
+	-Y => Up tilt
+Rotate
+	Rotates the element either clockwise or anti clockwise
+Translate
+	Moves the element sideways or up or down
+	+X => Moves right
+	-X => Moves left
+	+Y => Moves downwards
+	-Y => Moves upwards
+
+Transform
+	perspective
+		- The perspective property defines how far the object is away from the user. So, a lower value will result in a more intensive 3D effect than a higher value.
+		- When defining the perspective property for an element, it is the CHILD elements that get the perspective view, NOT the element itself.
+	
+	translate3d
+		- repositions an element in 3D space
+		- values in (X, Y, Z)
+
+Keyframe animations
+	animation(shorthand)
+	animation-name - name given to the keyframe
+	animation-duration - time of animation
+	animation-timing-function - same like transition. CB/easeout etc
+	animation-delay - animation plays after this delay
+	animation-direction - movement direction
+	animation-iteration-count - no of animation going to play
+	animation-fill-mode - direction in which the 100% completed. forward backward etc
+	animation-play-state
+
+	@keyframes bounce{
+		0%{
+		   transform	
+		}
+		100%{
+		   transform	
+		}
+	}
+
+Ways to Center a Div
+	Horizontally/Abscissa 
+		1.
+			- Set the width of the element and the margin property to auto.
+			- Then the div will take up whatever width is specified in the CSS and the browser will ensure the remaining space is split equally between the two margins.
+			Eg: 
+			// css
+			.center {
+				margin: auto;
+				width: 60%;
+				border: 5px solid #FFFF00;
+				padding: 10px;
+			}
+
+			// html
+			<div class="center">
+				<p>This div takes up the width specified in CSS and the remaining space is split equally between the two margins.</p>
+			</div>
+	Vertically/Ordinate 
+		1.
+			- Set the position of the div to absolute so that it’s taken out of the normal document flow.
+			- Then set the top property to 50%.
+			- This tells the browser to line up the top edge of the div with the center of the page  vertically (ie. 50% down the page). Here’s the problem: having the top edge of the div lined up in the middle of the page will make the div look off-center
+			Eg:
+			// css
+			.center {
+				position: absolute;
+				top: 50%;
+				transform: translate(0, -50%);
+				border: 5px solid #FFFF00;
+				padding: 10px;
+			}
+
+			// html
+			<div class="center">
+				<p>This div is vertically centered.</p>
+			</div>
+	Horizontally and Vertically
+		1. 
+			- Same as above steps, the only difference is that you'll also use the left property to horizontally center the div.
+			Eg:
+			// css
+			.center {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				border: 5px solid #FFFF00;
+				padding: 10px;
+			}
+
+			// html
+			<div class="center">
+				<p>The edges of this div are vertically and horizontally centered, making it look off center.</p>
+			</div>
+
+Ways to center a div within a div
+	Horizontally and Vertically
+		1. Using -ve margins
+			Eg:
+			// css
+			.parent {
+				background: #CCCCCC;
+				height: 200px;
+				width: 200px;
+				position: relative;
+			}
+			.child {
+				background: #FFFF00;
+				width: 70px;
+				height: 70px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin: -35px 0 0 -35px; // should be exactly half the child element's height and width
+			}
+
+			// html
+			<div class="parent">
+				<div class="child">This div is centered vertically.</div> 
+			</div>
+
+		2. Using transform
+			Eg: 
+			// css
+			.parent {
+				background: #CCCCCC;
+				height: 200px;
+				width: 200px;
+				position: relative;
+			}
+			.child {
+				background: #FFFF00;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			// html
+			<div class="parent">
+				<div class="child">This div is centered vertically and horizontally.</div> 
+			</div>
+		3. Using flexbox
+			Eg:
+			// css
+			html,
+			body { 
+				height: 100%;
+			}
+			.parent {
+				height: 200px;
+				background: #CCCCCC;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.child {
+				background-color: #FFFF00;
+				width: 100px;
+				height: 100px;
+			}
+
+			// html
+			<div class="parent">
+				<div class="child"></div>
+			</div>
+
+Note: 
+	If 'margin-top', or 'margin-bottom' are 'auto', their used value is 0 for all 'display' values.
+	In case of 'block' elements, margin left & right values are splitted equally.
+	In case of 'inline' elements, all margin values are '0'
+SASS
+	Direct Descendant(>)
+	Ref: #1
+
+	Parent selector(&)
+	Ref: #2
+
+	For loop
+	Ref: #3
+
+
+References:
+	CSS:: The definitive guide by Eric A Meyer and Estella Weyl

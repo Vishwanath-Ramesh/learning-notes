@@ -1,0 +1,701 @@
+
+JavaScript
+  - Dynamically typed language
+  - It determines the type during the run time
+
+Types/Coersion
+  1. Primitive types
+  2. Converting types
+  3. Checking equality
+
+Primitive Types
+  - A type of data that represents single value. That's not an object
+  - There are 6 primitive types in JavaScript
+    1. undefined - Lack of existense
+    2. null - Lack of existense
+    3. boolean
+    4. number
+    5. string
+    6. symbol
+  - SNOB'N'US
+    String
+    Number
+    Objects
+    Boolean
+    Null
+    Undefined
+    Symbol
+
+NaN
+  - It's not "Not a Number", it's "invalid" number
+  - It's a special type of value which tells about the result of some mathematical operation.
+  - It's the only value in existense that does not have the Identity Property(It's is not equal to itself). Eg. NaN === NaN // false
+  - isNan - coerces the given value to numbers before it checks for them "NaN" whereas Number.isNaN accurately tells whether the given value is "NaN" or not and it's wont coerse it to a number. 
+  Eg: 
+    var greeting = "Hello world"
+    var something = greeting / 2
+
+    console.log(Number.isNaN(greeting)) // false
+    console.log(Number.isNaN(something)) // true 
+
+Negative Zero
+  var trendRate = -0
+
+  trendRate === -0 // true
+  trendRate.toString() // "0"
+  trendRate === 0 // true
+  trendRate > 0 // false
+  trendRate < 0 // false
+  Object.is(trendRate, -0) // true
+  Object.is(trendRate, 0) // false
+
+Abstract Types
+  ToPrimitive(hint)
+    - Convers the value into to respective primitive type. "hint" is just the hint to tell what type of primitive type we get.
+    If "hint" is a "number", this method invokes "valueOf" then "toString" internally. If the "hint" is a "string" it'll invoke the reverse.
+
+  ToBoolean
+    - It just lookup for values in "", 0, -0, null, NaN, false, undefined. If the supplied values is in any of these values, it just returns false else true. 
+
+"new" keyword
+  - Have to use "new" keyword for
+    1. Object()
+    2. Array()
+    3. Function()
+    4. Date()
+    5. RegExp()
+    6. Error()
+  - Can but don't have to use "new" keyword
+    1. String()
+    2. Number()
+    3. Boolean()
+
+Single Threaded
+  - One command at a time.
+  - The execution of instructions in a single sequence
+
+Synchronous 
+  - One at a time in order
+  
+Lexical Environment
+  - Every time the JavaScript engine creates an execution context to execute the function or global code, it also creates a new lexical environment to store the variable defined in that function during the execution of that function.
+  - A lexical environment is a data structure that holds identifier-variable mapping.
+  - A Lexical Environment has two components: (1) the environment record and (2) a reference to the outer environment. The environment record is the actual place where the variable and function declarations are stored. The reference to the outer environment means it has access to its outer (parent) lexical environment.
+  - Where something sits physically in the code
+  Eg: Variable declaration inside a function. That is, the variable sits lexically inside the function.
+
+Lexical Scoping vs Dynamic Scoping
+  - JavaScript is 100% lexical Scoping.
+
+  Lexical scoping - Scoping for the identifiers, functions and others are determined/set at the author/compile time. Ref: Scopes/LexicalScope.js
+  Dynamic Scoping - Scoping for the identifiers, functions and others are determined/set at the run/execution time. Ref: Scopes/LexicalScope.js
+
+Block scoping
+  - We can create a scope by simply wrapping the code between the curly braces.
+  Eg:
+  function func(){
+    let someVar = "";
+
+    { let privateVar, anotherPrivateVar;
+      console.log(privateVar);
+    }
+  }
+
+Execution Context
+  - This is where the code actually starts and run
+  - It creates the global object called 'this'
+  - In browser, each tab is a seperate execution context which in turn has seperate global object
+  - There are two phases  
+    1. Creation phase
+    2. Execution phase
+
+Hoisting
+  - Logically, during the creation phase, the JavaScript engine moves the variable and function declarations to the top of your code. But technically, they are stored in
+  the memory(heap).
+  - Variables using 'var' are initialized with 'undefined' during the creation phase but the 'let' does not. i.e. "uninitialized"
+  Eg: 
+  {
+    teacher = "Kyle"; // TDZ Error
+    let teacher;
+  } 
+  var teacher = "Kyle";
+  {
+    console.log(teacher); // TDZ Error
+    let teacher = "Suzy";
+  }
+  - Functions are also stored in memory during the creation phase not anonymous or arrow function.
+
+Temporal Dead Zone (TDZ) Error
+  - TDZ is invented because of const
+
+Variables
+  1. let
+    - It's a block scope
+    - We can not redeclare a variable
+  2. var
+    - It's either function-scoped or global-scoped
+    - We can redeclare a variable any number of times
+    - It is used in older days to create private variables using IIFE
+  3. const
+    - Block scoped
+
+undefined vs undeclared vs uninitialized(ES6)
+  - "undefined" is something that is declared but haven't assigned any value to it. "undeclared" is something which haven't declared yet or exists.
+  - "typeof" operator is the only thing in existense that can able to reference the undeclared variables/identifiers.
+
+Function Expression
+  - It is a function that assigned as a value to somewhere.
+  Eg:
+    // Anonymous function expression
+    var func1 = function (){ }
+
+    // Named function expression 
+    var func2 = function func(){
+      func = 20 // TypeError. Since func is read only
+    }
+
+    // Immediately invoked function expression(IIFE)
+    (function func() {})()
+
+How JavaScript works
+    - Initially always there will be a Global execution context.
+    - Setup memory space for variables and Functions - "Hoisting".
+    - JavaScript will create an Execution Context before executing any code.
+    - The creation of Execution context involves 2 phases, creation and Exection phase.
+    - In creation phase, JavaScript sets up memory space for variables and Functions and where they are actually created. For variables, the values 
+      are Initially set to 'undefined' and for Functions, they are created as it is.
+    - In Exection phase, JavaScript begins to execute the code with the created memory space.
+
+Coersion
+    - '==' allows coercion(types different).
+    - '===' disallows coercion(types same).
+    Coersive - Automatically converts the operands based on the other operand. In other words, converting a value from one type to another
+    Eg : 
+    1 + '2' => '12'   
+    false < 1 => true    
+    false == 0 => true
+    false == 0 => false will be converted to '0'
+
+Operators
+  typeof - Tells what type is.
+
+Use strict mode
+  - Eliminates some JavaScript silent errors by changing them to throw errors.
+  - include 'use strict'; in wherever scope it's needed.
+
+Disable ESLint
+  - /* eslint-disable */ at the top of the file
+
+Escape character
+  - Backslash(\)
+
+Breaks
+  - Normal Breaks
+    Eg : "Aaaa\
+          BBB"
+    Output : AaaaBBB
+
+  - Line Breaks
+    Eg : `Aaaa
+          Bbbb'
+    Output: Aaaa  
+            Bbbb
+
+String Interpolation
+  Eg : "My name is ${firstName}."
+
+Shadowing
+  - Having two or more different variables created in different scopes having same name.
+  Eg: 
+  var teacher = "Some name"
+
+  function func() {
+    var teacher = "Another name"    
+  }
+
+Hoisting
+  - Initially always there will be a Global execution context.
+  - Setup memory space for variables and Functions - "Hoisting".
+  - JavaScript will create an Execution Context before executing any code.
+  - The creation of Execution context involves 2 phases, creation and Exection phase.
+  - In creation phase, JavaScript sets up memory space for variables and Functions and where they are actually created. For variables, the values 
+    are Initially set to 'undefined' and for Functions, they are created as it is.
+  - In Exection phase, JavaScript begins to execute the code with the created memory space.
+
+Functions
+  - The semantic relationship between input(s) and computed output(s).
+  - Functions are 1st class citizens in JavaScript
+  - Meaning, everything you can do with other types can also be done with functions.
+  - Perform some set of operation.
+  - It should take some inputs and return something.
+  - It can only call other functions not procedures.
+
+  Arguments
+    - The values that are passed when calling a function.
+
+  Parameters
+    - The variables that receive when the function executes.
+
+  Function shapes
+    Unary function
+      - Takes single input and returns a single value
+
+    Binary function
+      - Takes two inputs and returns single output
+
+    Rest of the functions are called as n-ary.
+    Eg:
+    // Unary
+    function increment(x){
+      return sum(x, 1);
+    }
+
+    //binary
+    function sum(x, y){
+      return x + y;
+    }
+
+Procedures
+  - Perform some set of operation.
+  - It should take some inputs and doesn't return anything.
+
+Functional Programming
+  Imperative Vs Declarative programming
+    Imperative
+      - Code that is focused primarily on how to do something.
+      - Explicitly showing how everything is achieved(step by step process).
+    Drawbacks
+      - The future code readers need to understand what the code is exactly doing by going through this.
+
+    Declarative
+      - It should focus on what/why something is done rather how it's done.
+
+  Containing Impurity
+    Refer: JavaScript/Functional Programming/ContainingImpurity.js
+
+  Higher Order Functions(HOF)
+    - It is a function which either takes one/more function as an argument and/or returns one/more function is said to be a HOF.
+    - In other words, if the value going in or getting out are functions, then that function is a HOF.
+
+  Single Order Function
+    - The function that doesn't receive a function is called SOF.
+
+  Point free function
+    - Defining a function without needing to define it's points(inputs).
+
+  Equational Resoning
+    - If a function that receives a function, and that function returns another function which are same shape, then those two functions are interchangeable.
+    Eg:
+    getPerson(function onPerson(person){
+      return renderPerson(person)
+    })
+    getPerson(renderPerson) // Sincle both renderPerson and onPerson function are same same and receives same input, we can then call them interchageably. 
+
+  Eager vs Lazy Functions
+    Lazy execution function
+      - Executing the set of operation only when the result is actually needed.
+
+      Drawbacks
+        - We have to execute the operation everytime whenever we need the results.
+
+    Eager execution function
+      - Executing the set of operation before the output is actually needed.
+
+      Drawbacks
+        - If we don't require or used the computed value, still the operation is executed.
+    Eg: Refer JavaScript/Functional Programming/LazyAndEagerFunctions.js
+
+  Memoization
+    - What if we want the computation to be executed only when need and also to be executed only once. That's when we use Memoization.
+    Eg: Refer JavaScript/Functional Programming/LazyAndEagerFunctions.js
+
+    - In the above example, the function is not theoretically pure since we are modifying the closed variable(closure). So we can use the generic 'memoize' utility function which comes with every FP libraries.
+    Eg: Refer 'utilityMemoizedRepeater' in JavaScript/Functional Programming/LazyAndEagerFunctions.js
+
+  Referential Transaparency
+    - A function call can be replaced with it's return value and not affect the rest of the program.
+    Eg:
+    function utilityMemoizedRepeater(count) {
+      // This 'memoize' manages/maintains the internal cache, so when the same input is passed, this functions returns the cached result instead of executing once again.
+      return memoize(function allTheAs() {
+        return "".padStart(count, "A");
+      });
+
+      var A = utilityMemoizedRepeater(10)
+      A() // AAAAAAAA
+    }
+
+  Specialization Techniques
+    Partial application
+      - Partially applying some of the inputs now, receiving all of the inputs later.
+      Eg:
+      function ajax(url, data, cb){ /*...*/ }
+
+      var getCustomer = partial(ajax, API_URL)
+      getCustomer({ id: 'some id' }, renderCustomer)
+
+    Currying
+      - It doesn't preset any arguments like 'Partial application', and receives each arguments one at a time.
+      - It is a HoF which transforms function like func(a, b, c) into func(a)(b)(c).
+      - Creating a copy of a function but with some preset parameters
+      - Tranform the function shapre from n-ary to unary
+      Eg:
+      1.
+      var ajax = curry(3, (url, data, cb) => { /*...*/ })
+      var getCustomer = ajax(API_URL) // strict Currying
+      var getCurrentUser = getCustomer({ id: 234324 }) // strict Currying
+
+      ajax(API_URL, { id: 342343 })(renderCustomer) // loose Currying
+
+      2. 
+      function add(x, y) { return x + y }
+
+      const curried = curry(add);
+      [1,2,3,4,5].map(curried(1))
+
+  Function Composition
+    Compose
+      - Output of a function call is passed to another function.
+      - Composed from right to left.
+      Nested function arguments call in a function. 
+      Eg : 
+      1. 
+      var mod2 = mod(2)
+      var eq1 = eq(1)
+
+      function compose(fn2, fn1){
+        return function composed(...args){
+          return fn2(fn1(...args))
+        }
+      }
+
+      function isOdd(x){
+        return eq1(mod2(x))
+      }
+
+      // The above isOdd can be rewritten as below. 
+      var isOdd = compose(eq1, mod2) or compose(eq(1), mod(2))
+
+      2. wrapInDiv(toLowerCase(trim(input)));
+      Since there are too many paranthesis here. So to overcome this we use a 3rd party library called lodash.
+        To install lodash - npm i lodash
+        
+        import {compose, pipe } from 'lodash/fp';
+
+        cosnt transform = compose(wrapInDiv, toLowerCase, trim);
+        transform(input);
+      
+      But in compose, the order of functions should be treated in reverse order. So to overcome this,
+        const transform = pipe(trim, toLowerCase, wrapInDiv);
+        pipe(input);
+    Pipe
+      - Same as compose except that it is composed from left to tight.
+  Implementation
+    Refer JavaScript/Functional Programming/ComposeAndPipe.js
+  
+  Pure Functions
+    A function returns same value every time whenever we pass a particular value all the time.
+    The function should have a relationship between inputs and outputs.
+    The inputs and outputs should be direct.
+    The cann't be direct input as long as they are not changing.
+    - For the given input, the function returns the same output always.
+    - It does not depend on any data outside/inside the function
+    - It doesn't have any side effects.
+
+  Inheritance
+    One object gets access to the properties and methods of another object
+
+  Prototypes 
+    Prototypes are the mechanism by which JavaScript objects inherit features from one another.
+    It's a property that every Funtion in JavaScript has and it allows to share methods across all instances of a function
+
+  Reflection
+    An object can look at itself, listing and changing its properties and methods.
+    In other words, reflection is the ability of a program to manipulate variables, properties, and methods of objects at runtime
+
+  Proxy
+    A Proxy object wraps another object and intercepts operations, like reading/writing properties and others, optionally handling them on its own, or transparently allowing the object to handle them
+
+  Immutable
+    - Immutable data structures are the data structures that need to be changed.
+    Can't be modified once it's created.
+    In JavaScript, Objects and arrays are immutable.
+    JavaScript is not a pure Functional Programming language. So we use 3rd party library(ImmutableJS/ImmerJS/MoriJS) to work with objects and arrays.
+    To install ImmutableJS,
+      npm i immutable
+  
+  ImmerJS
+    Since ImmutableJS looks ugly because it requires getter & setter for creating the objects. So we go for ImmerJS
+    To install ImmerJS
+      npm i ImmerJS
+
+    Import {produce} from 'immer';
+    book = {name: 'abc'};
+    const updated = produce(book, updateBook => {
+      updateBook.isPublished = true;
+    })
+
+ES5 vs ES6
+    ES5
+    	- It's the 5th edition of Ecma script, introduced in 2009.
+    	- It supports only primitive data types like SNOB'N'S.
+    	- Variables can be created only by using 'var'
+      - It has lower performance
+      - function and return keywords are used to define a function.
+    ES6
+    	- It's the 6th edition of Ecma script, introduced in 2015
+    	- It's support a new datatype called Symbol
+    	- Variables can be created by using 'let' and 'const'
+      - It has higher performance
+      - We can create a new function without function and return keyword using arrow function
+
+ES2016 or ES7 features
+  1. Array.prototype.includes
+  2. Exponentiation Operator (x ** y)
+
+ES2017 or ES8 features
+  1. Object.values/Object.entries
+  2. String Padding
+     Eg: 
+     'abc'.padStart(5) // "  abc"
+     'abc'.padStart(10, "foo") // "foofoofabc"
+     'abc'.padEnd(5) // "abc  "
+     'abc'.padEnd(10, "foo") // "abcfoofoof"
+  3. Object.getOwnPropertyDescriptors
+    - returns all own property descriptors of a given object
+  4. Async Functions
+  5. Atomics
+
+ES2018 or ES9 features
+
+Namespace
+  - The below exampls is a namespace not a module because module pattern requires the concept of encapsulation. 
+  Eg: Refer Modules/Namespace.js
+
+Modules
+  - It encapsulates data and behaviour(methods) together. The state(data) of a module is held by its methods via closure.
+  Eg: Refer Modules/*.js
+  - Before modules support in browsers, we have to link every files in HTML file. Doing so, all the objects present in those files get exposed to the global scope.
+  - To solve this, we can wrap all the code inside a wrapper function so that, all the objects were not exposed to the global scope. However, the code is not exposed but these wrapper function is still exposed to global scope which is still an issue.
+  - We have a patter in JavaScript called IIFE(Immediately Invoked Function Expression), this prevents from polluting the global scope also the code is accessible only inside the IIFE. Still there is an issue, if the order of the file(script) reference is not proper in HTML file.
+  - We have another solution, CommonJS. But this requires additional tools like webpack. With this all the files are bundled together resulting in single file which contains all the code. So only that final bundled file is linked in the HTML file.
+  - Since JavaScript is living language, so from ES6, we have a feature called ES modules. With this, we can use import/export to achieve the same behaviour.
+
+Inheritance vs Composition
+  Inheritance
+    - 'is a' relationship 
+    - Tight coupling
+
+  Composition
+    - 'has a' relationship 
+    - Loose coupling
+
+Symbol
+    - Symbols are often used to add unique property keys to an object
+    - A symbol is a primitive which cannot be recreated
+
+What is HTML Canvas
+    - It is used to draw graphics, on the fly, via JavaScript.
+
+How do I loop through or enumerate a JavaScript object?
+    1. for in - Iterates over entire property chain
+    2. Object.entries, keys, values - Iterates only for the object properties
+
+for loop
+  - Declaring a variable inside the "for" statement re-declares the iteration variable on every loop.
+  Eg:
+  // Here the program prints 4 thrice, since the interater variable is re-created on every loop and we have used "var", so it overwrites the previous value and assign new value because wkt variables created using "var" can be re-declared.  
+  for(var i = 1; i <= 3; i++ ){
+    setTimeout(function timer(){
+      console.log(i) // 4 4 4 
+    })
+  }
+
+  // Here the program prints "1 2 3" since we have declared the variable using "let"
+  for(let i = 1; i <= 4; i++ ){
+    setTimeout(function timer(){
+      console.log(i) // 1 2 3
+    })
+  }
+
+for..in vs for..of
+    - for..in
+	- Iterates over the enumerable properties of the object and returns list of 'keys'
+	- Can be used with objects
+	- Can be used with Arrays and string but not advisable
+    - for..of
+	- Iterates over the iterable collections of the object and returns list of 'values'
+	- Can not be used with objects
+	- Can be used with Arrays and string
+
+CSS Box Model
+    - The CSS box model is essentially a box that wraps around every HTML element. It consists of: margins, borders, padding, and the actual content.
+
+Flexbox vs. CSS Grid
+
+Promise states
+    1. Pending
+    2. fulfilled
+    3. Rejected
+    4. Settled
+
+Functional Components VS Class Components
+  Functional components
+    - It is also called stateless component
+    - It's just a regular function without any boilerplate code
+    - It doesn't support any lifecycle methods but with hooks, it'll
+  Class components
+    - It is also called statefull component
+    - It has boilerplate code like extends, constructor etc.,
+    - It has an inbuilt support for lifecycle methods
+
+Presentational vs container
+  Presentational
+  - Also called dumb, stateless
+  - concerned with how things look
+  - Its only responsibility is to present something to the DOM
+  - Its doesn’t have internal state to manage
+  - Receive data and callbacks exclusively via props
+
+  Container
+  - Also called smart, stateful 
+  - concerned with how things work
+  - Provide the data and behavior to presentational or other container components
+  - Are often stateful
+
+HTML5 features
+    - header, footer, section, video, nav, figure, canvas
+
+Arrow Funtion Vs Regular Function
+  Arrow function
+  - It doesn’t define its own execution context or "this" keyword, so the value of "this" inside the arrow function is equal to the lexical "this" scope. i.e., It'll go up the levels till it finds the "this" reference. Refer ThisKeyword/ThisLexicalBiding.js
+  - It can't be used as a constructor
+  - Same like 'this', using 'arguments' results the outside function arguments, not able to access the 'arguments' of it's immediate parameters, but can be used rest operator parameter instead.
+  - Explicitly returns if only one statement is present inside the function.
+  - Inside a class, 'this' can be referenced in any arrow functions
+
+  Regular function
+  - the value of this depends on how the function is invoked
+  - Can be used as a constructor
+  - Can able to access 'arguments'.
+  - Here, returns undefined if no return statement is provided
+  - 'this' can't be accessed inside class, so manual binding is required. Eg: func.bind(obj)
+
+Event bubbling
+    - When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors.
+
+Closures
+  - Closure is when a function "remembers" its lexical scope even when the function is executed outside that lexical scope or elsewhere. 
+	- Data of the outside function can be accessible in the inside function eventhough the outer function has returned.
+  Eg:
+  1.
+    function makeCounter(){
+      var counter = 0;
+
+      return function increment(){
+        return ++counter;
+      }
+    }
+
+    var counter = makeCounter();
+    counter(); // 1
+    counter(); // 2
+
+  2. 
+  function strBuilder(str) {
+    return function next(newStr){
+      if(typeof newStr === 'string') {      
+        return strBuilder(str + newStr)
+      };
+      return str;
+    };
+  }
+  console.log(strBuilder("Hello, ")("")("Kyle")(".")("")()); // Hello, Kyle.
+
+
+
+
+Function Composition & Pipes
+
+Recursion
+
+Promises
+
+Async/Await
+
+'this' keyword
+  - The functions 'this' keyword, references the execution context for that call, determined entirely by how the function is called. 
+  1. Implicit binding
+    - How function is invoked. Refer ThisKeyword/ImplicitBinding.js
+    Eg: person.getFullName()  // 'this' keyword in getFullName function references person object. 
+
+  2. Explicit binding
+    bind
+      - It creates a new function that, when called, has its this keyword set to the provided value.
+      Eg : Refer ThisKeyword/ExplicitBinding.js
+
+    call
+      - It calls a function with a given this value and arguments provided individually.
+      Eg : Refer ThisKeyword/ExplicitBinding.js
+
+    apply
+      - It calls a function with a given this value, and arguments provided as an array
+      Eg : Refer ThisKeyword/ExplicitBinding.js
+
+  3. new binding
+    - Whenever a new object is created using 'new' keyword, JavaScript automatically creates 'this'
+    - "new" keyword does the following 4 things when a function is invoked by using this.
+      1. Creates a brand new empty object. Similar to calling someFunc.call({})
+      2. Link that object to another object.
+      3. Calls the function with "this" set to the new object.
+      4. If the called function does not return something, it assumes return of "this".
+    Eg: Refer ThisKeyword/newBinding.js
+      const Animal = function (name, color) {
+        // this = {} // this is automatically created by JavaScript
+        this.name = name;
+        this.color = color;
+      }
+      const animal = new Animal('Tiger', 'yellow')
+      console.log(animal) // {"name":"Tiger","color":"yellow"} 
+
+  4. Default/window binding
+    Eg: Refer ThisKeyword/DefaultBinding.js
+
+Binding precedence
+  1. Is the function called by using "new"?
+  2. Is the function called by using "call()" or "apply()" or "bind()?
+  3. Is the function called on a context object. i.e., workshop.ask()?
+  4. Default binding - Global/undefined based on strict mode. 
+
+React.lazy(lazy loading)
+	- Loads the component only when they are actually needed.
+
+Eager loading
+	- If we know that the particular component should be needed when the page loads, we can make that component to load priorly based on certain events.
+	  Eg: <checkbox onHover={loadComponent} />
+	  loadcomponent = () => import('../Component');
+
+Webpack magic comments 
+	- Similar to eager loading, instead of triggering the imports by certain events, we can tell webpack to load components as soon as the browser has no work to do(not busy) by specifying the magic comments in the import statement.
+	  Eg : const Component = React.lazy(() => import(/* webpackPrefetch: true */ '../Component');
+    
+document.createDocumentFragment()
+	- Suppose we have huge list items which are appended to the DOM element dynamically using append, there may be some issue in performance wise.
+	  So instead, we can use DocumentFragment, which only append to the DOM only after DOM has dynamically created completely.
+
+document.querySelector('p').insertAdjacentHTML('beforebegin', '<li>test</li>')
+	- For performance reasons, using template string with innerHTML or appending to the element dynamically cause issues.
+	- So, we can use insertAdjacentHTML for that.
+
+replaceWith
+	- Replace one element with the other
+	Eg: div.replaceWith(newDiv)
+
+cloneNode
+	- Creates a copy of DOM node.
+	- div.cloneNode(false) or div.cloneNode() clones only the top element.
+	- div.cloneNode(true) clones entire tree.
+
+remove
+	- Remove DOM node
+	Eg: div.remove()

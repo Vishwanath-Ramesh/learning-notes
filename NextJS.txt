@@ -1,0 +1,134 @@
+Routing
+	- NextJS has a built-in support for routing.
+	- All we have to do is create a folder named 'pages'.
+	- In that 'pages' folder, we can keep all the component which needs to be rendered as pages.
+	- We can create 'pages' either inside the 'src' folder or in the 'root' but not both.
+	Eg: 
+	pages/notes/index.jsx
+	pages/notes/[id].jsx // route params having id if we access the page by /notes/123
+	pages/notes/[...params].jsx // route params having array of values if we access the page by /notes/1/2/3
+	pages/notes/[[...params]].jsx // route params having array of values if we access the page by /notes/1/2/3 which is optional
+
+Navigation
+	- For client side routing, nextjs has a builtin component called 'link'.
+	Eg:
+	import Link from "next/link";
+	<Link href="/notes">
+            <a>Notes</a> // 'a' tag is recommended
+        </Link>
+	- For navigating to pages having query params.
+        <Link href="notes/[id]" as="/notes/123">
+           <a>Note 1</a>
+        </Link>
+	- For programmatic routing, router.push(<href>, <as>)
+
+Custom Pages
+	- Next.JS automatically creates the entry point for the application. If we want to customize it, we can do that by creating '_app.jsx' file in the root of the 'pages' folder.
+	Eg: If we want to include global CSS in the app, the only place to do that is in the '_app.jsx'. If we try to include anywhere other than this, we get an error.
+	- If we want to include the CSS scoped to the particulat component, name the CSS file as module. 
+	Eg: button.module.css
+
+Config
+	- We can customize the app configuration by creating next.config.js in the root folder.
+	Eg: 
+const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
+
+module.exports = (phase, someData) => {
+  if (phase === PHASE_DEVELOPMENT_SERVER) {
+    console.log("Development mode");
+  }
+
+  return {
+    ...someData.defaultConfig,
+    env: {
+      APP_ENV: "dev",
+    },
+  };
+};
+
+API
+	- Next.JS has an built-in support for API using connect which is Express now.
+	- Creating API route is very similar to creating page route.
+	- Create a folder named 'api' in pages folder and create necessary API routes under it.
+	Eg: 
+export default (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.status(200).send({ message: "hello" });
+};
+	- In order to use different http verbs for the handlers, Next.JS has a package for it 'next-connect'
+	Eg: 
+import nc from "next-connect";
+
+const handler = nc()
+  .get((req, res) => {
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).send({ message: "hello" });
+  })
+  .delete((req, res) => {
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).send({ message: "Deleted successfully" });
+  });
+
+export default handler;
+
+Pre-rendering
+	- By default, Next.js pre-renders every page
+	- Next.js has two forms of pre-rendering
+		1. Static Generation - The HTML is generated at build time and will be reused on each request
+		2. Server-side Rendering - The HTML is generated on each request.
+	
+	1. Static Generation with data
+		- If page content depends on external data, use getStaticProps.
+		- getStaticProps will be executed only once during the build time.
+		Eg:
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts
+  const res = await fetch('https://.../posts')
+  const posts = await res.json()
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts,
+    },
+  }
+}
+		- If page paths depend on external data, use getStaticPaths
+		Eg:
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  const res = await fetch('https://.../posts')
+  const posts = await res.json()
+
+  // Get the paths we want to pre-render based on posts
+  const paths = posts.map((post) => ({
+    params: { id: post.id },
+  }))
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false }
+}
+
+	2. Server side rendering
+		- If you export an async function called getServerSideProps from a page, Next.js will pre-render this page on each request using the data returned by getServerSideProps.
+		Eg:
+function Page({ data }) {
+  // Render data...
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch(`https://.../data`)
+  const data = await res.json()
+
+  // Pass data to the page via props
+  return { props: { data } }
+}
+
+export default Page
+
+SWR
+	Reference: https://swr.vercel.app/

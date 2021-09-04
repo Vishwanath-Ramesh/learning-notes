@@ -1,0 +1,7 @@
+/* Ref: 1 Selects only the immediate child element */
+.container > .left-area {
+}
+
+/* Ref: 2 - Selects the elements combined with parent*/
+.container.move-right {
+}

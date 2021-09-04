@@ -1,2 +1,50 @@
-Host - It is an application which try to make use of code from another project. In our case, it's 'Container'
-Remote - It's a project which makes it code available for other projects. In our case, it's 'Products'
+Monolithic SPA
+    - All the code will be present in single code base
+
+Microfrontends
+    - Divide monolithic apps into multiple smaller apps.
+    - Each smaller app is responsible for distinct feature of the product.
+    - These smaller apps won't communicate with each other directly. There may be some kind of mediator between them like API's.
+
+    Why
+        - Multiple teams can be work simultaneously on different features of the same project.
+        - Break in one app will not make any impact for another apps.
+
+Container
+    - Suppose if we want to show multiple microfrontend apps in the same page, we need to know when and how to show those apps. So another microfrontend app(container) is responsible for that.
+
+Integration
+    - The process of connecting or assembling different microfrontend apps using a container.
+    Categories
+        1. Build time
+            - Also known as compile time integration
+            - Container gets access to the microfrontends source code before the container gets loaded in the browser
+            - Each microfrontend app is pushed into the NPM registry and this is linked or installed in the container.
+
+            Pro's
+                - Easy to setup and understand
+
+            Con's
+                - Container has to re-deployed every time when one of the microfrontend app gets changed
+
+        2. Run time
+            - Also known as client side integration
+            - Container gets access to the microfrontends source code after the container gets loaded in the browser
+            - Each microfrontend apps get deployed on a static URL then container will then fetches necessary microfrontend apps files and executes it.
+
+            Pro's
+                - The microfrontend apps can be deployed independently at any time without having to re-deploy the container.
+                - Different versions of microfrontend apps can be deployed and container gets to choose which one to use.
+
+            Con's
+                - Tooling and setup is more complicated.
+
+        3. Server
+
+Host
+    - It is an application which try to make use of code from another project. In our case, it's 'Container'
+Remote
+    - It's a project which makes it code available for other projects. In our case, it's 'Products'
+
+
+Completion progress: 03 - 019
