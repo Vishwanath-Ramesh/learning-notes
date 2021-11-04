@@ -339,6 +339,30 @@ Web Scraping
 
 Upgrade pip
     > python -m pip install --upgrade pip
+    
+Regular Expressions
+    text = 'My phone number is 111-111-1111'
+    phone = re.search(r'\d\d\d-\d\d\d-\d\d\d\d')
+    phone.group() // 111-111-1111
+
+    phone = re.search(r'\d{3}-\d{3}-\d{3}')
+    phone.group() // 111-111-1111
+
+    phone = re.compile(r'(\d{3})-(\d{3})-(\d{3})') // combine group of reg exp into one
+    phone.group() // 111-111-1111
+    phone.group(1) // 111
+
+    re.search(r'cat|dog', 'The dog is here') // 'dog' - OR operator
+
+    re.findall(r'.at', 'The cat in the hat sat there') // ['cat', 'at', 'at'] - Wildcard(.) operator
+
+    re.findall(r'^\d', '1 is a number') // ['1'] - Startswith
+    re.findall(r'\d$', 'The number is 1') // ['1'] - Endswith
+
+    re.findall(r'[^\d]', 'one 1 two 2') // [o n e  t w o  ]
+    re.findall(r'[^\d]+', 'one 1 two 2') // ['one ', ' two ']
+
+    re.findall(r'\w+-\w+', 'Find hypen-words in the long-ish string') // ['hypen-words', 'long-ish']
 
 References:
 https://github.com/Pierian-Data/Complete-Python-3-Bootcamp

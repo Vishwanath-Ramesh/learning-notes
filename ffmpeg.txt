@@ -1,0 +1,78 @@
+ffprobe
+    View file informations
+    > ffprobe "sample.mkv"
+
+    Suppress log informations unless there is any error
+    > ffprobe -v error "Sample.mkv"
+
+    Print only few media informations
+    > ffprobe -v error "Sample.mkv" -show_format
+
+    Print only few media informations with all streams
+    > ffprobe -v error "Sample.mkv" -show_format -show_streams
+
+    Print the output to different formats
+    > ffprobe -v error "Sample.mkv" -show_format -show_streams -print_format json
+    > ffprobe -v error https://test-videos.co.uk/vids/bigbuckbunny/mp4/av1/1080/Big_Buck_Bunny_1080_10s_5MB.mp4 -show_format -show_streams -print_format json
+
+    Filter only necessary streams
+    > ffprobe -v error "Sample.mkv" -show_streams -select_streams v
+
+    Show only the codec name informations
+    > ffprobe -v error "Sample.mkv" -select_streams v -show_entries stream=codec_name
+
+    Set default print wrappers and eliminate default print wrappers
+    > ffprobe -v error "Sample.mkv" -select_streams v -show_entries stream=codec_name -print_format default=noprint_wrappers=1
+
+    To print only value part ignoring key
+    > ffprobe -v error "Sample.mkv" -select_streams v -show_entries stream=codec_name -print_format default=noprint_wrappers=1:nokey=1
+
+ffplay
+    Play media files. By default, the window will be as per the video resolutions
+    > ffplay -v error "Sample.mkv"
+
+    Play the video in custom resolutions
+    > ffplay -v error "Sample.mkv" -x 600 -y 600
+
+    Hide titlebar
+    > ffplay -v error "Sample.mkv" -noborder
+
+    Specify the window position
+    > ffplay -v error "Sample.mkv" -x 600 -y 600 -top 0 -left 0
+
+    Play videos in fullscreen
+    > ffplay -v error "Sample.mkv" -x 600 -y 600 -fs
+
+    Disable audio
+    > ffplay -v error "Sample.mkv" -x 600 -y 600 -an
+
+    Disable video
+    > ffplay -v error "Sample.mkv" -x 600 -y 600 -vn
+
+    Change default video modes
+    > ffplay -v error "Sample.mkv" -x 600 -y 600 -showmode waves
+
+    Play the videos in loop. 0 to play for ever.
+    > > ffplay -v error "Sample.mkv" -x 600 -y 600 -loop 2
+
+ffmpeg
+    > ffmpeg 
+        -f <input device or format>
+        -i <input-protocol>:<input-identifier>
+        ... <filters and other options>
+        -f <output device or format>
+        <output-protocol>:<output-identifier>
+
+    Listing supported
+        > ffmpeg
+            -protocols
+            -devices
+            -formats
+            -encoders
+
+Terminologies
+    Transcoding
+        - Converting from one codec to another
+
+    Transmuxing
+        - Converting from one container to another
