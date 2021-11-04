@@ -318,5 +318,27 @@ Datetime
     from datetime import datetime
     mdydatetime = datetime(2021, 10, 3, 14, 20, 1)
 
+Zipping and Unzipping files
+    Refer: zip_unzip.py
+
+Web Scraping
+    - Techniques involving automating the gathering of data from a website
+
+    Libraries
+        > pip install requests - make http requests and gather info
+        > pip install lxml - Used for processing XML and HTML
+        > pip install bs4 - Used for pulling data out of HTML and XML files
+
+    Get response text from a website
+        import requests, bs4
+
+        response = requests.get('http://www.example.com/')
+        print(response.text) # prints HTML doc as text
+
+    Refer: /web_scraping.py
+
+Upgrade pip
+    > python -m pip install --upgrade pip
+
 References:
 https://github.com/Pierian-Data/Complete-Python-3-Bootcamp

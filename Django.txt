@@ -1,3 +1,11 @@
+Django
+  User requests a URL --> urls.py --> views.py --> models.py --> Database(SQLite)
+                       User <-- HTML Templates <-- 
+
+  models.py
+    - contains all the information about the database
+    - Query databases for getting info feed it back to views.py which creates the view of the website and uses HTML templates then send it back to the user.
+
 Install Virtual Environment
     >> pip3 install virtualenv
 
@@ -11,8 +19,24 @@ Install django
     >> pip install django
 
 Creating a new project
-    >> django-admin.py startproject tango_with_django_project
-    Add . at the end, to create the project in the current working directory
+  - A Django project is a collection of application and configurations that when combines together will make up the full web application.
+  >> django-admin.py startproject tango_with_django_project
+  Add . at the end, to create the project in the current working directory
+
+Django Project Files
+  __init__.py
+    - This is a blank python script. 
+    - If any directory contains this script, python treat this directory as a package.
+
+  settings.py
+    - Here we store all of the project settings.
+
+  urls.py
+    - Here we store all the url patterns for the project. i.e., different pages of our web application.
+
+  wsgi.py
+    - It acts as a Web Server Gateway Interface.
+    - It helps to deploy our web application to production.
 
 Running the dev server
     - cd into the project folder and run
@@ -20,11 +44,43 @@ Running the dev server
     - Specify different ports
     >> python manage.py runserver <your_machines_ip_address>:5555
 
-Migrate python dependencies
-    >> python manage.py migrate
+Migrations
+  - A migration allows to move databases from one design to another, also reversible.
+
+  Migrate python dependencies
+      >> python manage.py migrate
 
 Creating an App
-    >> python manage.py startapp todo
+  - A Django application is created to perform a particular functionality for your entire web application.
+  - We can use these Django applications in other Django projects also we can use other Django applications in our Django projects. This process is also called as pluggable Django applications.
+  - After creating an app, we should inform Django project that we have a new app created. For that, we need to add this app in project's settings.py.
+  Eg: 
+  <project-dir>/settings.py
+  INSTALLED_APPS = ['app_1']
+  
+  >> python manage.py startapp todo
+
+Django App Files
+  __init__.js
+    - Same purpose as of project.
+
+  admin.js
+    - We can register our models here whic Django will then use them with Django's admin interface.
+
+  apps.py
+    - Here we store the applications specific configurations.
+
+  models.py
+    - Here we store the applications data models.
+
+  tests.py
+    - Here we can store test functions to test our code.
+
+  views.py
+    - Here we have functions that handle requests and return responses.
+
+  migrations directory
+    - This directory stores database specific information as it relates to the models.
 
 Create migrations after creating a Model
     >> python managr.py makemigrations
@@ -58,7 +114,7 @@ Creating a View
     Eg: 
     from todo.views import todo_lists 
     urlpatterns = [
-        path('', todo_lists),
+        path('', todo_lists), or url(r'^$', views.todo_lists, name='todo_lists')
     ]
 
 HTML templates as a response
