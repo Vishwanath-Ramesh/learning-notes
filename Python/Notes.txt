@@ -151,13 +151,20 @@ List comprehension / Flattened for
 
 Functions
     Syntax
-    def name_of_function():
-    '''
-        function documentation
-    '''
-        print('Hello')
+        def <function-name>(<arguments>):
 
-    name_of_function() // Hello
+    *args
+        - Arguments
+        - Returns Tuple
+        - Can be any name. Like *arguments etc
+
+    **kwargs
+        - Keyword arguments
+        - Returns Dictionary
+        - Can be any name. Like *arguments etc
+
+    Refer ./functions.py
+
 
 File system
     myFile = open('myfile.txt)
@@ -337,6 +344,9 @@ Web Scraping
 
     Refer: /web_scraping.py
 
+Install pip
+    > py -m ensurepip --upgrade
+
 Upgrade pip
     > python -m pip install --upgrade pip
     
@@ -363,6 +373,18 @@ Regular Expressions
     re.findall(r'[^\d]+', 'one 1 two 2') // ['one ', ' two ']
 
     re.findall(r'\w+-\w+', 'Find hypen-words in the long-ish string') // ['hypen-words', 'long-ish']
+
+Useful Packages
+    colorama
+        - Print console text in colors.
+
+        Install
+            > pip install colorama
+
+        Usage
+            > from colorama import init, Fore
+            > init()
+            > print(Fore.RED + "Welcome")
 
 References:
 https://github.com/Pierian-Data/Complete-Python-3-Bootcamp
