@@ -1,0 +1,26 @@
+Test Driven Development
+    1. Write a failing unit tests.
+    2. Write the feature to pass the test.
+    3. Refactor the code.
+
+Why TDD?
+    - It reduces errors and defects in the long run.
+    - It leads to high quality code.
+    
+Red Green Refactor cycle
+
+Behaviour Driven Development
+    - A variation of TDD that tests for user scenarious.
+
+References:
+https://sapient.udemy.com/course/react-tdd/
+https://www.udemy.com/course/test-driven-development-with-react/
+https://www.udemy.com/course/react-with-test-driven-development/
+https://learntdd.in/
+https://www.youtube.com/playlist?list=PLXXnezSEtvNMlfJFd1Z2wilxymcOaVl9Q
+https://www.tutflix.org/resources/javascript-test-driven-development-es6.6632/
+https://testdriven.io/blog/tdd-with-react-jest-and-enzyme-part-one/
+https://www.educative.io/courses/test-driven-react-development
+https://link.springer.com/book/10.1007/978-1-4842-6972-5
+https://www.testim.io/blog/tdd-react/
+https://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530
