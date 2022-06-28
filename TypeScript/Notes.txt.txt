@@ -1,0 +1,56 @@
+TypeScript
+	"Typescript is a typed superset of JavaScript that compiles to plain JavaScript"
+	- Open source by Microsoft
+	- Static type system
+	- Superset of JavaScript. i.e., TypeScript gives us few more features butit also gives us all of the capabilities of JavaScript.
+	- Provides optional static typing
+	
+Why TypeScript
+	- Typed JavaScript, code quality and understanding
+	- Types acts as a documentation
+	- TypeScript is JavaScript
+	- Type inference
+	- Structural types
+	- Adoption can be incremental
+	- Brand new ECMAScript features
+	
+Commands
+	> tsc init - Initialize tsconfig.json
+	> tsc --outDir dist - Create the output JavaScript files inside this folder.
+	> tsc -watch - Enable watch mode
+
+Operators
+	1. non-null assertion operator
+		- this expression cannot be null or undefined here, so don't complain about the possibility of it being null or undefined
+		Eg:
+		const input = document.getElementById("num1")!;
+
+Assertions
+	Ref: ./Examples.ts
+
+Enums
+	Ref: ./Examples.ts
+
+class
+	Ref: ./Examples.ts
+
+Generics
+	Ref: ./Generics.ts
+
+Overloading
+	Ref: ./Overloading.ts
+
+typing this
+	Ref: ./Examples.ts
+
+typeof and keyof
+	Ref: ./Examples.ts
+
+Map type
+	Ref: ./Examples.ts
+
+Intersection type
+	Ref: ./Examples.ts
+
+Augmenting type declarations
+	Ref: ./Examples.ts
