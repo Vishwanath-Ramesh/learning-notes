@@ -34,7 +34,95 @@ Datatypes
         Un Ordered collections of unique objects
         Eg: {"a", "b"}
     bool
-        Eg: true or false     
+        Eg: True or False
+    NoneType
+        None 
+
+Operators
+    Exponentiation
+        Eg: print(2 ** 3) // 8  
+
+    Division
+        - It returns always a float
+        Eg: print(2 / 1) // 2.0
+            print(1 // 2) // 0 (rounded to nearest lesser interger)
+
+    Replication
+        - The * (asterisk) sign, when applied to a string and number (or a number and string, as it remains commutative in this position) becomes a replication operator.
+        Eg:
+            "James" * 3 // "JamesJamesJames"
+            3 * "an" // "ananan"
+            5 * "2" (or "2" * 5) // "22222"
+
+    Logical operators
+        conjunction -> and
+            Eg: counter > 0 and value == 100
+        disjunction -> or
+        negation -> not
+            Eg: print(not True) // False
+    
+    Bitwise operators
+        conjunction -> &
+        disjunction -> |
+        negation -> ~
+        exclusive or (xor) -> ^
+            Eg: 
+                0 ^ -> 1
+                1 ^ -> 0
+    
+        Argument A	Argument B	A & B	 A | B	A ^ B
+            0	        0	      0	       0	  0
+            0	        1	      0	       1	  1
+            1	        0	      0	       1	  1
+            1	        1	      1	       1	  0
+        Examples:
+            x = 15 # 0000 1111
+            y = 16 # 0001 0000
+
+            x & y = 0 // 0000 0000
+            x | y = 31 // 0001 1111
+            ˜ x = 240* // 1111 0000
+            x ^ y = 31 // 0001 1111
+            y >> 1 = 8 // 0000 1000
+            y << 3 =  // 1000 0000
+    
+    Shifting operators
+        Left
+            <value-in-int> << <no-of-shifts>
+            Eg: 17 << 2 // 68 # 17 * 4 (17 multiplied by 2 to the power of 2)
+        Right
+            <value-in-int> >> <no-of-shifts>
+            Eg: 17 >> 1 // 8 # Same as 17 // 2 (17 floor-divided by 2 to the power of 1)
+
+    in and not   
+        Eg:
+        my_list = [0, 3, 12, 8, 2]
+
+        print(5 in my_list) // False
+        print(5 not in my_list) // True
+        print(12 in my_list)    // True
+
+
+    Priority	Operator	
+        1	        ~, +, -	(unary)
+        2	        **	
+        3	        *, /, //, %	
+        4	        +, -	(binary)
+        5	        <<, >>	
+        6	        <, <=, >, >=	
+        7	        ==, !=	
+        8	        &	
+        9	        |	
+        10      	=, +=, -=, *=, /=, %=, &=, ^=, |=, >>=, <<=	
+
+Get user input
+    input("Tell me something")
+
+Type Casting
+    Eg:
+        float("1.6") // 1.6
+        int("4") // 4
+        str(4) // "4"
 
 Strings
     Indexing & Slicing
@@ -96,6 +184,17 @@ Inbuilt keywords
         1 in [1, 2, 3] // True
         'key1' in {'key1' : 100 } // True
         100 in {'key1' : 100 }.values() // True
+    
+    global
+        - extend a globally scoped/created members inside functions.
+        Eg:
+        def my_function():
+            global var
+            var = 2
+            print("Do I know that variable?", var)
+        var = 1
+        my_function()
+        print(var) 
 
 Conditional Statements
     if, elif, else
@@ -122,11 +221,41 @@ Conditional Statements
         for key,value in {'k1': 1, 'k2': 2, 'k3': 3}.items():
             print(key + ' ' + value)  // "k1 1"
 
+        word = "Python"
+        for letter in word:
+            print(letter, end="*")
+
+        i = 111
+        for i in range(2, 1):
+            print(i)
+        else:
+            print("else:", i)
+        Output:
+            else: 111
+
+        for i in range(5):
+            print(i)
+        else:
+            print("else:", i)
+        Output:
+            0
+            1
+            2
+            3
+            4
+            else: 4
+
+
+
     while
         while <condition>:
             <statement>
-        else:
+        else:   //  It is always executed once, regardless of whether the loop has entered its body or not.
             <statement>
+
+    Loop control
+        break
+        continue
 
 List comprehension / Flattened for
     Eg:
@@ -143,11 +272,13 @@ List comprehension / Flattened for
     myList // [0, 1, 4...]         
 
     Generator comprehension
-    myList = [num for num in range(0, 11) if num % 2 == 0]
-    myList // [0, 2, 4, 6...]
+        myList = [num for num in range(0, 11) if num % 2 == 0]
+        myList // [0, 2, 4, 6...]
 
-    myList = [x*y for x in [1, 2, 3] for y in [10, 100, 1000]]
-    myList // [10, 100, 1000, 20, 200, 2000 ...]
+        myList = [x*y for x in [1, 2, 3] for y in [10, 100, 1000]]
+        myList // [10, 100, 1000, 20, 200, 2000 ...]
+
+        chess_board = [[EMPTY for i in range(8)] for j in range(8)]
 
 Functions
     Syntax
@@ -386,5 +517,19 @@ Useful Packages
             > init()
             > print(Fore.RED + "Welcome")
 
+Swap variables
+    variable_1 = 1
+    variable_2 = 2
+    variable_1, variable_2 = variable_2, variable_1
+
+Slice a list
+    list_1 = [1]
+    list_2 = list_1[:]
+    list_1[0] = 2
+    print(list_2) // 1
+
 References:
 https://github.com/Pierian-Data/Complete-Python-3-Bootcamp
+
+Notes:
+    - Tuple is immutable
