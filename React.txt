@@ -396,3 +396,74 @@ Refs
 		<input ref={this.usernameRef} className='form-control' type='text' name='' id='username' />
 		this.usernameRef.current.value;
 	
+Concurrent rendering
+	- It's a behind the scenes capability that powers features like Suspense.
+	Eg: Pre-redering the screens ahead of time before showing to the user.
+
+Concurrent Mode
+	- It is an experimental feature.
+	- Concurrent Mode is a set of new features that help React apps stay responsive and gracefully adjust to the user’s device capabilities and network speed.
+	- React in Concurrent Mode can interrupt an ongoing update to do something more important, and then come back to what it was doing earlier.
+	- In Concurrent Mode, React can work on several state updates concurrently.
+	Note: React 18 was released with support for concurrency. However, there is no “mode” anymore, and the new behavior is fully opt-in and only enabled when you use the new features.
+	Ref: https://17.reactjs.org/docs/concurrent-mode-intro.html
+
+	Blocking rendering
+		- Once the component start rendering an update, including creating new DOM nodes and running the code inside components, we can’t interrupt this work. In Concurrent Mode, rendering is not blocking. It is interruptible.
+
+Concurrent React
+	- A key property of Concurrent React is that rendering is interruptible.
+
+	Asynchronous rendering/transaction
+		- React may start rendering an update, pause in the middle, then continue later. It may even abandon an in-progress render altogether.
+		- With this capability, React can prepare new screens in the background without blocking the main thread.
+		- This means the UI can respond immediately to user input even if it’s in the middle of a large rendering task, creating a fluid user experience.
+
+	Reusable state
+		- Concurrent React can remove sections of the UI from the screen, then add them back later while reusing the previous state.
+		- For example, when a user tabs away from a screen and back, React should be able to restore the previous screen in the same state it was in before.
+
+React 18
+	Improvements
+		1. Automatic batching
+		2. useId
+
+	Opt-in new features
+		1. startTransition
+		2. useDeferredValue
+		3. Streaming SSR with Suspense
+
+	New API's
+		- startTransition() - a method to start transitions when the hook cannot be used.
+	
+	Hooks
+		- useDeferredValue()
+		- useTransition() - a hook to start transitions, including a value to track the pending state.
+		- useId()
+		- useSyncExternalStore()
+
+	Dropping Support for Internet Explorer
+
+	Note:
+		Batching
+			- React will batch the state updates automatically occured in React event handlers. But updates occured outside events(promises, setTimeout, native event handlers) are not batched.
+			- After React 18, React batches all the state updates and re-renders only once at the end. We also opt-out the automatic batching. 
+			Eg:
+			handleOnIncrementSync = () => {
+				setTimeout(() => {
+					this.setState(({ counter }) => ({ counter: counter + 1 }));
+					console.log("count:", this.state.counter); // 1
+					this.setState(({ flag }) => ({ flag: !flag }));
+				}, 0);
+			};
+
+			handleOnIncrement = () => {
+				this.setState(({ counter }) => ({ counter: counter + 1 }));
+				console.log("count:", this.state.counter); // 0
+				this.setState(({ flag }) => ({ flag: !flag }));
+			};
+			Ref: https://github.com/reactwg/react-18/discussions/21
+
+		Server Components
+			- After retrieving the HTML skeleton from the server, if one part of the app(Component) takes longer time to load, the whole app becomes un-response.
+			- From React 18, one slow part doesn't slow the whole page. Show the initial HTML early and stream the rest.
