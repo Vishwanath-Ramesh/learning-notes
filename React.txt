@@ -9,6 +9,13 @@ Virtual DOM
 	Then the difference between the previous DOM representation and the new one is calculated.
 	Once the calculations are done, the real DOM will be updated with only the things that have actually changed.
 
+React Fiber
+	- Fiber is the new reconciliation engine in React 16. 
+	- Its main goal is to enable incremental rendering of the virtual DOM. 
+	- React Fiber is an ongoing reimplementation of React's core algorithm. 	
+	- The goal of React Fiber is to increase its suitability for areas like animation, layout, and gestures.
+	- Its headline feature is incremental rendering: the ability to split rendering work into chunks and spread it out over multiple frames.
+
 Components
 	It may be a class or a function which optionally accepts props as inputs and returns a single react element that describes how a part of UI sould apprear.
 	
@@ -21,20 +28,20 @@ SPA
 The Component Lifecycle
     - There are 3 phases.
       1. Mounting - when an instance of a component is being created and inserted into the DOM
-		constructor(props)
+		*constructor(props)
 			- It is called before a component is mounted.
 			- It should call super(props) before any other statement.
-		static getDerivedStateFromProps(props, state)
+		*static getDerivedStateFromProps(props, state)
 			- It should return an object to update the state, or null to update nothing.
 			- Triggered on every render.
 		componentWillMount
 			- This will continue to work untill v17. For v17 & above, it is renamed to UNSAFE_componentWillMount().
 			- No side effects are used in here.
 			- This is the only lifecycle method called on server rendering.
-		render()
+		*render()
 			- It should return one of the following types React elements, Arrays, fragments, Portals, String, numbers, Booleans or null.
 			- It should be a pure function. 
-		componentDidMount
+		*componentDidMount
 			- It is invoked immediately after a component is mounted (inserted into the tree).
 			- After this only, browser paint happens.
       2. Updating - An update can be caused by changes to props or state
@@ -60,7 +67,7 @@ The Component Lifecycle
 		componentWillUpdate(nextProps, nextState)
 			- This will continue to work untill v17. For v17 & above, it is renamed to UNSAFE_componentWillUpdate(nextProps, nextState).
 			- It is invoked just before rendering when new props or state are being received
-		componentDidUpdate(prevProps, prevState, snapshot)
+		*componentDidUpdate(prevProps, prevState, snapshot)
 			- It is invoked immediately after updating occurs. 
 			- It is not called for the initial render.
       3. Unmounting - called when a component is being removed from the DOM.
