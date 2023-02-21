@@ -1,0 +1,41 @@
+Web worker
+    - It runs the JavaScript in a seperate thread without affecting browser thread.
+
+    The structured clone algorithm
+    Ref: https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm
+
+    SharedArrayBuffer
+    Ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer
+
+    Atomics
+    Ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics
+
+    Kyle course source code
+    https://github.com/FrontendMasters/web-workers
+
+    self vs window
+        - Both window and self are references to the Window object, which is the global object of client-side javascript.
+        - For example, if you use self inside a Web Worker (which lives in its own background thread), self will actually reference WorkerGlobalScope.self. However, if you use self in a normal browser context, self will simply return a reference to Window.self (the one that has document, addEventListener(), and all the other stuff you're used to seeing).
+Service worker
+    - Service worker sits between our web app and the rest of the web.
+    - In other words, every single web request that happens(image, js etc) that funnel through service worker if there is one.
+    
+    Register SW
+        - By default, service worker will handle request only for the files under the path where the service worker code file is present.
+        Eg: If the service worker code file is /js/sw.js, then service worker will handle request only for the code present in 'js' folder.
+        If the file is '/sw.js', it will handle all the files in the root.
+    Eg:
+    swRegistration = await navigator.serviceWorker.register("/sw.js", {
+        updateViaCache: false
+    })
+
+    Kyle course source code
+    https://github.com/FrontendMasters/service-workers-offline
+
+postMessage
+    Ref: https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage
+
+
+    http://alistapart.com/article/getoutbindingsituations/
+    https://developers.google.com/web/tools/workbox/
+    https://abookapart.com/products/going-offline
