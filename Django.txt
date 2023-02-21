@@ -12,11 +12,24 @@ Install Virtual Environment
 Create new virtual environment
     >> virtualenv env
 
-Start virtual environment
+    using anaconda
+    >> conda create --name env django
+
+Activate virtual environment
     >> source env/Scripts/activate
+
+    using anaconda
+    >> activate env
+
+Deactivate virtual environment
+  >> deactivate env
 
 Install django
     >> pip install django
+
+    - This will be installed only inside of the virtual environment.
+    - You can verify this by 
+    >> where python
 
 Creating a new project
   - A Django project is a collection of application and configurations that when combines together will make up the full web application.
@@ -34,6 +47,12 @@ Django Project Files
   urls.py
     - Here we store all the url patterns for the project. i.e., different pages of our web application.
 
+    URL Mappings
+      include
+        - It allows us to look for a match with regex and link back to our applications own urls.py file.
+        >> from django.conf.urls import include
+        Ref: django-bootcamp-udemy/first-project/project_1/app_1
+
   wsgi.py
     - It acts as a Web Server Gateway Interface.
     - It helps to deploy our web application to production.
@@ -44,12 +63,6 @@ Running the dev server
     - Specify different ports
     >> python manage.py runserver <your_machines_ip_address>:5555
 
-Migrations
-  - A migration allows to move databases from one design to another, also reversible.
-
-  Migrate python dependencies
-      >> python manage.py migrate
-
 Creating an App
   - A Django application is created to perform a particular functionality for your entire web application.
   - We can use these Django applications in other Django projects also we can use other Django applications in our Django projects. This process is also called as pluggable Django applications.
@@ -58,7 +71,7 @@ Creating an App
   <project-dir>/settings.py
   INSTALLED_APPS = ['app_1']
   
-  >> python manage.py startapp todo
+  >> python manage.py startapp todo or django-admin startapp todo
 
 Django App Files
   __init__.js
@@ -82,62 +95,14 @@ Django App Files
   migrations directory
     - This directory stores database specific information as it relates to the models.
 
-Create migrations after creating a Model
-    >> python managr.py makemigrations
-    >> python managr.py migrate - Then run this inorder to apply migrations which are not been already applied
-
-Manage Admin
-    - Navigate to the link /admin, you will see a login screen.
-    - If you dont have the credentials yet, create one.
-    - For that, run
-    >> python manage.py createsuperuser
-
-Register models
-    - import the created model in admin.py
-    > from .models import Todo
-    > admin.site.register(Todo)
-
-Creating function for overwriting default data created for models
-    - By default, if we create any entry in any of the models, django represent it as Object or something.
-    - In order to overwrite this, we have to manually code for that in models.py
-    > def __str__(self):
-          return self.name
-
-Creating a View
-    - Create a function which returns some response whenever particular URL is being accessed.
-    Eg: <app>/views.py
-    from django.http import HttpResponse
-
-    def todo_lists(request):
-        return HttpResponse("Hello world!")
-    - Specify the route for the view in <project>/urls.py
-    Eg: 
-    from todo.views import todo_lists 
-    urlpatterns = [
-        path('', todo_lists), or url(r'^$', views.todo_lists, name='todo_lists')
-    ]
-
-HTML templates as a response
-    - We can return a HTML page as a response. For that we have to create some HTML files and respond it to any of the requests.
-    - In order to create an HTML file, there are two possible conventions where the particular HTML can be created.
-      1. In <project-folder>/templates/todo_lists.html
-      2. In <app-folder>/<app-name>/templates/todo_lists.html
-    - If we preferred to use the template files in global/project directory, we have to tell the directory to the django in <project>/settings.py.
-    Eg: TEMPLATES: [{DIRS: [os.path.join(BASE_DIR, 'templates')]}]
-    - To use the template from app directory, 
-    > return render(request, 'todo/todo_lists.html')
-    - To use the templates from project directory,
-    > return render(request, 'todo_lists2.html')
-
-Create HTML base templates
-    - Create a base html file template in <app-folder>/templates as base.html
-    Eg: base.html
-        <body>
-        {% block content %} {% endblock content %}
-    - Reuse that template in other html pages.
-    Eg: {% extends "base.html" %} {% block content %} <h4>Create a Todo</h4> {% endblock content %}
-
 Models
+  Creating function for overwriting default data created for models
+      - By default, if we create any entry in any of the models, django represent it as Object or something.
+      - In order to overwrite this, we have to manually code for that in models.py
+      > def __str__(self):
+            return self.name
+
+  Creating Models
     1. Creating a foreign key field
     Eg:
       User
@@ -210,6 +175,189 @@ Models
         def save(self, *args, **kwargs):
             // do something
             super().save(*args, **kwargs) // important
+  
+  Migrations
+    - A migration allows to move databases from one design to another, also reversible.
+
+    Migrate python dependencies
+      >> python manage.py migrate
+
+    Create migrations after creating a Model
+      >> python manage.py makemigrations
+      >> python manage.py migrate - Then run this inorder to apply migrations which are not been already applied
+
+  Using Shell to query models/databases
+    - To use shell inside the projects directoriy
+      >> python manage.py shell
+
+    - Before working with any models, import the models
+      >> from app_1.models import Topic
+
+    - To query all the entries in the model
+      >> print(Topic.objects.all())
+
+    - To create a new entry in a model
+      >> t = Topic(top_name="Social network")
+      >> t.save() // to commit the changes
+
+  Register and Manage Admin
+    To use admin interface for created models, we need to register the models in admin.py file.
+      >> from django.contrib import admin
+      >> from app.models import Model1, Model2
+      >> admin.site.register(Model1)
+      >> admin.site.register(Model2)
+
+  Create Superuser
+    - In order to fully use the database and the admin, we need to create superuser.
+    - Navigate to the link /admin, you will see a login screen.
+    - If you dont have the credentials yet, create one using below.
+      >> python manage.py createsuperuser
+
+  Populate models with fake data
+    - Create a new directory(population_scripts) inside project folder.
+    - Create seperate folders for each applications.
+    - Create a python script inside each app to populate fake data.
+    Ref: django-bootcamp-udemy/first-project/project_1/population_scripts
+
+Views
+  Creating a view
+    1. Function based view
+      - Create a function which returns some response whenever particular URL is being accessed.
+      Eg: <app>/views.py
+      from django.http import HttpResponse
+
+      def todo_lists(request):
+          return HttpResponse("Hello world!")
+      - Specify the route for the view in <project>/urls.py
+      Eg: 
+      from todo.views import todo_lists 
+      urlpatterns = [
+          path('', todo_lists), or url(r'^$', views.todo_lists, name='todo_lists')
+      ]
+
+    2. Class based views
+      - Instead of using function to return the response for a particular view, we can also use class
+      - For that, import below in <app>/views.py
+        >> from django.views.generic import View
+      - Create a new class for a view.
+      Eg: 
+      class CBView(View):
+      def get(self, request):
+        return HttpResponse('From class based view')
+      - In <project>/urls.py, create a route for the new class based view.
+      Eg:
+      >> url(r'^$', views.CBView.as_view(), name='index'),
+      - For class based template view, instead of using View, use TemplateView
+        >> from django.views.generic import TemplateView
+        Eg: 
+        class IndexView(TemplateView):
+          template_name = 'index.html' 
+      - To use context in the template, create a function like below
+            def get_context_data(self, **kwargs):
+              context =  super().get_context_data(**kwargs)
+              context['injectedValue'] = 'Injected data'
+              return context
+      Refer: first_project\project_5\class_based_views\views.py
+
+  
+  Accessing data from database
+    Refer: django-bootcamp-udemy/first-project/project_1/app_1/views.py
+
+Forms
+  - We can create a new form by creating a new python script(forms.py) inside the app folder.
+  - After creating a form, we need to create a view with that form.
+  Refer: django-bootcamp-udemy/first-project/project_1/app_1/forms.py
+  
+  Form validations
+    - Fields in the form can be validated using the following approach.
+      1. Creating a clean_<field-name> method in the forms.py script.
+      Refer: botcatcher field in django-bootcamp-udemy/first-project/project_1/app_1/forms.py
+
+      2. Using built in validators in django core package
+      >> from django.core import validators
+      >> botcatcher = forms.CharField(required=False, widget=forms.HiddenInput, validators=[validators.MaxLengthValidator(0)])
+
+      3. Custom validators
+      Ref: check_for_case method in django-bootcamp-udemy/first-project/project_1/app_1/forms.py
+
+
+HTML templates as a response
+    - We can return a HTML page as a response. For that we have to create some HTML files and respond it to any of the requests.
+    - In order to create an HTML file, there are two possible conventions where the particular HTML can be created.
+      1. In <project-folder>/templates/todo_lists.html
+      2. In <app-folder>/<app-name>/templates/todo_lists.html
+    - If we preferred to use the template files in global/project directory, we have to tell the directory to the django in <project>/settings.py.
+      Eg: TEMPLATES: [{DIRS: [os.path.join(BASE_DIR, 'templates')]}]
+    - To use the template from app directory, 
+      > return render(request, 'todo/todo_lists.html')
+    - To use the templates from project directory,
+      > return render(request, 'todo_lists2.html')
+
+HTML Template Tagging
+  - We can redirect to different page using anchor tag.
+    Eg: <a href="template_tagging/relative">Relative</a>
+  - Instead of specifying the url through hardcoded text, we can use template tagging.
+    1. Specify the app name in <app-folder>/urls.py
+    Eg: app_name = 'template_tagging'
+    2. Specify URL using template tagging.
+    Syntax: <a href="{% url '<app_name>:<url_route>' %}">Other Page</a>
+    Eg: <a href="{% url 'template_tagging:other' %}">Other Page</a>
+    Ref: 'template_tagging' app in 'projec_3'
+
+Create HTML base templates
+    - Create a base html file template in <app-folder>/templates as base.html
+    Eg: base.html
+        <body>
+        {% block content %} {% endblock content %}
+    - Reuse that template in other html pages.
+    Syntax: {% extends "<app-name>/<page-name>.html" %}
+    Eg: {% extends "base.html" %} {% block content %} <h4>Create a Todo</h4> {% endblock content %}
+    Ref: 'template_tagging' app in 'projec_3'
+
+Filters in HTML
+  1. Built in Filters
+    We can modify the context values defined in the views.py in the HTML page by using filters.
+    Eg: 
+      <h1>{{ text|upper }}</h1>
+      <h1>{{ number|add:"99" }}</h1>
+  2. custom filters
+    - Create a new directory(templatetags) inside the project folder.
+    - Create a python script with name as __init__.py leaving the content empty.
+    - Create a new python script where you can have all the custom filter methods.
+    >> from django import template
+    >> register = template.Library()
+    - For the created filters, register with some name for that filter.
+      Method 1:
+        >> register.filter('cut', cut)
+
+      Method 2:
+        >> @register.filter(name="cut")
+    Ref: django-bootcamp-udemy\first_project\project_3\template_tagging\templatetags\extra_filters.py
+
+Serving static files
+  1. In the code
+    - Create a new folder(static) in project root directory.
+    - Add static folder path in projects settings.py file.
+      settings.py
+      >> STATIC_DIR = os.path.join(BASE_DIR, 'static')
+    - Add the list of directories under static directorie.
+      >> STATICFILES_DIRS = [
+          STATIC_DIR,
+        ]
+    - Add the required files in the static folder.
+      Eg: 
+      static/images/MyPost.jpg
+    - Acces the static file by using below URL.
+      http://127.0.0.1:8000/static/images/MyPost.jpg
+
+  2. In the HTML file
+    - In the corresponding HTML file, below doctype, add this template tagging.
+      {% load static %}
+    - Add image tag wherever you need the image to be shown.
+      <img src="{% static "images/MyPost.jpg" %}" alt="My Post" srcset="">
+    - Likewise images, for css, create another folder under static as 'css' and create one css file inside it.
+    - Include the created css file in the html file like below.
+      <link rel="stylesheet" href="{% static "css/common.css" %}">
 
 QuerySets
     1. Create / Update
@@ -233,4 +381,51 @@ QuerySets
         User.objects.filter(dob__year=1995, dob__month=12) // filter by year in a date field
         User.objects.filter(age__gte=18)    // filter by numeric field
 
-Progress - 03.2.12(3)
+User Authentication
+  - Make sure the following apps are added in INSTALLED_APPS of project's settings.py script.
+   >> INSTALLED_APPS = ['django.contrib.admin',
+                      'django.contrib.auth',
+                      'django.contrib.contenttypes']
+  - Also make sure following packages were installed properly.
+    >> pip install bcrypt
+    >> pip install django[argon2]
+  - Add the list of necessary password hashers(algorithms) which we are going to use in settings.py script. If one of the below doesn't work, it'll fallback to next hasher in the list
+  >> PASSWORD_HASHERS = [
+      'django.contrib.auth.hashers.Argon2PasswordHasher',
+      'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+      'django.contrib.auth.hashers.BCryptPasswordHasher',
+      'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+      'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    ]
+  - We can also specify options to the password validators.
+  >> AUTH_PASSWORD_VALIDATORS = [
+      {
+          'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+      },
+      {
+          'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+          'OPTIONS': {
+              'min_length': 9
+          }
+      },
+      {
+          'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+      },
+      {
+          'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+      },
+    ]
+  - Include path for static and media folders similar to template folder.
+  >> STATIC_DIR = os.path.join(BASE_DIR, 'static') # contains files related to website
+     MEDIA_DIR = os.path.join(BASE_DIR, 'media') # contains files related to web user
+  - Similar to adding path for static files, add for media also.
+    >> STATICFILES_DIR = [
+      STATIC_DIR
+    ]
+    >> MEDIA_ROOT = MEDIA_DIR
+    >> MEDIA_URL = '/media'
+  - To work with images, install below
+  >> pip install pillow
+  - Add User model extending from existing User model from django.
+  Ref: first_project\project_4\user_authentication\models.py
+  - Create a form for the extended User model.
