@@ -45,6 +45,6 @@ function utilityMemoizedRepeater(count) {
   });
 }
 
-const A = memoizedRepeater(10);
+const A = utilityMemoizedRepeater(10);
 A(); // AAAAAAAAAA
 A(); // AAAAAAAAAA

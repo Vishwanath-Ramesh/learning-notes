@@ -1,7 +1,13 @@
-
 JavaScript
   - Dynamically typed language
   - It determines the type during the run time
+
+Single Threaded
+- One command at a time.
+- The execution of instructions in a single sequence
+
+Synchronous 
+  - One at a time in order
 
 Types/Coersion
   1. Primitive types
@@ -9,18 +15,24 @@ Types/Coersion
   3. Checking equality
 
 Primitive Types
-  - A type of data that represents single value. That's not an object
-  - There are 6 primitive types in JavaScript
-    1. undefined - Lack of existense
-    2. null - Lack of existense
+  - A type of data that represents single value which can't be changed. That's not an object.
+  - There are 7 primitive types in JavaScript
+    1. undefined
+      - A variable has been declared but has not yet been assigned a value.
+      - It is a type by itself. i.e., typeof undefined // undefined
+      - Unassigned variables are initialized by JavaScript with a default value of undefined.
+    2. null
+      - It is an object. i.e., typeof null // object
+      - JavaScript never sets a value to null, must be done programmatically.
     3. boolean
     4. number
     5. string
     6. symbol
+    7. Bigint
   - SNOB'N'US
     String
     Number
-    Objects
+    Bigint
     Boolean
     Null
     Undefined
@@ -69,18 +81,27 @@ Abstract Types
     1. String()
     2. Number()
     3. Boolean()
-
-Single Threaded
-  - One command at a time.
-  - The execution of instructions in a single sequence
-
-Synchronous 
-  - One at a time in order
   
+Execution Context
+  - This is where the code actually starts and run
+  - It creates the global object called 'this'.
+  - In browser, each tab is a seperate execution context which in turn has seperate global object
+
+How JavaScript works
+  - Initially always there will be a Global execution context.
+  - JavaScript will create an Execution Context before executing any code.
+  - The creation of Execution context involves 2 phases, creation and Exection phase.
+  - In creation phase, JavaScript sets up memory space for variables and Functions where they are actually created. For variables, the values are Initially set to 'undefined' and for Functions, they are created as it is.
+  - In Exection phase, JavaScript begins to execute the code with the created memory space.
+
 Lexical Environment
   - Every time the JavaScript engine creates an execution context to execute the function or global code, it also creates a new lexical environment to store the variable defined in that function during the execution of that function.
   - A lexical environment is a data structure that holds identifier-variable mapping.
-  - A Lexical Environment has two components: (1) the environment record and (2) a reference to the outer environment. The environment record is the actual place where the variable and function declarations are stored. The reference to the outer environment means it has access to its outer (parent) lexical environment.
+  - A Lexical Environment has two components: 
+    1. the environment record.
+      - The environment record is the actual place where the variable and function declarations are stored. 
+    2. A reference to the outer environment. 
+      - The reference to the outer environment means it has access to its outer (parent) lexical environment.
   - Where something sits physically in the code
   Eg: Variable declaration inside a function. That is, the variable sits lexically inside the function.
 
@@ -101,18 +122,10 @@ Block scoping
     }
   }
 
-Execution Context
-  - This is where the code actually starts and run
-  - It creates the global object called 'this'
-  - In browser, each tab is a seperate execution context which in turn has seperate global object
-  - There are two phases  
-    1. Creation phase
-    2. Execution phase
-
 Hoisting
-  - Logically, during the creation phase, the JavaScript engine moves the variable and function declarations to the top of your code. But technically, they are stored in
-  the memory(heap).
+  - Logically, during the creation phase, the JavaScript engine moves the variable(var, let and const), function declarations and class to the top of your code. But technically, they are stored in the memory(heap).
   - Variables using 'var' are initialized with 'undefined' during the creation phase but the 'let' does not. i.e. "uninitialized"
+  - Functions are also stored in memory during the creation phase not anonymous or arrow function.
   Eg: 
   {
     teacher = "Kyle"; // TDZ Error
@@ -123,10 +136,13 @@ Hoisting
     console.log(teacher); // TDZ Error
     let teacher = "Suzy";
   }
-  - Functions are also stored in memory during the creation phase not anonymous or arrow function.
 
 Temporal Dead Zone (TDZ) Error
-  - TDZ is invented because of const
+  - There is a period between entering scope and being declared where they cannot be accessed.
+  - TDZ is invented because of const.
+  Ref: 
+    http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified
+    https://ponyfoo.com/articles/es6-let-const-and-temporal-dead-zone-in-depth
 
 Variables
   1. let
@@ -156,15 +172,6 @@ Function Expression
 
     // Immediately invoked function expression(IIFE)
     (function func() {})()
-
-How JavaScript works
-    - Initially always there will be a Global execution context.
-    - Setup memory space for variables and Functions - "Hoisting".
-    - JavaScript will create an Execution Context before executing any code.
-    - The creation of Execution context involves 2 phases, creation and Exection phase.
-    - In creation phase, JavaScript sets up memory space for variables and Functions and where they are actually created. For variables, the values 
-      are Initially set to 'undefined' and for Functions, they are created as it is.
-    - In Exection phase, JavaScript begins to execute the code with the created memory space.
 
 Coersion
     - '==' allows coercion(types different).
@@ -213,14 +220,9 @@ Shadowing
     var teacher = "Another name"    
   }
 
-Hoisting
-  - Initially always there will be a Global execution context.
-  - Setup memory space for variables and Functions - "Hoisting".
-  - JavaScript will create an Execution Context before executing any code.
-  - The creation of Execution context involves 2 phases, creation and Exection phase.
-  - In creation phase, JavaScript sets up memory space for variables and Functions and where they are actually created. For variables, the values 
-    are Initially set to 'undefined' and for Functions, they are created as it is.
-  - In Exection phase, JavaScript begins to execute the code with the created memory space.
+Procedures
+  - Perform some set of operation.
+  - It should take some inputs and doesn't return anything.
 
 Functions
   - The semantic relationship between input(s) and computed output(s).
@@ -255,10 +257,6 @@ Functions
       return x + y;
     }
 
-Procedures
-  - Perform some set of operation.
-  - It should take some inputs and doesn't return anything.
-
 Functional Programming
   Imperative Vs Declarative programming
     Imperative
@@ -289,7 +287,7 @@ Functional Programming
     getPerson(function onPerson(person){
       return renderPerson(person)
     })
-    getPerson(renderPerson) // Sincle both renderPerson and onPerson function are same same and receives same input, we can then call them interchageably. 
+    getPerson(renderPerson) // Sincle both renderPerson and onPerson function are same and receives same input, we can then call them interchageably. 
 
   Eager vs Lazy Functions
     Lazy execution function
@@ -314,20 +312,10 @@ Functional Programming
 
   Referential Transaparency
     - A function call can be replaced with it's return value and not affect the rest of the program.
-    Eg:
-    function utilityMemoizedRepeater(count) {
-      // This 'memoize' manages/maintains the internal cache, so when the same input is passed, this functions returns the cached result instead of executing once again.
-      return memoize(function allTheAs() {
-        return "".padStart(count, "A");
-      });
-
-      var A = utilityMemoizedRepeater(10)
-      A() // AAAAAAAA
-    }
 
   Specialization Techniques
     Partial application
-      - Partially applying some of the inputs now, receiving all of the inputs later.
+      - Partially applying some of the inputs now, receiving all of the remaining inputs later.
       Eg:
       function ajax(url, data, cb){ /*...*/ }
 
@@ -376,6 +364,27 @@ Functional Programming
       // The above isOdd can be rewritten as below. 
       var isOdd = compose(eq1, mod2) or compose(eq(1), mod(2))
 
+      // Implementation
+      function addTwo(value, dummy) {
+        return value + 2; 
+      }
+
+      function square(value, dummy) {
+        return value ** 2;
+      }
+
+      function compose(...fns) {
+        return (inputValues) => {
+        return fns.reduce((acc, next) => {
+            return next(acc);
+          }, inputValues);
+        }
+      }
+
+      const composed = compose(addTwo, square);
+      const result = composed(8);
+      console.log(result) // 100
+
       2. wrapInDiv(toLowerCase(trim(input)));
       Since there are too many paranthesis here. So to overcome this we use a 3rd party library called lodash.
         To install lodash - npm i lodash
@@ -404,6 +413,15 @@ Functional Programming
 
   Inheritance
     One object gets access to the properties and methods of another object
+
+  Inheritance vs Composition
+    Inheritance
+      - 'is a' relationship 
+      - Tight coupling
+
+    Composition
+      - 'has a' relationship 
+      - Loose coupling
 
   Prototypes 
     Prototypes are the mechanism by which JavaScript objects inherit features from one another.
@@ -436,18 +454,18 @@ Functional Programming
     })
 
 ES5 vs ES6
-    ES5
-    	- It's the 5th edition of Ecma script, introduced in 2009.
-    	- It supports only primitive data types like SNOB'N'S.
-    	- Variables can be created only by using 'var'
-      - It has lower performance
-      - function and return keywords are used to define a function.
-    ES6
-    	- It's the 6th edition of Ecma script, introduced in 2015
-    	- It's support a new datatype called Symbol
-    	- Variables can be created by using 'let' and 'const'
-      - It has higher performance
-      - We can create a new function without function and return keyword using arrow function
+  ES5
+    - It's the 5th edition of Ecma script, introduced in 2009.
+    - It supports only primitive data types like SNOB'N'S.
+    - Variables can be created only by using 'var'
+    - It has lower performance
+    - function and return keywords are used to define a function.
+  ES6
+    - It's the 6th edition of Ecma script, introduced in 2015
+    - It's support a new datatype called Symbol
+    - Variables can be created by using 'let' and 'const'
+    - It has higher performance
+    - We can create a new function without function and return keyword using arrow function
 
 ES2016 or ES7 features
   1. Array.prototype.includes
@@ -468,6 +486,11 @@ ES2017 or ES8 features
 
 ES2018 or ES9 features
 
+ES2021 or ES12 features
+  - The 12th edition, or ECMAScript 2021, was published in June 2021.
+  1. replaceAll for strings.
+  2. Promise.any
+
 Namespace
   - The below exampls is a namespace not a module because module pattern requires the concept of encapsulation. 
   Eg: Refer Modules/Namespace.js
@@ -480,15 +503,6 @@ Modules
   - We have a patter in JavaScript called IIFE(Immediately Invoked Function Expression), this prevents from polluting the global scope also the code is accessible only inside the IIFE. Still there is an issue, if the order of the file(script) reference is not proper in HTML file.
   - We have another solution, CommonJS. But this requires additional tools like webpack. With this all the files are bundled together resulting in single file which contains all the code. So only that final bundled file is linked in the HTML file.
   - Since JavaScript is living language, so from ES6, we have a feature called ES modules. With this, we can use import/export to achieve the same behaviour.
-
-Inheritance vs Composition
-  Inheritance
-    - 'is a' relationship 
-    - Tight coupling
-
-  Composition
-    - 'has a' relationship 
-    - Loose coupling
 
 Symbol
     - Symbols are often used to add unique property keys to an object
@@ -528,9 +542,6 @@ for..in vs for..of
 	- Can not be used with objects
 	- Can be used with Arrays and string
 
-CSS Box Model
-    - The CSS box model is essentially a box that wraps around every HTML element. It consists of: margins, borders, padding, and the actual content.
-
 Flexbox vs. CSS Grid
 
 Promise states
@@ -568,7 +579,7 @@ HTML5 features
 
 Arrow Funtion Vs Regular Function
   Arrow function
-  - It doesn’t define its own execution context or "this" keyword, so the value of "this" inside the arrow function is equal to the lexical "this" scope. i.e., It'll go up the levels till it finds the "this" reference. Refer ThisKeyword/ThisLexicalBiding.js
+  - It doesn’t define its own execution context or "this" keyword, so the value of "this" inside the arrow function is equal to the lexical "this" scope. i.e., It'll go up the levels till it finds the "this" reference. In other words, it uses the context of the enclosing function — or global — scope as its this value. Refer ThisKeyword/ThisLexicalBiding.js
   - It can't be used as a constructor
   - Same like 'this', using 'arguments' results the outside function arguments, not able to access the 'arguments' of it's immediate parameters, but can be used rest operator parameter instead.
   - Explicitly returns if only one statement is present inside the function.
@@ -624,6 +635,7 @@ Promises
 Async/Await
 
 'this' keyword
+  - In JavaScript, every function has a this reference automatically created when you declare it.
   - The functions 'this' keyword, references the execution context for that call, determined entirely by how the function is called. 
   1. Implicit binding
     - How function is invoked. Refer ThisKeyword/ImplicitBinding.js
@@ -660,6 +672,15 @@ Async/Await
 
   4. Default/window binding
     Eg: Refer ThisKeyword/DefaultBinding.js
+
+Debouncing
+      - Debouncing is a programming practice used to ensure that time-consuming tasks do not fire so often, that it stalls the performance of the web page. 
+      - In other words, it limits the rate at which a function gets invoked.
+      Refer: JavaScript.js
+
+Event loop
+Micro and Macro task queue
+Ref: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
 
 Binding precedence
   1. Is the function called by using "new"?
@@ -699,3 +720,38 @@ cloneNode
 remove
 	- Remove DOM node
 	Eg: div.remove()
+
+target vs currentTarget
+  target
+    - It is the element that triggered event.
+  currentTarget
+    - It is the element that has the event listener.
+
+Why 'this' is undefined in React class components event handler?
+ - As we know, 'this' will points to 'global' object in non strict mode and 'this' returns 'undefined' in strict mode.
+ - The bodies of class declarations and class expressions are executed in strict mode, that is the constructor, static and prototype methods. Getter and setter functions are executed in strict mode.
+
+Variable and function name with same name.
+  If you use a function name as variable name, its value is replaced by function body. 
+  So var a becomes your function a and thus your alert displays function a.
+
+  Edit But if you assign value to a like var a = "xya";. 
+  Then it function will be replaced by variable. As per Order of precedence
+
+  !!Variable assignment takes precedence over function declaration!!
+  !!Function declarations take precedence over variable declarations!!
+  
+  Eg:
+  1.
+    var func;
+    function func() {
+      console.log('Something');
+    }
+    alert(func) // alerts function defn.
+
+  2. 
+    var func = 'something';
+    function func() {
+      console.log('Something');
+    }
+    alert(func) // alerts something

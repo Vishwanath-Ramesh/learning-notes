@@ -90,3 +90,18 @@ function name() {
 const { a, b, ...rest } = [1, 2, 3, 4, 5];
 
 console.log(a, b, rest);
+
+// Debouncing
+// Executes after a delay
+function debouncedFunction() {
+  console.log('Debounced')
+}
+
+function debouncer(func, delay) {
+  let debounceTimer = null;
+
+  return function () {
+    clearInterval(debounceTimer)
+    debounceTimer = setTimeout(() => func.apply(this, arguments), delay);
+  }
+}
