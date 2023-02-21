@@ -4,6 +4,28 @@ Selectors
 	1. element selectors
 	Reference: https://estelle.github.io/cssmastery/selectors/selectors.html
 
+Pseudo classes
+	- It let us apply a chunk of CSS based on an element's current state.
+	Eg: :checked, :focused
+
+Pseudo elements
+	- Pseudo-elements are like pseudo-classes, but they don't target a specific state. Instead, they target "sub-elements" within an element.
+	Eg: ::placeholder, ::before, ::after
+
+Combinators
+	- The term “combinator” refers to a character that combines multiple selectors.
+	- The descendant selector will apply to all descendants, no matter how deeply nested they are.
+	Eg: 
+	nav a { // descendant selector. 
+		color: red;
+		font-weight: bold;
+	}
+	- to target children, and not descendants, then 
+	nav > a { // descendant selector. 
+		color: red;
+		font-weight: bold;
+	}
+
 display
 	inline
 		default value for all the elements, but 'user agent' style sheet of the browser overrides for some elements.
@@ -16,7 +38,8 @@ display
 		Block level elements do not sit inline but breaks and take up as much horizontal space as they can
 	none
 		Entirely removes the element visually from the page, while the element is still in the DOM
-		you can’t tab to it or its children, it is ignored by screen readers
+		you can’t tab to it or its children, it is ignored by screen readers.
+		It is a declaration that removes an element from the rendering process; it's as if it doesn't exist.
 
 width on div
 	- Setting the width of a block-level element will prevent it from stretching out to the edges of its container to the left and right.
@@ -28,12 +51,13 @@ Center the div
 max-width in div
 	- Using max-width instead of width in this situation will improve the browser's handling of small windows.
 
-the box model
+CSS Box Model
+	- The CSS box model is essentially a box that wraps around every HTML element. It consists of: margins, borders, padding, and the actual content.
 	- When you set the width of an element, the element can actually appear bigger than what you set: the element's border and padding will stretch out the element beyond the specified width
 	- To overcome this, we do
-	-webkit-box-sizing: border-box;
-     	-moz-box-sizing: border-box;
-        box-sizing: border-box;
+		Eg: webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
 
 Position
 	- The CSS position property is used to specify how the element will be displayed on the page. 
@@ -259,6 +283,13 @@ SASS
 	For loop
 	Ref: #3
 
+Media queries Reference
+	sm: min-width: 640px; // small device
+	md: min-width: 768px; // medium device
+	lg: min-width: 1024px; // large device
+	xl: min-width: 1280px; // extra large device
+	2xl: min-width: 1536px: // 2x extra large device
 
 References:
 	CSS:: The definitive guide by Eric A Meyer and Estella Weyl
+	Accessibility: https://a11y.coffee/
