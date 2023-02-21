@@ -1,3 +1,20 @@
+NextJS
+  - It is a framework built on top of React that gives you the flexibility of building scalable apps by allowing you to render content on the server.
+
+Benefits
+  1.Different rendering techniques
+    i. Static Site Generation - Build time generation
+    ii. Server Side Rendering - Generate page on the server
+    iii. Incremental Site Regeneration(SSG + SSR) - Generate page on build in advance + server after
+  2. Performance
+    i. Code splitting
+    ii. Minifying files
+    iii. Image optimization
+    iv. Pre-fetching assets
+  3. SEO
+  4. Serverless functions
+    - Whenever any request comes to the serverless function, it'll execute and respond back with the data and once it's done, the created node server will shuts down.
+    
 Routing
 	- NextJS has a built-in support for routing.
 	- All we have to do is create a folder named 'pages'.
