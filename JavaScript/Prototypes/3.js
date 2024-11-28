@@ -8,7 +8,7 @@ const personProperties = {
 };
 
 function Person(name, age) {
-  let person = Object.create(personProperties); // 'Object.create' creates a new object, using an existing object as the prototype of the newly created object.
+  let person = Object.create(personProperties); // 'Object.create' creates a new object, using an existing object as the prototype of the newly created object. Actually, it sets the '__proto' ([[prototype]]) property as the passed object value under the hood.
 
   person.name = name;
   person.age = age;

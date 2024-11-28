@@ -40,16 +40,19 @@ Hashtables/Hashmap
 
 
 Algorithms
-1. Bubble Sort
-	- Compare the current element with the next element and swap them accordingly by looping through the entire array repeatedly until all the 
-	  elements are sorted.
+    - A process or set of steps to accomplish a certain task.
 
-2. Insertion Sort
-	- Create a sub-array with first element as initial, compare that sub-array with the rest of the right most elements and swap them. If swapped, compare the 
-	  elements present in the sub-array and do swapping. Then proceed with the next element on the right most of the sub array.
+    Sorting
+        1. Bubble Sort
+            - Compare the current element with the next element and swap them accordingly by looping through the entire array repeatedly until all the 
+            elements are sorted.
 
-3. Selection Sort
-	- Initialize the first element in an array with a pointer(Represents the smallest element in an array).
-	- Loop through the entire array and mark the smallest element with the pointer.
-	- Move the smallest/pointered element to the beginning and mark the pointer to the next element of that sub array. Then continue the same until
-	  all the elements are sorted.
+        2. Insertion Sort
+            - Create a sub-array with first element as initial, compare that sub-array with the rest of the right most elements and swap them. If swapped, compare the 
+            elements present in the sub-array and do swapping. Then proceed with the next element on the right most of the sub array.
+
+        3. Selection Sort
+            - Initialize the first element in an array with a pointer(Represents the smallest element in an array).
+            - Loop through the entire array and mark the smallest element with the pointer.
+            - Move the smallest/pointered element to the beginning and mark the pointer to the next element of that sub array. Then continue the same until
+            all the elements are sorted.

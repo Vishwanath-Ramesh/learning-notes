@@ -126,3 +126,7 @@ Design principles
 
     4. Program to interfaces, Not implementation
         - Where possible, components should use abstract classes or interfaces instead of specific implementation.  
+
+Reference:
+https://github.com/cliid/design-patterns
+https://www.oodesign.com/

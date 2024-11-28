@@ -1,13 +1,41 @@
 JavaScript
-  - Dynamically typed language
+  - Client side language
+  - Dynamically typed, interpreted scripting language and not a compiled language
+  - Single Threaded
   - It determines the type during the run time
+  - The language was created to allow web developers to embed executable code on their webpages, so that they could make their webpages interactive, or perform simple tasks. 
 
 Single Threaded
 - One command at a time.
 - The execution of instructions in a single sequence
+- At any given moment, only one line of JavaScript code will be executed.
 
 Synchronous 
   - One at a time in order
+
+Concurrency
+  - In simple words, two or more things happenning at the same time.
+  - In other words, Two higher level tasks happenning within the same time frame. 
+
+Inversion of control
+  - It means, there is part of my program that I'm in control of executing and then other portion of my code which I'm not in control of executing.
+  Refer: code-snippets.js
+  
+Thunk
+  Synchronous thunk
+    - It is a function that has everything already that need to do and it gives a value back.
+
+  Asynchronous thunk
+    - It is a function that doesn't need any arguments passed to it to do it's job except a callback to get the value out.
+  Refer: AsyncPatterns/2.Thunk.js
+
+How JavaScript runs inside a browser?
+  - JavaScript is an interpreted language, not a compiled language. 
+  - JavaScript has no compilation step. Instead, an interpreter in the browser reads over the JavaScript code, interprets each line, and runs it. 
+  - Most modern browsers use a technology known as Just-In-Time (JIT) compilation, which compiles JavaScript to executable bytecode just as it is about to run.
+
+How interpretation works in JavaScript
+  Interpretation performs a similar task to compilation, in that it transforms your program into machine-understandable instructions. But the processing model is different. Unlike a program being compiled all at once, with interpretation the source code is transformed line by line; each line or statement is executed before immediately proceeding to processing the next line of the source code.
 
 Types/Coersion
   1. Primitive types
@@ -598,6 +626,7 @@ Event bubbling
 Closures
   - Closure is when a function "remembers" its lexical scope even when the function is executed outside that lexical scope or elsewhere. 
 	- Data of the outside function can be accessible in the inside function eventhough the outer function has returned.
+  - In other words, JS functions are themselves first-class values; they can be assigned and passed around just like numbers or strings. But since these functions hold and access variables, they maintain their original scope no matter where in the program the functions are eventually executed. This is called closure.
   Eg:
   1.
     function makeCounter(){
@@ -631,6 +660,7 @@ Function Composition & Pipes
 Recursion
 
 Promises
+  - Placeholder for a value
 
 Async/Await
 
@@ -731,6 +761,10 @@ Why 'this' is undefined in React class components event handler?
  - As we know, 'this' will points to 'global' object in non strict mode and 'this' returns 'undefined' in strict mode.
  - The bodies of class declarations and class expressions are executed in strict mode, that is the constructor, static and prototype methods. Getter and setter functions are executed in strict mode.
 
+Convert array-like objects to Array
+  1. Array.from(arguments)
+  2. Array.prototype.slice.call(arguments)
+  
 Variable and function name with same name.
   If you use a function name as variable name, its value is replaced by function body. 
   So var a becomes your function a and thus your alert displays function a.
@@ -755,3 +789,15 @@ Variable and function name with same name.
       console.log('Something');
     }
     alert(func) // alerts something
+
+First-Class Functions
+  - Also known as first-class citizens or first-class objects.
+  - It refers to functions that can be treated in the same way as any other data type, such as numbers, strings, or objects.
+  i.e., 
+    1. Assigned to variables: Functions can be stored in variables, making them easily accessible and re-usable.
+    2. Passed as arguments: Functions can be passed as arguments to other functions, enabling powerful patterns like callback functions.
+    3. Returned from functions: Functions can be the result of another function, allowing for the creation of higher-order functions.
+
+Ref:
+https://medium.com/jspoint/how-javascript-works-in-browser-and-node-ab7d0d09ac2f
+https://exploringjs.com/

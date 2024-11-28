@@ -1,3 +1,33 @@
+What is version control?
+    - Also known as source control or revision control.
+    - It is a software development practise to manage and track changes made to files. Basically a source code management tool.
+
+Types of VCS?
+    1. Cetralized
+    2. Distributed.
+
+Centralized VCS
+    - All the files are stored in a central repository.
+    - Stores every version of the code in a single branch. Every user commits directly to the same branch.
+    - No two user can work on same file at a time. Only one user can checkout a file at any given time.
+    Example: Microsoft Team Foundation Server (TFS)
+
+Distributed VCS
+    - Allows users to access a repository from multiple locations.
+    - It brings a local copy of the complete repository to every team member’s computer, so they can commit, branch, and merge locally.
+    Example: Git
+
+Git 
+    - Distributed version control system
+
+How git store information
+    - Git is like a key value store. value => Data, Key => Hash of the data.
+    - Git stores the compressed data in a blob along with metadata in a header
+
+Key in Git
+    - Is a cryptographic hash function
+    - For a given data, it produces a 40-digit hexadecimal number. This value is same if the given input is same.
+
 Git Version
     $ git Version
 
@@ -91,6 +121,10 @@ The “fatal: refusing to merge unrelated histories” Git error occurs when two
 
 Show contents of git config file in user directory
     $ cat ~/.gitconfig
+
+Set default editor
+    $ git config --global core.editor <YOUR_EDITOR>
+    Eg: For vscode, git config --global core.editor code --wait
 
 Edit the config file using the default configured editor
     $ git config --global -e
@@ -189,10 +223,16 @@ Branching & Merging
         $ git branch mynwebranch
     Move to another branch  
         $ git checkout mynwebranch
+    Force checkout to another branch if there are any uncommited changes. The uncommited changes will be discarded when checkout
+        $ git checkout -f newBranch
     Rename branch name  
         $ git branch -m mynewbranch newbranch
     Delete a branch 
-        $ git branch -d newbranch        
+        $ git branch -d newbranch
+    Which branches are merged with master and can be cleaned up        
+        $ git branch --merged master
+    Which branches are not merged with master
+        $ git branch --no-merged master 
     Create a new branch from existing branch and will leave the current branch as it is. Also used for creating a new branch for the worked changes.
         $ git checkout -b newMasterBranch
     Compare differences between branches    
@@ -234,6 +274,10 @@ Stashing
         $ git stash clear
     To move all the changes in stash into a new branch and drop the changes from stash  
         $ git stash branch newBranchFromStash
+    To include untracked files in stash
+        $ git stash --include-untracked
+    To grab a single file from a stash
+        $ git checkout <stash name> -- <file-name>
 
 Tagging
     A key reference for a specific commit
@@ -248,8 +292,12 @@ Tagging
         $ git tag --delete myTag
     Annotated tag - Similar to lighweight tag with little extra information.
         $ git tag -a v-1.0 
+    Annotated tag with message
+        $ git tag -a v-1.0 -m "Some message"
     Comparing two different tags    
-        $ git diff v-1.1 v-1.1
+        $ git diff v-1.1 v-1.1 
+    Show annotated tag
+        $ git show v-1.1
     Tag specific commit 
         $ git tag -a myTag 5R77tE
     Update/Move the tag from one commit to another commit
@@ -257,7 +305,7 @@ Tagging
     Push specific tag to github
         $ git push origin v-1.1
     Push the tags all at once
-        $ git push origin master --tags 
+        $ git push origin master --tags
 
 Saving credentials
     Save credentials for a small amount of time(15 min by default) / session.
@@ -271,3 +319,9 @@ Saving credentials
     Prevent git from asking credentials while cloning
         $ git clone https://<username>:<password>@github.com/Vishwanath-Ramesh/github-tutorial.git
 
+Q&A
+    1. Difference between fast-forward merge and no-fast-forward merge
+    https://stackoverflow.com/questions/6701292/git-fast-forward-vs-no-fast-forward-merge
+
+    2. Parent commit
+    https://stackoverflow.com/questions/38239521/what-is-the-parent-of-a-git-commit-how-can-there-be-more-than-one-parent-to-a-g

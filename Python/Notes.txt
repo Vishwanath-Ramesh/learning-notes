@@ -38,6 +38,16 @@ Datatypes
     NoneType
         None 
 
+Literal
+    - A literal is data whose values are determined by the literal itself.
+    Eg: 123
+
+Octal numbers
+    Eg: 0o123 => 83
+
+Hexadecimal numbers
+    Eg: 0x123 => 291
+
 Operators
     Exponentiation
         Eg: print(2 ** 3) // 8  
@@ -114,6 +124,8 @@ Operators
         8	        &	
         9	        |	
         10      	=, +=, -=, *=, /=, %=, &=, ^=, |=, >>=, <<=	
+Escape character
+    \n
 
 Get user input
     input("Tell me something")
@@ -126,9 +138,13 @@ Type Casting
 
 Strings
     Indexing & Slicing
+        <string>[start-char:end-char+1:skip-count]
         my_string = 'abcdef'
+        my_string[-1] // f
         my_string[0] // a
         my_string[1:4] // bcd
+        my_string[1:] // bcdef: If we dont specify end position, it'll print all the remaining characters
+        my_string[-2:] // ef: 
         my_string[0:4:2] // ac
         my_string[::-1] // fedcba
 
@@ -269,7 +285,22 @@ List comprehension / Flattened for
     myList // ['H', 'e', 'l', 'l', 'o']
 
     myList = [num**2 for num in range(0, 11)]
-    myList // [0, 1, 4...]         
+    myList // [0, 1, 4...]      
+
+    myList = [1, 2, 3, 4, 5]
+    myList.pop() // 5
+    myList.pop(0) // 1 and myList => [2, 3, 4, 5]   
+    myList.append(6) // 1, 2, 3, 4, 5, 6
+
+    list_1 = [1, 2, 3]
+    list_2 = [4, 5, 6]
+    print(list_1 + list_2) // [1, 2, 3, 4, 5, 6]
+
+    myList = [1, 2, 3, 4, 5]
+    my_list.index(2) // 1
+
+    myList = [1, 2, 3, 4, 5, 1]
+    my_list.count(1) // 2
 
     Generator comprehension
         myList = [num for num in range(0, 11) if num % 2 == 0]
@@ -532,4 +563,4 @@ References:
 https://github.com/Pierian-Data/Complete-Python-3-Bootcamp
 
 Notes:
-    - Tuple is immutable
+    - Strings & Tuple is immutable and Lists are mutable

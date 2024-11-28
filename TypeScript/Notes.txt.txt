@@ -15,9 +15,19 @@ Why TypeScript
 	- Brand new ECMAScript features
 	
 Commands
-	> tsc init - Initialize tsconfig.json
+	> tsc init or tsc --init - Initialize tsconfig.json
 	> tsc --outDir dist - Create the output JavaScript files inside this folder.
-	> tsc -watch - Enable watch mode
+	> tsc --watch or tsc -W - Enable watch mode
+
+Types
+	number
+	string
+	boolean
+	object
+	array
+	Tuple
+	Enums
+	Any
 
 Operators
 	1. non-null assertion operator
@@ -25,10 +35,34 @@ Operators
 		Eg:
 		const input = document.getElementById("num1")!;
 
-Assertions
+Type casting
+	Eg: const input = document.getElementById("num1")! as HTMLInputElement;
+
+Tuple
+	It is a special type of array having constant element length with specified type.
+	Ref: ./Examples.ts
+
+Union type
+	Ref: ./Examples.ts
+
+Unknown type
+	Anything is assignable to unknown, but unknown isn't assignable to anything but itself
+	Ref: ./Examples.ts
+
+Never type
+	It is mainly used in functions which never returns any value even 'undefined'.
+	Ref: ./Examples.ts
+
+Literal type
+	Ref: ./Examples.ts
+
+Assertions or Type aliases or Custom types
 	Ref: ./Examples.ts
 
 Enums
+	Ref: ./Examples.ts
+
+Function as Types
 	Ref: ./Examples.ts
 
 class
@@ -50,7 +84,18 @@ Map type
 	Ref: ./Examples.ts
 
 Intersection type
+	- Used to create a new type based on multiple types.
+	- In case of Union type, the resulting type will be a combination of intersection types and in case of object types, the resulting type will be combination of all the properties present.
 	Ref: ./Examples.ts
 
 Augmenting type declarations
 	Ref: ./Examples.ts
+
+ReadOnly
+	- Read-only members cannot be changed outside the class, they either need to be initialized at declaration or initialized inside the class constructor.
+	Ref: ./Examples.ts
+
+Interface vs type
+	- A type cannot be re-opened to add new properties vs an interface which is always extendable.
+	Ref: ./Examples.ts
+	https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces	
